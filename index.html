@@ -145,6 +145,8 @@
   .venue-item .vt{font-size:13.5px;line-height:1.85;color:#5b5e4c}
   .card-white .photo-empty{border-color:rgba(60,63,48,.28);color:#7a7d68;background:repeating-linear-gradient(45deg,rgba(60,63,48,.04) 0 10px,transparent 10px 20px);aspect-ratio:4/3;min-height:0}
   .map-empty{aspect-ratio:4/3;min-height:0}
+  .mapcard{background:#fff;border:1px solid var(--lime-dim);border-radius:16px;padding:8px;box-shadow:0 8px 24px rgba(60,63,48,.10)}
+  .mapcard svg{width:100%;height:auto;display:block;border-radius:10px;font-family:var(--sans)}
   .card-white .photo-empty .tag{color:#6b7a2f}
 
   /* ===== 8. 계좌 ===== */
@@ -325,7 +327,47 @@
     <div class="eyebrow">Location</div>
     <h2 class="stitle">오시는 길</h2>
     <div style="height:18px"></div>
-    <div class="photo-empty map-empty"><span class="tag">약도.jpg</span><span>사진 (지도) · 나중에 추가<br/>(또는 카카오맵 임베드)</span></div>
+    <div class="mapcard">
+      <svg viewBox="0 0 360 420" role="img" aria-label="오시는 길 약도" data-lang="map_svg">
+        <rect x="0" y="0" width="360" height="420" rx="12" fill="#fbfaf3" />
+        <!-- 주요 도로 (가로) -->
+        <rect x="0" y="236" width="360" height="32" fill="#eae7d9" />
+        <line x1="10" y1="252" x2="350" y2="252" stroke="#cfcdb9" stroke-width="1.5" stroke-dasharray="6 7" />
+        <text x="180" y="257" text-anchor="middle" font-size="12" fill="#5b5e4c">○○대로</text>
+        <text x="8" y="228" font-size="10" fill="#9a9c85">← ○○ 방면</text>
+        <text x="352" y="228" text-anchor="end" font-size="10" fill="#9a9c85">○○ 방면 →</text>
+        <!-- 지하철 노선 (세로): 위 초록 / 아래 파랑 점선 -->
+        <line x1="70" y1="8" x2="70" y2="236" stroke="#35a05a" stroke-width="7" />
+        <line x1="70" y1="268" x2="70" y2="412" stroke="#2f6bbf" stroke-width="7" stroke-dasharray="3 7" />
+        <!-- 역 1 (초록) -->
+        <circle cx="70" cy="140" r="13" fill="#fff" stroke="#35a05a" stroke-width="3" />
+        <text x="70" y="145" text-anchor="middle" font-size="12" font-weight="700" fill="#35a05a">2</text>
+        <text x="90" y="136" font-size="12.5" font-weight="700" fill="#3f4330">○○○역</text>
+        <text x="90" y="153" font-size="10.5" fill="#7c8168">N번 출구 · 도보 N분</text>
+        <!-- 역 2 (파랑) -->
+        <circle cx="70" cy="336" r="13" fill="#fff" stroke="#2f6bbf" stroke-width="3" />
+        <text x="70" y="341" text-anchor="middle" font-size="12" font-weight="700" fill="#2f6bbf">1</text>
+        <text x="90" y="332" font-size="12.5" font-weight="700" fill="#3f4330">○○○역</text>
+        <text x="90" y="349" font-size="10.5" fill="#7c8168">N번 출구 · 도보 N분</text>
+        <!-- 웨딩홀 -->
+        <rect x="150" y="108" width="160" height="40" rx="11" fill="#edf5e0" stroke="#6f9f4f" stroke-width="1.5" />
+        <text x="230" y="133" text-anchor="middle" font-size="12.5" font-weight="700" fill="#3f6a2a">웨딩홀 이름</text>
+        <line x1="230" y1="148" x2="230" y2="192" stroke="#6f9f4f" stroke-width="1.5" stroke-dasharray="3 3" />
+        <circle cx="230" cy="198" r="6" fill="#6f9f4f" />
+        <circle cx="230" cy="198" r="2.2" fill="#fff" />
+        <!-- 주차 -->
+        <rect x="250" y="176" width="22" height="19" rx="4" fill="#6f9f4f" />
+        <text x="261" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">P</text>
+        <text x="278" y="190" font-size="10" fill="#7c8168">주차</text>
+        <!-- 랜드마크 -->
+        <circle cx="145" cy="74" r="3" fill="#b9bba2" />
+        <text x="154" y="78" font-size="10" fill="#8b8d74">○○○</text>
+        <circle cx="298" cy="120" r="3" fill="#b9bba2" />
+        <text x="290" y="124" text-anchor="end" font-size="10" fill="#8b8d74">○○○</text>
+        <circle cx="298" cy="336" r="3" fill="#b9bba2" />
+        <text x="290" y="340" text-anchor="end" font-size="10" fill="#8b8d74">○○○</text>
+      </svg>
+    </div>
     <p class="addr"><span class="place">로얄파크</span>서울 용산구 이태원로 29</p>
     <div class="map-links">
       <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://map.naver.com/v5/search/서울%20용산구%20이태원로%2029">네이버 지도</a>
@@ -466,7 +508,6 @@
     <div class="field"><label>동행인</label><input id="rsvpGuest" maxlength="40" placeholder="함께 오시는 분 성함" /></div>
     <div class="field"><label>식사 여부</label><div class="seg" id="segMeal"><button type="button" aria-pressed="true" onclick="segPick(this)">예정</button><button type="button" aria-pressed="false" onclick="segPick(this)">안함</button><button type="button" aria-pressed="false" onclick="segPick(this)">미정</button></div></div>
     <button class="btn btn-lime" style="width:100%;margin-top:6px" onclick="submitRsvp()">참석 의사 전달하기</button>
-    <label class="check"><input type="checkbox" id="rsvpHide" /> 오늘 하루 보지 않기</label>
   </div>
 </div>
 
@@ -541,7 +582,6 @@
     var cnt=parseInt(document.getElementById('rsvpCount').value,10);
     var rec={name:name,side:segVal('segSide'),attendance:segVal('segAttend'),guest_count:isNaN(cnt)?null:cnt,guest:document.getElementById('rsvpGuest').value.trim(),meal_preference:segVal('segMeal')};
     var done=function(){
-      if(document.getElementById('rsvpHide').checked)localStorage.setItem('rsvpHideDate',new Date().toDateString());
       closeSheet(document.getElementById('rsvpSheet'));
       toast('참석 의사가 전달되었습니다 ✦');
     };
@@ -626,11 +666,7 @@
     else{copyText(location.href,'카카오 SDK 연결 전이라 링크를 복사했어요');}
   }
 
-  /* RSVP 자동 팝업: 2초 후, 하루 한 번 */
-  setTimeout(function(){
-    if(localStorage.getItem('rsvpHideDate')===new Date().toDateString())return;
-    openSheet('rsvpSheet');
-  },2000);
+  /* RSVP 자동 팝업 제거 — 하객이 직접 "참석 의사 전달하기" 버튼으로 엶 */
 </script>
 </body>
 </html>
