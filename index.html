@@ -13,6 +13,7 @@
 <meta property="og:locale" content="ko_KR" />
 <meta name="twitter:card" content="summary_large_image" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <style>
@@ -518,6 +519,12 @@
   var sb = (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase)
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
+  /* ===== 카카오 공유: JavaScript 키만 넣으세요 =====
+     developers.kakao.com → 내 애플리케이션 → 앱 키 → JavaScript 키
+     + 플랫폼 > Web 에 사이트 도메인 등록 (https://yangmanchuns.github.io) */
+  var KAKAO_JS_KEY = '';
+  try { if (KAKAO_JS_KEY && window.Kakao && !Kakao.isInitialized()) Kakao.init(KAKAO_JS_KEY); } catch (e) {}
+
   /* 달력 (2026.12, 19일 하이라이트) */
   (function(){
     var y=2026,m=11,first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
@@ -652,10 +659,27 @@
     renderPhotos();
   }
 
-  /* 카카오 공유 (초안 - SDK 키 연결 필요) */
+  /* 카카오 공유 — 청첩장 보기 / 위치 보기 버튼 카드 */
   function shareKakao(){
-    if(window.Kakao&&window.Kakao.Share){window.Kakao.Share.sendDefault({objectType:'feed',content:{title:'양병민 ❤ 김보원 결혼합니다',description:'2026.12.19 SAT 12:30 로얄파크컨벤션',imageUrl:'',link:{webUrl:location.href}}});}
-    else{copyText(location.href,'카카오 SDK 연결 전이라 링크를 복사했어요');}
+    var base=location.origin+location.pathname; if(base.charAt(base.length-1)!=='/') base=base.replace(/[^/]*$/,'');
+    var SITE=base, IMG=base+'images/main.jpg', MAP='https://map.naver.com/p/entry/place/1915861607';
+    if(window.Kakao && Kakao.isInitialized && Kakao.isInitialized() && Kakao.Share){
+      Kakao.Share.sendDefault({
+        objectType:'feed',
+        content:{
+          title:'양병민 ❤ 김보원 결혼합니다',
+          description:'2026.12.19 (토) 오후 12:30 · 로얄파크컨벤션',
+          imageUrl:IMG,
+          link:{mobileWebUrl:SITE,webUrl:SITE}
+        },
+        buttons:[
+          {title:'청첩장 보기',link:{mobileWebUrl:SITE,webUrl:SITE}},
+          {title:'위치 보기',link:{mobileWebUrl:MAP,webUrl:MAP}}
+        ]
+      });
+    } else {
+      copyText(SITE,'카카오 키 연결 전이라 링크를 복사했어요');
+    }
   }
 
   /* RSVP 자동 팝업 제거 — 하객이 직접 "참석 의사 전달하기" 버튼으로 엶 */
