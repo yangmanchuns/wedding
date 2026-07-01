@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>양병민 ❤ 김보원 결혼합니다</title>
 <meta name="description" content="양병민 · 김보원의 모바일 청첩장 — 2026년 12월 19일 토요일 오후 12시 30분, 로얄파크" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="양병민 ❤ 김보원 결혼합니다" />
+<meta property="og:description" content="2026년 12월 19일 토요일 오후 12시 30분 · 로얄파크" />
+<meta property="og:image" content="https://yangmanchuns.github.io/wedding/images/main.jpg" />
+<meta property="og:url" content="https://yangmanchuns.github.io/wedding/" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="twitter:card" content="summary_large_image" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -102,6 +109,7 @@
   .carousel{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 26px 14px;margin:0 -26px;-webkit-overflow-scrolling:touch}
   .carousel::-webkit-scrollbar{height:0}
   .carousel .slide{flex:0 0 78%;scroll-snap-align:center;aspect-ratio:3/4;min-height:0}
+  .carousel .slide img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block}
   .gallery-hint{text-align:center;font-size:12px;color:var(--ink-mute);margin-top:6px}
 
   /* ===== 5. 날짜 & 카운트다운 ===== */
@@ -208,12 +216,7 @@
 
   <!-- 1. 히어로 -->
   <section class="hero">
-    <div class="cover">
-      <div class="photo-empty" style="height:100%;border:none;border-radius:0;background:transparent">
-        <span class="tag">hero.jpg</span>
-        <span>사진 (커버) · 나중에 추가</span>
-      </div>
-    </div>
+    <div class="cover" style="background:linear-gradient(180deg,rgba(44,46,34,.30),rgba(44,46,34,.72)),url('images/main.jpg') center/cover no-repeat"></div>
     <div class="inner">
       <div class="kicker">WE ARE GETTING MARRIED</div>
       <h1>양병민<span class="amp">✦</span>김보원</h1>
@@ -263,9 +266,25 @@
     <h2 class="stitle">우리의 순간</h2>
     <div style="height:20px"></div>
     <div class="carousel">
-      <div class="slide photo-empty"><span class="tag">갤러리 1</span><span>사진</span></div>
-      <div class="slide photo-empty"><span class="tag">갤러리 2</span><span>사진</span></div>
-      <div class="slide photo-empty"><span class="tag">갤러리 3</span><span>사진</span></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-01.jpg" alt="웨딩 사진 1" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-02.jpg" alt="웨딩 사진 2" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-03.jpg" alt="웨딩 사진 3" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-04.jpg" alt="웨딩 사진 4" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-05.jpg" alt="웨딩 사진 5" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-06.jpg" alt="웨딩 사진 6" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-07.jpg" alt="웨딩 사진 7" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-08.jpg" alt="웨딩 사진 8" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-09.jpg" alt="웨딩 사진 9" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-10.jpg" alt="웨딩 사진 10" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-11.jpg" alt="웨딩 사진 11" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-12.jpg" alt="웨딩 사진 12" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-13.jpg" alt="웨딩 사진 13" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-14.jpg" alt="웨딩 사진 14" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-15.jpg" alt="웨딩 사진 15" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-16.jpg" alt="웨딩 사진 16" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-17.jpg" alt="웨딩 사진 17" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-18.jpg" alt="웨딩 사진 18" /></div>
+      <div class="slide"><img loading="lazy" src="images/gallery-19.jpg" alt="웨딩 사진 19" /></div>
     </div>
     <p class="gallery-hint">← 좌우로 밀어보세요 →</p>
 
