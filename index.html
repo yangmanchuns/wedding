@@ -406,9 +406,9 @@
     </div>
     <p class="addr"><span class="place">로얄파크컨벤션</span>서울 용산구 이태원로 29 (전쟁기념관 내)</p>
     <div class="map-links">
-      <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://map.naver.com/p/entry/place/1915861607">네이버 지도</a>
+      <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://naver.me/IFgdRRqM">네이버 지도</a>
       <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://map.kakao.com/?q=로얄파크컨벤션">카카오 지도</a>
-      <a class="btn btn-lime" target="_blank" rel="noopener" href="https://map.naver.com/p/entry/place/1915861607">길찾기</a>
+      <a class="btn btn-lime" target="_blank" rel="noopener" href="https://naver.me/IFgdRRqM">길찾기</a>
     </div>
     <ul class="info-list">
       <li><b>지하철</b><span>6호선 삼각지역 12번 출구 도보 5분 · 4호선 환승 가능</span></li>
@@ -590,9 +590,14 @@
   }
   tick();setInterval(tick,1000);
 
+  /* 뒤로가기로 팝업 닫기 (모바일 UX) */
+  var _backClose=null;
+  window.addEventListener('popstate',function(){var fn=_backClose;_backClose=null;if(fn)fn();});
+  function pushBackClose(fn){_backClose=fn;try{history.pushState({m:1},'');}catch(e){}}
+
   /* 시트 열기/닫기 */
-  function openSheet(id){document.getElementById(id).classList.add('show');document.body.style.overflow='hidden';}
-  function closeSheet(el){el.classList.remove('show');document.body.style.overflow='';}
+  function openSheet(id){var el=document.getElementById(id);el.classList.add('show');document.body.style.overflow='hidden';pushBackClose(function(){el.classList.remove('show');document.body.style.overflow='';});}
+  function closeSheet(el){if(_backClose){history.back();}else{el.classList.remove('show');document.body.style.overflow='';}}
 
   /* 세그먼트 토글 */
   function segPick(btn){var p=btn.parentElement;p.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed','false');});btn.setAttribute('aria-pressed','true');}
@@ -606,9 +611,10 @@
   for(var _gi=1;_gi<=19;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
   var lbIndex=0;
   function lbShow(){document.getElementById('lbImg').src=GALLERY_SRCS[lbIndex];document.getElementById('lbCount').textContent=(lbIndex+1)+' / '+GALLERY_SRCS.length;}
-  function openLightbox(i){lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden';}
+  function openLightbox(i){lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden';pushBackClose(lbClose);}
+  function lbClose(){document.getElementById('lightbox').classList.remove('show');document.body.style.overflow='';}
   function lbNav(e,d){e.stopPropagation();lbIndex=(lbIndex+d+GALLERY_SRCS.length)%GALLERY_SRCS.length;lbShow();}
-  function closeLightbox(e,force){if(force||(e&&e.target&&e.target.id==='lightbox')){document.getElementById('lightbox').classList.remove('show');document.body.style.overflow='';}}
+  function closeLightbox(e,force){if(force||(e&&e.target&&e.target.id==='lightbox')){if(_backClose){history.back();}else{lbClose();}}}
   function toggleGallery(){var g=document.getElementById('galleryGrid'),b=document.getElementById('galMore');g.classList.toggle('open');b.textContent=g.classList.contains('open')?'접기':'더보기 (10장)';}
 
   /* 복사 */
@@ -709,7 +715,7 @@
   /* 카카오 공유 — 청첩장 보기 / 위치 보기 버튼 카드 */
   function shareKakao(){
     var base=location.origin+location.pathname; if(base.charAt(base.length-1)!=='/') base=base.replace(/[^/]*$/,'');
-    var SITE=base, IMG=base+'images/main.jpg', MAP='https://map.naver.com/p/entry/place/1915861607';
+    var SITE=base, IMG=base+'images/main.jpg', MAP='https://naver.me/IFgdRRqM';
     if(window.Kakao && Kakao.isInitialized && Kakao.isInitialized() && Kakao.Share){
       Kakao.Share.sendDefault({
         objectType:'feed',
