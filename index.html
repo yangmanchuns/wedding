@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>양병민 ❤ 김보원 결혼합니다</title>
 <meta name="description" content="양병민 · 김보원의 모바일 청첩장 — 2026년 12월 19일 토요일 오후 12시 30분, 로얄파크" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <style>
@@ -167,6 +168,9 @@
   /* ===== 10. 방명록 ===== */
   .gb-form{max-width:360px;margin:0 auto 22px}
   .masonry{columns:2;column-gap:12px}
+  .masonry .pcard{break-inside:avoid;margin-bottom:12px}
+  .masonry .pcard img{width:100%;border-radius:10px;display:block;box-shadow:0 6px 16px rgba(0,0,0,.22)}
+  .upload-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:24px}
   .postit{break-inside:avoid;margin-bottom:12px;border-radius:12px;padding:15px 15px 17px;color:#2f3226;box-shadow:0 6px 16px rgba(0,0,0,.22);font-size:13.5px;line-height:1.65}
   .postit .pc{white-space:pre-wrap;word-break:break-word}
   .postit .pa{margin-top:11px;font-family:var(--serif);font-weight:700;font-size:13px;opacity:.75}
@@ -264,6 +268,18 @@
       <div class="slide photo-empty"><span class="tag">갤러리 3</span><span>사진</span></div>
     </div>
     <p class="gallery-hint">← 좌우로 밀어보세요 →</p>
+
+    <div style="height:34px"></div>
+    <h3 class="stitle" style="font-size:18px">하객 사진</h3>
+    <p style="text-align:center;color:var(--ink-mute);font-size:12.5px;margin:8px 0 0">함께한 순간을 사진으로 남겨주세요</p>
+    <div class="upload-wrap">
+      <label class="btn btn-lime" style="cursor:pointer">
+        📷 사진 올리기
+        <input id="photoInput" type="file" accept="image/*" multiple style="display:none" onchange="uploadPhotos(this)" />
+      </label>
+      <span id="photoStatus" style="font-size:12px;color:var(--ink-mute)"></span>
+    </div>
+    <div class="masonry" id="photoList" style="margin-top:16px"></div>
   </section>
 
   <div class="divider"><span class="star">✦</span></div>
@@ -439,6 +455,16 @@
 <script>
   var TARGET = new Date(2026,11,19,12,30,0); // 2026-12-19 12:30
 
+  /* ===== Supabase 설정: 아래 두 값만 본인 것으로 채우세요 =====
+     Supabase → Settings → API 에서
+       Project URL     -> SUPABASE_URL
+       anon public key -> SUPABASE_ANON_KEY
+     (두 값이 비어있으면 브라우저 로컬저장 모드로 동작합니다) */
+  var SUPABASE_URL = 'https://yzdphqaotttwgxswczvm.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6ZHBocWFvdHR0d2d4c3djenZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4ODAyOTcsImV4cCI6MjA5ODQ1NjI5N30.uB4oX7IQNesMD_-OzehkQu6_WylHXpwpIDW8YKONLMA';
+  var sb = (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase)
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
   /* 달력 (2026.12, 19일 하이라이트) */
   (function(){
     var y=2026,m=11,first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
@@ -488,38 +514,91 @@
   var toastTimer;
   function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},1900);}
 
-  /* RSVP (초안: 브라우저 로컬 저장) */
+  /* RSVP — Supabase 연결 시 DB 저장, 아니면 로컬 */
   function submitRsvp(){
     var name=document.getElementById('rsvpName').value.trim();
     if(!name){toast('성함을 입력해주세요');return;}
-    var rec={side:segVal('segSide'),attendance:segVal('segAttend'),name:name,guest_count:document.getElementById('rsvpCount').value,guest:document.getElementById('rsvpGuest').value.trim(),meal_preference:segVal('segMeal'),ts:Date.now()};
-    var arr=JSON.parse(localStorage.getItem('rsvp')||'[]');arr.push(rec);localStorage.setItem('rsvp',JSON.stringify(arr));
-    if(document.getElementById('rsvpHide').checked)localStorage.setItem('rsvpHideDate',new Date().toDateString());
-    closeSheet(document.getElementById('rsvpSheet'));
-    toast('참석 의사가 전달되었습니다 ✦');
+    var cnt=parseInt(document.getElementById('rsvpCount').value,10);
+    var rec={name:name,side:segVal('segSide'),attendance:segVal('segAttend'),guest_count:isNaN(cnt)?null:cnt,guest:document.getElementById('rsvpGuest').value.trim(),meal_preference:segVal('segMeal')};
+    var done=function(){
+      if(document.getElementById('rsvpHide').checked)localStorage.setItem('rsvpHideDate',new Date().toDateString());
+      closeSheet(document.getElementById('rsvpSheet'));
+      toast('참석 의사가 전달되었습니다 ✦');
+    };
+    if(sb){
+      sb.from('rsvp_submissions').insert(rec).then(function(r){ if(r.error){toast('전달에 실패했어요');return;} done(); });
+    } else {
+      var arr=JSON.parse(localStorage.getItem('rsvp')||'[]');arr.push(rec);localStorage.setItem('rsvp',JSON.stringify(arr));
+      done();
+    }
   }
 
-  /* 방명록 (초안: 브라우저 로컬 저장) */
-  function gbData(){return JSON.parse(localStorage.getItem('guestbook')||'[]');}
-  var GBCOL=['#d8e592','#f3d9a4','#f5b8b8','#bcd9c8','#c9c3ec','#a9d4e5'];
-  function renderGb(){
-    var list=document.getElementById('gbList'),data=gbData();
-    document.getElementById('gbEmpty').style.display=data.length?'none':'block';
-    list.innerHTML=data.slice().reverse().map(function(g){
-      var rot=(g.rot||0);
-      return '<div class="postit" style="background:'+GBCOL[g.color_index%6]+';transform:rotate('+rot+'deg)"><div class="pc">'+esc(g.content)+'</div><div class="pa">— '+esc(g.author)+'</div></div>';
-    }).join('');
-  }
+  /* 방명록 — Supabase 연결 시 실시간 공유, 아니면 브라우저 로컬 */
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  var GBCOL=['#d8e592','#f3d9a4','#f5b8b8','#bcd9c8','#c9c3ec','#a9d4e5'];
+  function gbCard(g){
+    var rot=(g.rot!=null?g.rot:0);
+    return '<div class="postit" style="background:'+GBCOL[(g.color_index||0)%6]+';transform:rotate('+rot+'deg)"><div class="pc">'+esc(g.content)+'</div><div class="pa">— '+esc(g.author)+'</div></div>';
+  }
+  function paintGb(arr){
+    document.getElementById('gbEmpty').style.display=arr.length?'none':'block';
+    document.getElementById('gbList').innerHTML=arr.map(gbCard).join('');
+  }
+  function renderGb(){
+    if(sb){ sb.from('guestbook_messages').select('*').order('created_at',{ascending:false}).then(function(r){ paintGb(r.data||[]); }); }
+    else { paintGb(JSON.parse(localStorage.getItem('guestbook')||'[]').slice().reverse()); }
+  }
   function addGuestbook(){
     var a=document.getElementById('gbName').value.trim(),c=document.getElementById('gbMsg').value.trim();
     if(!a||!c){toast('이름과 메시지를 입력해주세요');return;}
-    var arr=gbData();arr.push({author:a,content:c,color_index:Math.floor(Math.random()*6),rot:(Math.random()*4-2),ts:Date.now()});
-    localStorage.setItem('guestbook',JSON.stringify(arr));
-    document.getElementById('gbName').value='';document.getElementById('gbMsg').value='';
-    renderGb();toast('축하 메시지가 등록되었습니다 ✦');
+    var ci=Math.floor(Math.random()*6);
+    var clr=function(){document.getElementById('gbName').value='';document.getElementById('gbMsg').value='';};
+    if(sb){
+      sb.from('guestbook_messages').insert({author:a,content:c,color_index:ci}).then(function(r){
+        if(r.error){toast('등록에 실패했어요');return;}
+        clr();renderGb();toast('축하 메시지가 등록되었습니다 ✦');
+      });
+    } else {
+      var arr=JSON.parse(localStorage.getItem('guestbook')||'[]');
+      arr.push({author:a,content:c,color_index:ci,rot:(Math.random()*4-2),ts:Date.now()});
+      localStorage.setItem('guestbook',JSON.stringify(arr));
+      clr();renderGb();toast('축하 메시지가 등록되었습니다 ✦');
+    }
   }
   renderGb();
+
+  /* 하객 사진 — Supabase Storage 업로드 + 실시간 표시 */
+  function renderPhotos(){
+    if(!sb) return;
+    sb.from('photos').select('*').order('created_at',{ascending:false}).then(function(r){
+      document.getElementById('photoList').innerHTML=(r.data||[]).map(function(p){
+        return '<div class="pcard"><img loading="lazy" src="'+esc(p.url)+'" alt="하객 사진"/></div>';
+      }).join('');
+    });
+  }
+  function uploadPhotos(input){
+    if(!sb){ toast('사진 업로드는 배포+Supabase 연결 후 됩니다'); input.value=''; return; }
+    var files=input.files; if(!files||!files.length)return;
+    var st=document.getElementById('photoStatus'); st.textContent='업로드 중…';
+    var total=files.length, done=0, fail=0;
+    function check(){ if(done+fail>=total){ st.textContent=fail?('일부 실패 ('+fail+'/'+total+')'):'업로드 완료 ✦'; input.value=''; renderPhotos(); setTimeout(function(){st.textContent='';},2500); } }
+    Array.prototype.forEach.call(files,function(f){
+      var ext=(f.name.split('.').pop()||'jpg').toLowerCase();
+      var path=Date.now()+'_'+Math.random().toString(36).slice(2,8)+'.'+ext;
+      sb.storage.from('wedding-photos').upload(path,f,{contentType:f.type||'image/jpeg'}).then(function(r){
+        if(r.error){fail++;check();return;}
+        var pub=sb.storage.from('wedding-photos').getPublicUrl(path).data.publicUrl;
+        sb.from('photos').insert({url:pub,path:path}).then(function(r2){ if(r2.error)fail++;else done++; check(); });
+      },function(){fail++;check();});
+    });
+  }
+
+  /* 실시간 구독 (Supabase 연결 시) */
+  if(sb){
+    sb.channel('gb').on('postgres_changes',{event:'INSERT',schema:'public',table:'guestbook_messages'},function(){renderGb();}).subscribe();
+    sb.channel('ph').on('postgres_changes',{event:'INSERT',schema:'public',table:'photos'},function(){renderPhotos();}).subscribe();
+    renderPhotos();
+  }
 
   /* 카카오 공유 (초안 - SDK 키 연결 필요) */
   function shareKakao(){
