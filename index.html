@@ -113,6 +113,33 @@
   .carousel .slide{flex:0 0 78%;scroll-snap-align:center;aspect-ratio:3/4;min-height:0}
   .carousel .slide img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block}
   .gallery-hint{text-align:center;font-size:12px;color:var(--ink-mute);margin-top:6px}
+  /* 갤러리 그리드 + 라이트박스 */
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .gcell{padding:0;border:none;background:none;cursor:pointer;aspect-ratio:1/1;overflow:hidden;border-radius:8px}
+  .gcell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+  .gcell:hover img{transform:scale(1.06)}
+  .gcell.gmore{display:none}
+  .pgrid.open .gcell.gmore{display:block}
+  .lightbox{position:fixed;inset:0;z-index:90;background:rgba(20,21,15,.92);display:none;align-items:center;justify-content:center}
+  .lightbox.show{display:flex}
+  .lightbox img{max-width:92vw;max-height:82vh;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+  .lb-x{position:absolute;top:16px;right:18px;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;line-height:1}
+  .lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);border:none;color:#fff;font-size:28px;width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .lb-prev{left:12px}
+  .lb-next{right:12px}
+  .lb-count{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:#e9ead9;font-size:13px;letter-spacing:.1em}
+  /* 마지막 감사 인사 (사진 + 글) */
+  .closing{height:88vh;min-height:520px;padding:0;display:flex;align-items:center;justify-content:center;text-align:center;background-size:cover;background-position:center}
+  .closing .ct{color:#fff;font-family:var(--serif);font-size:17px;line-height:2.4;text-shadow:0 1px 12px rgba(0,0,0,.55);padding:0 24px}
+  /* 어린시절 + 부모님 손글씨 */
+  .child-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+  .child-grid figure{margin:0}
+  .child-grid figure img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;display:block}
+  .child-grid figcaption{text-align:center;font-size:12px;color:var(--ink-mute);margin-top:8px}
+  .child-grid .photo-empty{aspect-ratio:3/4;min-height:0}
+  .handwriting{margin-top:28px;text-align:center}
+  .handwriting img{max-width:100%;display:block;margin:0 auto}
+  .handwriting .photo-empty{aspect-ratio:16/9;min-height:0}
 
   /* ===== 5. 날짜 & 카운트다운 ===== */
   .cal{background:#ffffff;border:1px solid var(--lime-dim);border-radius:16px;padding:20px 16px;margin:6px auto 22px;max-width:340px}
@@ -254,43 +281,49 @@
 
   <div class="divider"><span class="star">✦</span></div>
 
-  <!-- 3. 연락처 -->
+  <!-- 우리의 어린 시절 + 부모님 마음 -->
   <section>
-    <div class="eyebrow">Contact</div>
-    <h2 class="stitle">마음 전하실 곳</h2>
-    <p style="text-align:center;color:var(--ink-mute);font-size:13px;margin:12px 0 22px">축하의 마음을 전화나 문자로 전해주세요</p>
-    <div class="center-btn"><button class="btn btn-lime" onclick="openSheet('contactSheet')">연락하기</button></div>
+    <div class="eyebrow">Our Story</div>
+    <h2 class="stitle">우리의 어린 시절</h2>
+    <div class="child-grid">
+      <figure><div class="photo-empty"><span class="tag">신랑 어린시절</span><span>사진</span></div><figcaption>신랑 · 양병민</figcaption></figure>
+      <figure><div class="photo-empty"><span class="tag">신부 어린시절</span><span>사진</span></div><figcaption>신부 · 김보원</figcaption></figure>
+    </div>
+    <div class="handwriting">
+      <p style="text-align:center;color:var(--ink-mute);font-size:13px;margin-bottom:14px">— 부모님이 전하는 마음 —</p>
+      <div class="photo-empty"><span class="tag">부모님 손글씨</span><span>이미지 (배경 제거 예정)</span></div>
+    </div>
   </section>
 
   <div class="divider"><span class="star">✦</span></div>
 
-  <!-- 4. 갤러리 -->
+  <!-- 갤러리 -->
   <section>
     <div class="eyebrow">Gallery</div>
     <h2 class="stitle">우리의 순간</h2>
     <div style="height:20px"></div>
-    <div class="carousel">
-      <div class="slide"><img loading="lazy" src="images/gallery-01.jpg" alt="웨딩 사진 1" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-02.jpg" alt="웨딩 사진 2" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-03.jpg" alt="웨딩 사진 3" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-04.jpg" alt="웨딩 사진 4" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-05.jpg" alt="웨딩 사진 5" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-06.jpg" alt="웨딩 사진 6" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-07.jpg" alt="웨딩 사진 7" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-08.jpg" alt="웨딩 사진 8" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-09.jpg" alt="웨딩 사진 9" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-10.jpg" alt="웨딩 사진 10" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-11.jpg" alt="웨딩 사진 11" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-12.jpg" alt="웨딩 사진 12" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-13.jpg" alt="웨딩 사진 13" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-14.jpg" alt="웨딩 사진 14" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-15.jpg" alt="웨딩 사진 15" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-16.jpg" alt="웨딩 사진 16" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-17.jpg" alt="웨딩 사진 17" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-18.jpg" alt="웨딩 사진 18" /></div>
-      <div class="slide"><img loading="lazy" src="images/gallery-19.jpg" alt="웨딩 사진 19" /></div>
+    <div class="pgrid" id="galleryGrid">
+      <button type="button" class="gcell" onclick="openLightbox(0)"><img loading="lazy" src="images/gallery-01.jpg" alt="웨딩 사진 1" /></button>
+      <button type="button" class="gcell" onclick="openLightbox(1)"><img loading="lazy" src="images/gallery-02.jpg" alt="웨딩 사진 2" /></button>
+      <button type="button" class="gcell" onclick="openLightbox(2)"><img loading="lazy" src="images/gallery-03.jpg" alt="웨딩 사진 3" /></button>
+      <button type="button" class="gcell" onclick="openLightbox(3)"><img loading="lazy" src="images/gallery-04.jpg" alt="웨딩 사진 4" /></button>
+      <button type="button" class="gcell" onclick="openLightbox(4)"><img loading="lazy" src="images/gallery-05.jpg" alt="웨딩 사진 5" /></button>
+      <button type="button" class="gcell" onclick="openLightbox(5)"><img loading="lazy" src="images/gallery-06.jpg" alt="웨딩 사진 6" /></button>
+      <button type="button" class="gcell" onclick="openLightbox(6)"><img loading="lazy" src="images/gallery-07.jpg" alt="웨딩 사진 7" /></button>
+      <button type="button" class="gcell" onclick="openLightbox(7)"><img loading="lazy" src="images/gallery-08.jpg" alt="웨딩 사진 8" /></button>
+      <button type="button" class="gcell" onclick="openLightbox(8)"><img loading="lazy" src="images/gallery-09.jpg" alt="웨딩 사진 9" /></button>
+      <button type="button" class="gcell gmore" onclick="openLightbox(9)"><img loading="lazy" src="images/gallery-10.jpg" alt="웨딩 사진 10" /></button>
+      <button type="button" class="gcell gmore" onclick="openLightbox(10)"><img loading="lazy" src="images/gallery-11.jpg" alt="웨딩 사진 11" /></button>
+      <button type="button" class="gcell gmore" onclick="openLightbox(11)"><img loading="lazy" src="images/gallery-12.jpg" alt="웨딩 사진 12" /></button>
+      <button type="button" class="gcell gmore" onclick="openLightbox(12)"><img loading="lazy" src="images/gallery-13.jpg" alt="웨딩 사진 13" /></button>
+      <button type="button" class="gcell gmore" onclick="openLightbox(13)"><img loading="lazy" src="images/gallery-14.jpg" alt="웨딩 사진 14" /></button>
+      <button type="button" class="gcell gmore" onclick="openLightbox(14)"><img loading="lazy" src="images/gallery-15.jpg" alt="웨딩 사진 15" /></button>
+      <button type="button" class="gcell gmore" onclick="openLightbox(15)"><img loading="lazy" src="images/gallery-16.jpg" alt="웨딩 사진 16" /></button>
+      <button type="button" class="gcell gmore" onclick="openLightbox(16)"><img loading="lazy" src="images/gallery-17.jpg" alt="웨딩 사진 17" /></button>
+      <button type="button" class="gcell gmore" onclick="openLightbox(17)"><img loading="lazy" src="images/gallery-18.jpg" alt="웨딩 사진 18" /></button>
+      <button type="button" class="gcell gmore" onclick="openLightbox(18)"><img loading="lazy" src="images/gallery-19.jpg" alt="웨딩 사진 19" /></button>
     </div>
-    <p class="gallery-hint">← 좌우로 밀어보세요 →</p>
+    <div class="center-btn" style="margin-top:16px"><button type="button" id="galMore" class="btn btn-ghost" onclick="toggleGallery()">더보기 (10장)</button></div>
 
     <div style="height:34px"></div>
     <h3 class="stitle" style="font-size:18px">하객 사진</h3>
@@ -451,6 +484,11 @@
     <div class="gb-empty" id="gbEmpty">첫 번째 축하 메시지를 남겨주세요 ✦</div>
   </section>
 
+  <!-- 마지막 감사 인사 (사진 + 글) -->
+  <section class="closing" style="background-image:linear-gradient(rgba(44,46,34,.32),rgba(44,46,34,.62)),url('images/gallery-02.jpg')">
+    <p class="ct" data-lang="closing_text">저희의 새로운 시작을<br/>축복해 주셔서 감사합니다.<br/><br/>주신 사랑 잊지 않고<br/>서로 아끼며 예쁘게 살겠습니다.</p>
+  </section>
+
   <!-- 11. 푸터 -->
   <footer>
     <div class="foot-btns">
@@ -463,28 +501,14 @@
 
 </div>
 
-<!-- 연락처 시트 -->
-<div class="overlay" id="contactSheet" onclick="if(event.target===this)closeSheet(this)">
-  <div class="sheet">
-    <div class="grab"></div>
-    <button class="x" onclick="closeSheet(this.closest('.overlay'))">✕</button>
-    <h3>연락하기</h3>
-    <p class="sub">아이콘을 누르면 전화·문자로 연결됩니다</p>
-    <div class="cols2">
-      <div class="contact-col">
-        <h4>신랑측</h4>
-        <div class="person"><div class="rel">신랑</div><div class="nm">양병민</div><div class="acts"><a href="tel:010-3230-9530" aria-label="전화">✆</a><a href="sms:010-3230-9530" aria-label="문자">✉</a></div></div>
-        <div class="person"><div class="rel">신랑 아버지</div><div class="nm">양주식</div><div class="acts"><a href="tel:010-3682-9530" aria-label="전화">✆</a><a href="sms:010-3682-9530" aria-label="문자">✉</a></div></div>
-        <div class="person"><div class="rel">신랑 어머니</div><div class="nm">최영미</div><div class="acts"><a href="tel:010-3684-9530" aria-label="전화">✆</a><a href="sms:010-3684-9530" aria-label="문자">✉</a></div></div>
-      </div>
-      <div class="contact-col">
-        <h4>신부측</h4>
-        <div class="person"><div class="rel">신부</div><div class="nm">김보원</div><div class="acts"><a href="tel:010-9749-8736" aria-label="전화">✆</a><a href="sms:010-9749-8736" aria-label="문자">✉</a></div></div>
-        <div class="person"><div class="rel">신부 아버지</div><div class="nm">김점식</div><div class="acts" style="font-size:11px;color:var(--ink-mute)">연락처 준비중</div></div>
-        <div class="person"><div class="rel">신부 어머니</div><div class="nm">신연정</div><div class="acts" style="font-size:11px;color:var(--ink-mute)">연락처 준비중</div></div>
-      </div>
-    </div>
-  </div>
+
+<!-- 갤러리 라이트박스 -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button type="button" class="lb-x" aria-label="닫기" onclick="closeLightbox(event,true)">✕</button>
+  <button type="button" class="lb-prev" aria-label="이전" onclick="lbNav(event,-1)">‹</button>
+  <img id="lbImg" src="" alt="웨딩 사진" />
+  <button type="button" class="lb-next" aria-label="다음" onclick="lbNav(event,1)">›</button>
+  <div class="lb-count" id="lbCount"></div>
 </div>
 
 <!-- RSVP 시트 -->
@@ -563,6 +587,16 @@
 
   /* 아코디언 */
   function toggleAcc(btn){btn.closest('.acc').classList.toggle('open');}
+
+  /* 갤러리 라이트박스 + 더보기 */
+  var GALLERY_SRCS=[];
+  for(var _gi=1;_gi<=19;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
+  var lbIndex=0;
+  function lbShow(){document.getElementById('lbImg').src=GALLERY_SRCS[lbIndex];document.getElementById('lbCount').textContent=(lbIndex+1)+' / '+GALLERY_SRCS.length;}
+  function openLightbox(i){lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden';}
+  function lbNav(e,d){e.stopPropagation();lbIndex=(lbIndex+d+GALLERY_SRCS.length)%GALLERY_SRCS.length;lbShow();}
+  function closeLightbox(e,force){if(force||(e&&e.target&&e.target.id==='lightbox')){document.getElementById('lightbox').classList.remove('show');document.body.style.overflow='';}}
+  function toggleGallery(){var g=document.getElementById('galleryGrid'),b=document.getElementById('galMore');g.classList.toggle('open');b.textContent=g.classList.contains('open')?'접기':'더보기 (10장)';}
 
   /* 복사 */
   function copyText(t,msg){
