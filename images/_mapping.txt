@@ -1,6 +1,6 @@
-main.jpg <- 메인후보1.JPG
-gallery-01.jpg <- 메인후보2.JPG
-gallery-02.jpg <- 메인후보3.JPG
+main.jpg <- 메인후보3.JPG
+gallery-01.jpg <- 메인후보1.JPG
+gallery-02.jpg <- 메인후보2.JPG
 gallery-03.jpg <- P1029215.JPG
 gallery-04.jpg <- P1029228.JPG
 gallery-05.jpg <- P1029289.JPG
