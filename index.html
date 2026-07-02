@@ -14,7 +14,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
-<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b811b9a27eda364420cbc58bd53d3fa8&autoload=false"></script>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b811b9a27eda364420cbc58bd53d3fa8&autoload=false&libraries=services"></script>
 </head>
 <body>
 <style>
@@ -834,12 +834,13 @@
     if(!(window.kakao && kakao.maps && kakao.maps.load))return;
     kakao.maps.load(function(){
       var el=document.getElementById('kakaoMap'); if(!el)return;
-      var pos=new kakao.maps.LatLng(37.53760,126.97715);
+      var pos=new kakao.maps.LatLng(37.53660,126.97610);
       var map=new kakao.maps.Map(el,{center:pos,level:4});
       var marker=new kakao.maps.Marker({position:pos}); marker.setMap(map);
       var iw=new kakao.maps.InfoWindow({content:'<div style="padding:5px 9px;font-size:12px;white-space:nowrap;">로얄파크컨벤션</div>'});
       iw.open(map,marker);
       map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+      try{ if(kakao.maps.services){ var ps=new kakao.maps.services.Places(); ps.keywordSearch('로얄파크컨벤션', function(d,st){ if(st===kakao.maps.services.Status.OK && d && d[0]){ var p=new kakao.maps.LatLng(d[0].y,d[0].x); map.setCenter(p); marker.setPosition(p); iw.open(map,marker); } }); } }catch(e){}
     });
   })();
 </script>
