@@ -33,7 +33,7 @@
     --paper-ink:#3c3f30;
     --hero-lime:#d8e592;          /* 히어로(어두운 사진) 위 라임 포인트 */
     --sans:'Noto Sans KR',system-ui,-apple-system,'Malgun Gothic',sans-serif;
-    --serif:'Gowun Batang','Noto Sans KR',serif;
+    --serif:'Gowun Batang','Noto Sans KR',serif;
     --w:480px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -193,6 +193,8 @@
   .mapcard{background:#fff;border:1px solid var(--lime-dim);border-radius:16px;padding:8px;box-shadow:0 8px 24px rgba(60,63,48,.10)}
   .mapcard svg{width:100%;height:auto;display:block;border-radius:10px;font-family:var(--sans)}
   .card-white .photo-empty .tag{color:#6b7a2f}
+  .venue-cards{display:flex;flex-direction:column;gap:16px}
+  .venue-card{width:100%;display:block;border-radius:12px;box-shadow:0 8px 22px rgba(60,63,48,.14)}
 
   /* ===== 8. 계좌 ===== */
   .accordion{display:flex;flex-direction:column;gap:12px;max-width:360px;margin:0 auto}
@@ -445,25 +447,13 @@
 
   <!-- 7. 예식장 안내 -->
   <section>
-    <div class="eyebrow">Venue</div>
-    <h2 class="stitle">예식장 안내</h2>
+    <div class="eyebrow">Information</div>
+    <h2 class="stitle">안내 사항</h2>
     <div style="height:20px"></div>
-    <div class="card-white">
-      <div class="venue-item">
-        <!-- <div class="photo-empty"><span class="tag">안내1</span><span>사진</span></div> -->
-        <div class="vh">예식 안내</div>
-        <div class="vt">3층 로얄홀에서 예식이 진행됩니다. 정시에 시작되오니 10분 전까지 착석 부탁드립니다.</div>
-      </div>
-      <div class="venue-item">
-        <!-- <div class="photo-empty"><span class="tag">안내2</span><span>사진</span></div> -->
-        <div class="vh">식사 안내</div>
-        <div class="vt">예식 후 준비된 연회장에서 식사가 제공됩니다. 귀한 걸음 하신 만큼 맛있는 식사도 함께해 주세요.</div>
-      </div>
-      <div class="venue-item">
-        <!-- <div class="photo-empty"><span class="tag">안내3</span><span>사진</span></div> -->
-        <div class="vh">주차 안내</div>
-        <div class="vt">전쟁기념관 내 주차장을 2시간 무료로 이용하실 수 있습니다. (약 1,000대 주차 가능)</div>
-      </div>
+    <div class="venue-cards">
+      <img class="venue-card" loading="lazy" src="images/venue-1.jpg" alt="안내 1" />
+      <img class="venue-card" loading="lazy" src="images/venue-2.jpg" alt="안내 2" />
+      <img class="venue-card" loading="lazy" src="images/venue-3.jpg" alt="안내 3" />
     </div>
   </section>
 
