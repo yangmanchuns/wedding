@@ -365,7 +365,7 @@
   <div class="divider"><span class="star">✦</span></div>
 
   <!-- 6. 오시는 길 -->
-  <section>
+  <section id="location">
     <div class="eyebrow">Location</div>
     <h2 class="stitle">오시는 길</h2>
     <div style="height:18px"></div>
@@ -704,7 +704,7 @@
   /* 카카오 공유 — 청첩장 보기 / 위치 보기 버튼 카드 */
   function shareKakao(){
     var base=location.origin+location.pathname; if(base.charAt(base.length-1)!=='/') base=base.replace(/[^/]*$/,'');
-    var SITE=base, IMG=base+'images/main.jpg', MAP='https://naver.me/IFgdRRqM';
+    var SITE=base, IMG=base+'images/main.jpg', MAP=base+'#location';
     if(window.Kakao && Kakao.isInitialized && Kakao.isInitialized() && Kakao.Share){
       Kakao.Share.sendDefault({
         objectType:'feed',
