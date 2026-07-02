@@ -235,8 +235,9 @@
   .check input{accent-color:var(--lime);width:16px;height:16px}
 
   /* ===== 10. 방명록 ===== */
-  .gb-form{display:flex;gap:8px;align-items:center;margin:0 auto 22px}
-  .gb-name{flex:0 0 78px}
+  .gb-form{display:flex;flex-direction:column;gap:8px;margin:0 auto 22px}
+  .gb-row2{display:flex;gap:8px;align-items:center}
+  .gb-name{width:100%}
   .gb-msg{flex:1;min-width:0}
   .gb-name,.gb-msg{font-family:var(--sans);font-size:14px;background:#fff;border:1px solid var(--lime-dim);color:var(--ink);border-radius:10px;padding:0 12px;height:46px}
   .gb-name::placeholder,.gb-msg::placeholder{color:#8a8d76}
@@ -490,7 +491,7 @@
 
   <!-- 8. 계좌 -->
   <section>
-    <div class="eyebrow">Gift</div>
+    <div class="eyebrow">Account</div>
     <h2 class="stitle">마음 전하실 곳</h2>
     <p style="text-align:center;color:var(--ink-mute);font-size:13px;margin:12px 0 22px">따뜻한 축하의 마음을 전해주세요</p>
     <div class="accordion">
@@ -529,8 +530,10 @@
     <div style="height:20px"></div>
     <div class="gb-form">
       <input id="gbName" class="gb-name" maxlength="20" placeholder="이름" />
-      <input id="gbMsg" class="gb-msg" maxlength="200" placeholder="축하 메시지를 남겨주세요" />
-      <button class="gb-send" onclick="addGuestbook()" aria-label="남기기">➤</button>
+      <div class="gb-row2">
+        <input id="gbMsg" class="gb-msg" maxlength="200" placeholder="축하 메시지를 남겨주세요" />
+        <button class="gb-send" onclick="addGuestbook()" aria-label="남기기">➤</button>
+      </div>
     </div>
     <div class="masonry" id="gbList"></div>
     <div class="gb-empty" id="gbEmpty">첫 번째 축하 메시지를 남겨주세요 ✦</div>
