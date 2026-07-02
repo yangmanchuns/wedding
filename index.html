@@ -279,6 +279,9 @@
   .person .acts{display:flex;gap:8px;justify-content:center}
   .person .acts a{width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(111,159,79,.13);color:var(--lime)}
   .person .acts a:active{background:var(--lime);color:#fff}
+  .contact-panel{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .contact-panel.open{max-height:660px}
+  .contact-panel .cols2{padding-top:4px}
   .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--lime);color:var(--olive-deep);padding:12px 22px;border-radius:999px;font-size:13.5px;font-weight:500;opacity:0;transition:.25s;z-index:80;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
@@ -318,6 +321,23 @@
         <span class="pnames">김점식<br/>신연정</span>
         <span class="prel">의 딸</span>
         <span class="pchild">보원</span>
+      </div>
+    </div>
+    <div class="center-btn" style="margin:2px 0 22px"><button type="button" class="btn btn-ghost" onclick="toggleContact(this)">연락하기</button></div>
+    <div class="contact-panel" id="contactPanel">
+      <div class="cols2">
+        <div class="contact-col">
+          <h4>신랑측</h4>
+          <div class="person"><div class="rel">신랑</div><div class="nm">양병민</div><div class="acts"><a href="tel:010-3230-9530" aria-label="전화">✆</a><a href="sms:010-3230-9530" aria-label="문자">✉</a></div></div>
+          <div class="person"><div class="rel">신랑 아버지</div><div class="nm">양주식</div><div class="acts"><a href="tel:010-3682-9530" aria-label="전화">✆</a><a href="sms:010-3682-9530" aria-label="문자">✉</a></div></div>
+          <div class="person"><div class="rel">신랑 어머니</div><div class="nm">최영미</div><div class="acts"><a href="tel:010-3684-9530" aria-label="전화">✆</a><a href="sms:010-3684-9530" aria-label="문자">✉</a></div></div>
+        </div>
+        <div class="contact-col">
+          <h4>신부측</h4>
+          <div class="person"><div class="rel">신부</div><div class="nm">김보원</div><div class="acts"><a href="tel:010-9749-8736" aria-label="전화">✆</a><a href="sms:010-9749-8736" aria-label="문자">✉</a></div></div>
+          <div class="person"><div class="rel">신부 아버지</div><div class="nm">김점식</div><div class="acts" style="font-size:11px;color:var(--ink-mute)">준비중</div></div>
+          <div class="person"><div class="rel">신부 어머니</div><div class="nm">신연정</div><div class="acts" style="font-size:11px;color:var(--ink-mute)">준비중</div></div>
+        </div>
       </div>
     </div>
     <p class="msg">오랜 시간 걸음 지키며
@@ -668,6 +688,7 @@
   /* 아코디언 */
   function toggleAcc(btn){btn.closest('.acc').classList.toggle('open');}
   function copyAcct(btn){var el=btn.closest('.acct').querySelector('.no');copyText(el?el.textContent.trim():'','계좌번호가 복사되었습니다');}
+  function toggleContact(btn){var p=document.getElementById('contactPanel');p.classList.toggle('open');btn.textContent=p.classList.contains('open')?'접기':'연락하기';}
 
   /* 갤러리 라이트박스 + 더보기 */
   var GALLERY_SRCS=[];
