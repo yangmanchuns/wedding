@@ -336,7 +336,7 @@
 
     <div style="height:34px"></div>
     <h3 class="stitle" style="font-size:18px">하객 사진</h3>
-    <p style="text-align:center;color:var(--ink-mute);font-size:12.5px;margin:8px 0 0">함께한 순간을 사진으로 남겨주세요</p>
+    <p style="text-align:center;color:var(--ink-mute);font-size:12.5px;margin:8px 0 0">함께한 순간의 사진을 남겨주세요<br/>올려주신 사진은 신랑·신부에게 소중히 전달됩니다 😊</p>
     <div class="upload-wrap">
       <label class="btn btn-lime" style="cursor:pointer">
         📷 사진 올리기
@@ -344,7 +344,6 @@
       </label>
       <span id="photoStatus" style="font-size:12px;color:var(--ink-mute)"></span>
     </div>
-    <div class="masonry" id="photoList" style="margin-top:16px"></div>
   </section>
 
   <div class="divider"><span class="star">✦</span></div>
@@ -679,21 +678,13 @@
   }
   renderGb();
 
-  /* 하객 사진 — Supabase Storage 업로드 + 실시간 표시 */
-  function renderPhotos(){
-    if(!sb) return;
-    sb.from('photos').select('*').order('created_at',{ascending:false}).then(function(r){
-      document.getElementById('photoList').innerHTML=(r.data||[]).map(function(p){
-        return '<div class="pcard"><img loading="lazy" src="'+esc(p.url)+'" alt="하객 사진"/></div>';
-      }).join('');
-    });
-  }
+  /* 하객 사진 — Supabase Storage 업로드 (사이트에 표시 안 함, 커플에게만 수집) */
   function uploadPhotos(input){
     if(!sb){ toast('사진 업로드는 배포+Supabase 연결 후 됩니다'); input.value=''; return; }
     var files=input.files; if(!files||!files.length)return;
     var st=document.getElementById('photoStatus'); st.textContent='업로드 중…';
     var total=files.length, done=0, fail=0;
-    function check(){ if(done+fail>=total){ st.textContent=fail?('일부 실패 ('+fail+'/'+total+')'):'업로드 완료 ✦'; input.value=''; renderPhotos(); setTimeout(function(){st.textContent='';},2500); } }
+    function check(){ if(done+fail>=total){ st.textContent=fail?('일부 실패 ('+fail+'/'+total+')'):'전달 완료 ✦ 감사합니다'; input.value=''; setTimeout(function(){st.textContent='';},2500); } }
     Array.prototype.forEach.call(files,function(f){
       var ext=(f.name.split('.').pop()||'jpg').toLowerCase();
       var path=Date.now()+'_'+Math.random().toString(36).slice(2,8)+'.'+ext;
@@ -705,11 +696,9 @@
     });
   }
 
-  /* 실시간 구독 (Supabase 연결 시) */
+  /* 실시간 구독 (Supabase 연결 시) — 방명록만 */
   if(sb){
     sb.channel('gb').on('postgres_changes',{event:'INSERT',schema:'public',table:'guestbook_messages'},function(){renderGb();}).subscribe();
-    sb.channel('ph').on('postgres_changes',{event:'INSERT',schema:'public',table:'photos'},function(){renderPhotos();}).subscribe();
-    renderPhotos();
   }
 
   /* 카카오 공유 — 청첩장 보기 / 위치 보기 버튼 카드 */
