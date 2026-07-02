@@ -289,7 +289,8 @@
 
   /* ===== 핀터레스트 콜라주 ===== */
   .eyebrow{text-align:center;margin-bottom:12px}
-  .eyebrow.ransom-on{display:flex;flex-wrap:wrap;gap:4px 3px;justify-content:center;align-items:center;letter-spacing:normal}
+  .eyebrow.ransom-on{display:flex;flex-wrap:wrap;gap:5px 9px;justify-content:center;align-items:center;letter-spacing:normal}
+  .rword{display:inline-flex;gap:3px;flex-wrap:nowrap}
   .rletter{display:inline-block;padding:2px 6px;border-radius:3px;color:#2f3226;font-weight:700;font-size:22px;line-height:1.1;text-transform:uppercase;box-shadow:0 1px 2px rgba(60,63,48,.2)}
   .rspace{width:9px;display:inline-block}
   .stitle{font-family:var(--serif);font-size:15.5px;font-weight:500;color:var(--ink-mute);letter-spacing:.02em}
@@ -823,11 +824,14 @@
     var els=document.querySelectorAll('.eyebrow');
     for(var k=0;k<els.length;k++){(function(el){
       var t=el.textContent.trim();el.textContent='';el.classList.add('ransom-on');
-      for(var i=0;i<t.length;i++){var ch=t[i];
-        if(ch===' '){var s0=document.createElement('span');s0.className='rspace';el.appendChild(s0);continue;}
-        var c=ch.charCodeAt(0);var sp=document.createElement('span');sp.className='rletter';sp.textContent=ch;
-        sp.style.background=bgs[(i*3+c)%bgs.length];sp.style.fontFamily=fonts[(i+c)%fonts.length];
-        sp.style.transform='rotate('+(((i%2)?1:-1)*(2+(c%5)))+'deg)';el.appendChild(sp);}
+      var words=t.split(' ');var gi=0;
+      for(var w=0;w<words.length;w++){var word=words[w];if(!word)continue;
+        var wd=document.createElement('span');wd.className='rword';
+        for(var i=0;i<word.length;i++){var ch=word[i];var c=ch.charCodeAt(0);
+          var sp=document.createElement('span');sp.className='rletter';sp.textContent=ch;
+          sp.style.background=bgs[(gi*3+c)%bgs.length];sp.style.fontFamily=fonts[(gi+c)%fonts.length];
+          sp.style.transform='rotate('+(((gi%2)?1:-1)*(2+(c%5)))+'deg)';wd.appendChild(sp);gi++;}
+        el.appendChild(wd);}
     })(els[k]);}
   })();
   /* 카카오 지도 */
