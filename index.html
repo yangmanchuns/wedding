@@ -835,12 +835,13 @@
     if(!(window.kakao && kakao.maps && kakao.maps.load))return;
     kakao.maps.load(function(){
       var el=document.getElementById('kakaoMap'); if(!el)return;
-      var pos=new kakao.maps.LatLng(37.5373,126.9785);
+      var pos=new kakao.maps.LatLng(37.5372,126.9779);
       var map=new kakao.maps.Map(el,{center:pos,level:4});
       var marker=new kakao.maps.Marker({position:pos}); marker.setMap(map);
       var iw=new kakao.maps.InfoWindow({content:'<div style="padding:5px 9px;font-size:12px;white-space:nowrap;">로얄파크컨벤션</div>'});
       iw.open(map,marker);
       map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+      try{ if(kakao.maps.services){ var ps=new kakao.maps.services.Places(); ps.keywordSearch('로얄파크컨벤션', function(d,st){ if(st===kakao.maps.services.Status.OK && d && d[0]){ var p=new kakao.maps.LatLng(d[0].y,d[0].x); map.setCenter(p); marker.setPosition(p); iw.open(map,marker); } }); } }catch(e){}
     });
   })();
 </script>
