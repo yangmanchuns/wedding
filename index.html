@@ -285,7 +285,7 @@
 
   <!-- 배경음악 -->
   <audio id="bgm" loop preload="auto"><source src="music/bgm.mp3" type="audio/mpeg" /></audio>
-  <button type="button" id="bgmBtn" class="bgm-btn" onclick="toggleBgm(event)" aria-label="배경음악 재생/정지">▶</button>
+  <button type="button" id="bgmBtn" class="bgm-btn" onclick="toggleBgm(event)" aria-label="배경음악 재생/정지"><svg viewBox="0 0 24 24" width="15" height="15" fill="#fff" aria-hidden="true"><path d="M7 5v14l11-7z"/></svg></button>
 
   <!-- 1. 히어로 -->
   <section class="hero">
@@ -608,7 +608,9 @@
 
   /* 배경음악 — 우측 상단 토글 + 첫 터치 시 자동재생 */
   var _bgmStarted=false;
-  function _bgmIcon(){var a=document.getElementById('bgm'),b=document.getElementById('bgmBtn');if(!a||!b)return;if(a.paused){b.classList.remove('playing');b.textContent='▶';}else{b.classList.add('playing');b.textContent='⏸';}}
+  var _BGM_PLAY='<svg viewBox="0 0 24 24" width="15" height="15" fill="#fff" aria-hidden="true"><path d="M7 5v14l11-7z"/></svg>';
+  var _BGM_PAUSE='<svg viewBox="0 0 24 24" width="15" height="15" fill="#fff" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+  function _bgmIcon(){var a=document.getElementById('bgm'),b=document.getElementById('bgmBtn');if(!a||!b)return;if(a.paused){b.classList.remove('playing');b.innerHTML=_BGM_PLAY;}else{b.classList.add('playing');b.innerHTML=_BGM_PAUSE;}}
   function toggleBgm(e){if(e)e.stopPropagation();var a=document.getElementById('bgm');if(!a)return;if(a.paused){a.play().catch(function(){});}else{a.pause();}_bgmStarted=true;setTimeout(_bgmIcon,60);}
   function _bgmFirstPlay(){if(_bgmStarted)return;var a=document.getElementById('bgm');if(!a)return;a.play().then(function(){_bgmStarted=true;_bgmIcon();}).catch(function(){});}
   document.addEventListener('touchstart',_bgmFirstPlay,{once:true,passive:true});
