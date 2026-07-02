@@ -411,7 +411,7 @@
     <h3 class="stitle" style="font-size:18px">하객 사진</h3>
     <p style="text-align:center;color:var(--ink-mute);font-size:12.5px;margin:8px 0 0">올려주신 사진은 신랑·신부에게 소중히 전달됩니다<br/>결혼식 당일(12.19)부터 업로드할 수 있어요 😊</p>
     <div class="upload-wrap">
-      <label class="btn btn-lime" style="cursor:pointer">
+      <label class="btn btn-lime" style="cursor:pointer" onclick="return uploadGate(event)">
         📷 사진 올리기
         <input id="photoInput" type="file" accept="image/*" multiple style="display:none" onchange="uploadPhotos(this)" />
       </label>
@@ -766,6 +766,7 @@
   /* 하객 사진 — Supabase Storage 업로드 (사이트에 표시 안 함, 커플에게만 수집) */
   var _uploading=0;
   window.addEventListener('beforeunload',function(e){if(_uploading>0){e.preventDefault();e.returnValue='';}});
+  function uploadGate(e){ var _open=new Date(2026,11,19,0,0,0); if(new Date()<_open){ if(e&&e.preventDefault)e.preventDefault(); toast("사진 업로드는 결혼식 당일(2026.12.19)부터 가능해요 😊"); return false; } return true; }
   function uploadPhotos(input){
     var _open=new Date(2026,11,19,0,0,0);
     if(new Date()<_open){ toast('사진 업로드는 결혼식 당일(2026.12.19)부터 가능해요 😊'); input.value=''; return; }
