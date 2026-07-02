@@ -203,6 +203,9 @@
   .pola-desc{margin-top:16px;text-align:left}
   .pola-desc .vh{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--ink);margin-bottom:6px}
   .pola-desc .vt{font-size:13.5px;line-height:1.8;color:var(--ink-mute)}
+  .pdots{display:flex;gap:7px;justify-content:center;margin-top:14px}
+  .pdot{width:7px;height:7px;border-radius:50%;background:var(--lime-dim);transition:.25s}
+  .pdot.on{background:var(--lime);width:22px;border-radius:4px}
 
   /* ===== 8. 계좌 ===== */
   .accordion{display:flex;flex-direction:column;gap:12px;max-width:360px;margin:0 auto}
@@ -480,7 +483,7 @@
         <div class="pola-desc"><div class="vh">주차 안내</div><div class="vt">전쟁기념관 내 주차장을 2시간 무료로 이용하실 수 있습니다.<br/>(약 1,000대 주차 가능)</div></div>
       </div>
     </div>
-    <p class="gallery-hint">← 좌우로 밀어보세요 →</p>
+    <div class="pdots" id="venueDots"><span class="pdot"></span><span class="pdot"></span><span class="pdot"></span></div>
   </section>
 
   <div class="divider"><span class="star">✦</span></div>
@@ -717,6 +720,14 @@
     if(mb){if(arr.length>6){mb.style.display='inline-flex';mb.textContent=_gbExpanded?'접기':'더보기 ('+(arr.length-6)+')';}else{mb.style.display='none';}}
   }
   function toggleGb(){_gbExpanded=!_gbExpanded;paintGb(_gbAll);}
+
+  /* 안내 카드 좌우 스크롤 → 점 인디케이터 */
+  (function(){
+    var el=document.querySelector('.venue-cards');if(!el)return;
+    var dots=document.querySelectorAll('#venueDots .pdot');var cards=el.children;
+    function upd(){if(cards.length<2)return;var step=cards[1].offsetLeft-cards[0].offsetLeft;if(step<=0)return;var idx=Math.round(el.scrollLeft/step);idx=Math.max(0,Math.min(dots.length-1,idx));for(var i=0;i<dots.length;i++)dots[i].classList.toggle('on',i===idx);}
+    el.addEventListener('scroll',upd,{passive:true});upd();
+  })();
   function renderGb(){
     if(sb){ sb.from('guestbook_messages').select('*').order('created_at',{ascending:false}).then(function(r){ paintGb(r.data||[]); }); }
     else { paintGb(JSON.parse(localStorage.getItem('guestbook')||'[]').slice().reverse()); }
