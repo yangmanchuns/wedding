@@ -18,7 +18,7 @@
 <body>
 <style>
   /* 실제 호스팅 시 이 폰트가 적용됩니다. (미리보기 환경에선 대체 폰트로 보일 수 있어요) */
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Batang:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&display=swap');
 
   :root{
     --olive:#f6f4ea;              /* 페이지 배경 (아이보리) */
@@ -193,8 +193,17 @@
   .mapcard{background:#fff;border:1px solid var(--lime-dim);border-radius:16px;padding:8px;box-shadow:0 8px 24px rgba(60,63,48,.10)}
   .mapcard svg{width:100%;height:auto;display:block;border-radius:10px;font-family:var(--sans)}
   .card-white .photo-empty .tag{color:#6b7a2f}
-  .venue-cards{display:flex;flex-direction:column;gap:16px}
-  .venue-card{width:100%;display:block;border-radius:12px;box-shadow:0 8px 22px rgba(60,63,48,.14)}
+  .venue-cards{display:flex;flex-direction:column;gap:28px}
+  .pola-card{text-align:center}
+  .pola{display:inline-block;background:#fff;padding:12px 12px 42px;box-shadow:0 8px 22px rgba(60,63,48,.18);position:relative;max-width:252px;width:100%}
+  .pola-card:nth-child(odd) .pola{transform:rotate(-2deg)}
+  .pola-card:nth-child(even) .pola{transform:rotate(1.8deg)}
+  .pola::before{content:"";position:absolute;top:-11px;left:50%;transform:translateX(-50%) rotate(-4deg);width:92px;height:24px;background:rgba(216,229,146,.72);box-shadow:0 1px 3px rgba(60,63,48,.15)}
+  .pola img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+  .pola-label{position:absolute;left:0;right:0;bottom:8px;font-family:'Nanum Pen Script',cursive;font-size:25px;color:#3f4330;line-height:1}
+  .pola-desc{margin:18px auto 0;max-width:300px}
+  .pola-desc .vh{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--ink);margin-bottom:6px}
+  .pola-desc .vt{font-size:13.5px;line-height:1.8;color:var(--ink-mute)}
 
   /* ===== 8. 계좌 ===== */
   .accordion{display:flex;flex-direction:column;gap:12px;max-width:360px;margin:0 auto}
@@ -451,9 +460,18 @@
     <h2 class="stitle">안내 사항</h2>
     <div style="height:20px"></div>
     <div class="venue-cards">
-      <img class="venue-card" loading="lazy" src="images/venue-1.jpg" alt="안내 1" />
-      <img class="venue-card" loading="lazy" src="images/venue-2.jpg" alt="안내 2" />
-      <img class="venue-card" loading="lazy" src="images/venue-3.jpg" alt="안내 3" />
+      <div class="pola-card">
+        <div class="pola"><img loading="lazy" src="images/venue-1.jpg" alt="예식 안내" /><div class="pola-label">Ceremony</div></div>
+        <div class="pola-desc"><div class="vh">예식 안내</div><div class="vt">3층 로얄홀에서 예식이 진행됩니다.<br/>정시에 시작되오니 10분 전까지 착석 부탁드립니다.</div></div>
+      </div>
+      <div class="pola-card">
+        <div class="pola"><img loading="lazy" src="images/venue-2.jpg" alt="식사 안내" /><div class="pola-label">Dinner</div></div>
+        <div class="pola-desc"><div class="vh">식사 안내</div><div class="vt">예식 후 준비된 연회장에서 식사가 제공됩니다.<br/>귀한 걸음 하신 만큼 맛있는 식사도 함께해 주세요.</div></div>
+      </div>
+      <div class="pola-card">
+        <div class="pola"><img loading="lazy" src="images/venue-3.jpg" alt="주차 안내" /><div class="pola-label">Parking</div></div>
+        <div class="pola-desc"><div class="vh">주차 안내</div><div class="vt">전쟁기념관 내 주차장을 2시간 무료로 이용하실 수 있습니다.<br/>(약 1,000대 주차 가능)</div></div>
+      </div>
     </div>
   </section>
 
