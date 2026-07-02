@@ -763,12 +763,14 @@
   renderGb();
 
   /* 하객 사진 — Supabase Storage 업로드 (사이트에 표시 안 함, 커플에게만 수집) */
+  var _uploading=0;
+  window.addEventListener('beforeunload',function(e){if(_uploading>0){e.preventDefault();e.returnValue='';}});
   function uploadPhotos(input){
     if(!sb){ toast('사진 업로드는 배포+Supabase 연결 후 됩니다'); input.value=''; return; }
     var files=input.files; if(!files||!files.length)return;
-    var st=document.getElementById('photoStatus'); st.textContent='업로드 중…';
-    var total=files.length, done=0, fail=0;
-    function check(){ if(done+fail>=total){ st.textContent=fail?('일부 실패 ('+fail+'/'+total+')'):'전달 완료 ✦ 감사합니다'; input.value=''; setTimeout(function(){st.textContent='';},2500); } }
+    var st=document.getElementById('photoStatus'); st.textContent='업로드 중…'; toast('사진 업로드 중이에요. 완료까지 창을 닫지 말아주세요!');
+    var total=files.length, done=0, fail=0; _uploading+=total;
+    function check(){ _uploading=Math.max(0,_uploading-1); if(done+fail>=total){ st.textContent=fail?('일부 실패 ('+fail+'/'+total+')'):'전달 완료 ✦ 감사합니다'; input.value=''; setTimeout(function(){st.textContent='';},2500); } }
     Array.prototype.forEach.call(files,function(f){
       var ext=(f.name.split('.').pop()||'jpg').toLowerCase();
       var path=Date.now()+'_'+Math.random().toString(36).slice(2,8)+'.'+ext;
