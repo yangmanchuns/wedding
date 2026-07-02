@@ -86,9 +86,8 @@
   :focus-visible{outline:2px solid var(--lime);outline-offset:2px}
 
   /* 배경음악 토글 버튼 */
-  .bgm-btn{position:fixed;top:14px;right:max(14px,calc((100vw - 480px)/2 + 14px));z-index:70;width:38px;height:38px;border-radius:50%;border:none;background:rgba(63,67,48,.5);color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.75;transition:opacity .2s}
-  .bgm-btn.playing{opacity:1;animation:spin 4.5s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
+  .bgm-btn{position:fixed;top:14px;right:max(14px,calc((100vw - 480px)/2 + 14px));z-index:70;width:40px;height:40px;border-radius:50%;border:none;background:rgba(63,67,48,.55);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.85;transition:opacity .2s}
+  .bgm-btn.playing{opacity:1}
 
   /* ===== 1. 히어로 (어두운 사진 위 → 밝은 글씨) ===== */
   .hero{height:100vh;min-height:560px;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative}
@@ -255,7 +254,7 @@
 
   <!-- 배경음악 -->
   <audio id="bgm" loop preload="auto"><source src="music/bgm.mp3" type="audio/mpeg" /></audio>
-  <button type="button" id="bgmBtn" class="bgm-btn" onclick="toggleBgm(event)" aria-label="배경음악 켜기/끄기">♪</button>
+  <button type="button" id="bgmBtn" class="bgm-btn" onclick="toggleBgm(event)" aria-label="배경음악 켜기/끄기">🔊</button>
 
   <!-- 1. 히어로 -->
   <section class="hero">
@@ -570,7 +569,7 @@
 
   /* 배경음악 — 우측 상단 토글 + 첫 터치 시 자동재생 */
   var _bgmStarted=false;
-  function _bgmIcon(){var a=document.getElementById('bgm'),b=document.getElementById('bgmBtn');if(!a||!b)return;if(a.paused){b.classList.remove('playing');}else{b.classList.add('playing');}}
+  function _bgmIcon(){var a=document.getElementById('bgm'),b=document.getElementById('bgmBtn');if(!a||!b)return;if(a.paused){b.classList.remove('playing');b.textContent='🔇';}else{b.classList.add('playing');b.textContent='🔊';}}
   function toggleBgm(e){if(e)e.stopPropagation();var a=document.getElementById('bgm');if(!a)return;if(a.paused){a.play().catch(function(){});}else{a.pause();}_bgmStarted=true;setTimeout(_bgmIcon,60);}
   function _bgmFirstPlay(){if(_bgmStarted)return;var a=document.getElementById('bgm');if(!a)return;a.play().then(function(){_bgmStarted=true;_bgmIcon();}).catch(function(){});}
   document.addEventListener('touchstart',_bgmFirstPlay,{once:true,passive:true});
