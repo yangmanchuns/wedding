@@ -157,6 +157,7 @@
   .story-cap{text-align:center;font-size:13px;color:var(--ink-mute);margin:18px 0 12px}
   .handwriting{text-align:center}
   .handwriting img{max-width:300px;width:100%;display:block;margin:0 auto}
+  .handnote{font-family:'Nanum Pen Script',cursive;font-size:36px;color:#3f4330;text-align:center;padding:22px 0;line-height:1.2}
   .handwriting .photo-empty{aspect-ratio:4/3;min-height:0}
 
   /* ===== 5. 날짜 & 카운트다운 ===== */
@@ -378,8 +379,8 @@
 
     <div class="story-block">
       <h3 class="story-h">Bride's Childhood</h3>
-      <figure><div class="photo-empty"><span class="tag">신부 어린시절</span><span>사진</span></div></figure>
-      <div class="handwriting"><div class="photo-empty"><span class="tag">신부측 부모님 손글씨</span><span>이미지 (배경 제거 예정)</span></div></div>
+      <figure><img loading="lazy" src="images/story-bride-child.jpg" alt="신부 어린시절" /></figure>
+      <div class="handwriting"><div class="handnote">보원뚜</div></div>
     </div>
   </section>
 
@@ -834,13 +835,12 @@
     if(!(window.kakao && kakao.maps && kakao.maps.load))return;
     kakao.maps.load(function(){
       var el=document.getElementById('kakaoMap'); if(!el)return;
-      var pos=new kakao.maps.LatLng(37.53660,126.97610);
+      var pos=new kakao.maps.LatLng(37.5373,126.9785);
       var map=new kakao.maps.Map(el,{center:pos,level:4});
       var marker=new kakao.maps.Marker({position:pos}); marker.setMap(map);
       var iw=new kakao.maps.InfoWindow({content:'<div style="padding:5px 9px;font-size:12px;white-space:nowrap;">로얄파크컨벤션</div>'});
       iw.open(map,marker);
       map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
-      try{ if(kakao.maps.services){ var ps=new kakao.maps.services.Places(); ps.keywordSearch('로얄파크컨벤션', function(d,st){ if(st===kakao.maps.services.Status.OK && d && d[0]){ var p=new kakao.maps.LatLng(d[0].y,d[0].x); map.setCenter(p); marker.setPosition(p); iw.open(map,marker); } }); } }catch(e){}
     });
   })();
 </script>
