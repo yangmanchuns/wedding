@@ -767,6 +767,8 @@
   var _uploading=0;
   window.addEventListener('beforeunload',function(e){if(_uploading>0){e.preventDefault();e.returnValue='';}});
   function uploadPhotos(input){
+    var _open=new Date(2026,11,19,0,0,0);
+    if(new Date()<_open){ toast('사진 업로드는 결혼식 당일(2026.12.19)부터 가능해요 😊'); input.value=''; return; }
     if(!sb){ toast('사진 업로드는 배포+Supabase 연결 후 됩니다'); input.value=''; return; }
     var files=input.files; if(!files||!files.length)return;
     var st=document.getElementById('photoStatus'); st.textContent='업로드 중…'; toast('사진 업로드 중이에요. 완료까지 창을 닫지 말아주세요!');
