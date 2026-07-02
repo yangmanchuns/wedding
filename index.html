@@ -22,7 +22,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&display=swap');
 
   :root{
-    --olive:#f6f4ea;              /* 페이지 배경 (아이보리) */
+    --olive:#f7f2e6;              /* 페이지 배경 (웜 크림) */
     --olive-deep:#ffffff;         /* 카드/입력 표면 · 그린버튼 위 글씨(화이트) */
     --olive-soft:#eef0e2;         /* 살짝 톤다운 표면 */
     --lime:#6f9f4f;               /* 메인 포인트 (프레시 그린) */
@@ -42,7 +42,7 @@
   body{
     font-family:var(--sans);
     color:var(--ink);
-    background:#e9e6d9;
+    background:#ece5d3;
     -webkit-font-smoothing:antialiased;
     touch-action:manipulation;
   }
@@ -287,6 +287,17 @@
   .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--lime);color:var(--olive-deep);padding:12px 22px;border-radius:999px;font-size:13.5px;font-weight:500;opacity:0;transition:.25s;z-index:80;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+  /* ===== 핀터레스트 콜라주 ===== */
+  .eyebrow{text-align:center;margin-bottom:12px}
+  .ransom-on{display:flex;flex-wrap:wrap;gap:5px 9px;justify-content:center;align-items:center;letter-spacing:normal}
+  .rword{display:inline-flex;gap:3px;flex-wrap:nowrap}
+  .rletter{display:inline-block;padding:2px 6px;border-radius:3px;color:#2f3226;font-weight:700;font-size:22px;line-height:1.1;text-transform:uppercase;box-shadow:0 1px 2px rgba(60,63,48,.2)}
+  .rspace{width:9px;display:inline-block}
+  .stitle{font-family:var(--serif);font-size:15.5px;font-weight:500;color:var(--ink-mute);letter-spacing:.02em}
+  .divider::before,.divider::after{display:none}
+  .divider .star{color:var(--lime);font-size:14px;letter-spacing:7px}
+  .postit{position:relative}
+  .postit::before{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%) rotate(-4deg);width:50px;height:16px;background:rgba(255,255,255,.55);box-shadow:0 1px 2px rgba(0,0,0,.08)}
   #kakaoMap{width:100%;height:280px;border-radius:10px}
   /* 스크롤 페이드인 */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
@@ -313,7 +324,7 @@
     </div>
   </section>
 
-  <div class="divider"><span class="star">✦</span></div>
+  <div class="divider"><span class="star">★ ★ ★</span></div>
 
   <!-- 2. 초대장 -->
   <section class="invite">
@@ -357,7 +368,7 @@
     <p class="sign">양병민 · 김보원 드림</p>
   </section>
 
-  <div class="divider"><span class="star">✦</span></div>
+  <div class="divider"><span class="star">★ ★ ★</span></div>
 
   <!-- 우리의 어린 시절 (신랑/신부 각각) -->
   <section>
@@ -377,7 +388,7 @@
     </div>
   </section>
 
-  <div class="divider"><span class="star">✦</span></div>
+  <div class="divider"><span class="star">★ ★ ★</span></div>
 
   <!-- 갤러리 -->
   <section>
@@ -419,7 +430,7 @@
     </div>
   </section>
 
-  <div class="divider"><span class="star">✦</span></div>
+  <div class="divider"><span class="star">★ ★ ★</span></div>
 
   <!-- 5. 날짜 & 카운트다운 -->
   <section>
@@ -435,7 +446,7 @@
     <p class="dday-line">양병민 <b>❤</b> 김보원의 결혼식이<br/><b id="ddayNum">-</b>일 남았습니다</p>
   </section>
 
-  <div class="divider"><span class="star">✦</span></div>
+  <div class="divider"><span class="star">★ ★ ★</span></div>
 
   <!-- 6. 오시는 길 -->
   <section id="location">
@@ -460,7 +471,7 @@
     </ul>
   </section>
 
-  <div class="divider"><span class="star">✦</span></div>
+  <div class="divider"><span class="star">★ ★ ★</span></div>
 
   <!-- 7. 예식장 안내 -->
   <section>
@@ -488,7 +499,7 @@
     <div class="pdots" id="venueDots"><span class="pdot"></span><span class="pdot"></span><span class="pdot"></span><span class="pdot"></span></div>
   </section>
 
-  <div class="divider"><span class="star">✦</span></div>
+  <div class="divider"><span class="star">★ ★ ★</span></div>
 
   <!-- 8. 계좌 -->
   <section>
@@ -515,7 +526,7 @@
     </div>
   </section>
 
-  <div class="divider"><span class="star">✦</span></div>
+  <div class="divider"><span class="star">★ ★ ★</span></div>
 
   <!-- 9. RSVP (임시 비활성화 — 필요 시 이 주석 블록을 해제)
   <section>
@@ -525,7 +536,7 @@
     <div class="center-btn"><button class="btn btn-lime" onclick="openSheet('rsvpSheet')">참석 의사 전달하기</button></div>
   </section>
 
-  <div class="divider"><span class="star">✦</span></div>
+  <div class="divider"><span class="star">★ ★ ★</span></div>
   -->
 
   <!-- 10. 방명록 -->
@@ -815,6 +826,24 @@
   }
 
   /* RSVP 자동 팝업 제거 — 하객이 직접 "참석 의사 전달하기" 버튼으로 엶 */
+
+  /* 잡지 오려붙인 제목(랜섬노트) */
+  (function(){
+    var bgs=["#f3c9d2","#f4e3a3","#c3e0ea","#d0e0a2","#dccbe9","#f6d2a6","#ffffff"];
+    var fonts=["Georgia,serif","'Noto Sans KR',sans-serif","'Times New Roman',serif","Verdana,sans-serif"];
+    var els=document.querySelectorAll(".eyebrow, .kicker");
+    for(var k=0;k<els.length;k++){(function(el){
+      var t=el.textContent.trim();el.textContent="";el.classList.add("ransom-on");
+      var words=t.split(" ");var gi=0;
+      for(var w=0;w<words.length;w++){var word=words[w];if(!word)continue;
+        var wd=document.createElement("span");wd.className="rword";
+        for(var i=0;i<word.length;i++){var ch=word[i];var c=ch.charCodeAt(0);
+          var sp=document.createElement("span");sp.className="rletter";sp.textContent=ch;
+          sp.style.background=bgs[(gi*3+c)%bgs.length];sp.style.fontFamily=fonts[(gi+c)%fonts.length];
+          sp.style.transform="rotate("+(((gi%2)?1:-1)*(2+(c%5)))+"deg)";wd.appendChild(sp);gi++;}
+        el.appendChild(wd);}
+    })(els[k]);}
+  })();
   /* 카카오 지도 */
   (function(){
     if(!(window.kakao && kakao.maps && kakao.maps.load))return;
