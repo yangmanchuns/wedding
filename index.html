@@ -12,38 +12,9 @@
 <meta property="og:url" content="https://yangmanchuns.github.io/wedding/" />
 <meta property="og:locale" content="ko_KR" />
 <meta name="twitter:card" content="summary_large_image" />
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-  /* 잡지 오려붙인 제목(랜섬노트) */
-  (function(){
-    var bgs=['#f3c9d2','#f4e3a3','#c3e0ea','#d0e0a2','#dccbe9','#f6d2a6','#ffffff'];
-    var fonts=["Georgia,serif","'Noto Sans KR',sans-serif","'Times New Roman',serif","Verdana,sans-serif"];
-    var els=document.querySelectorAll('.eyebrow');
-    for(var k=0;k<els.length;k++){(function(el){
-      var t=el.textContent.trim();el.textContent='';el.classList.add('ransom-on');
-      for(var i=0;i<t.length;i++){var ch=t[i];
-        if(ch===' '){var s0=document.createElement('span');s0.className='rspace';el.appendChild(s0);continue;}
-        var c=ch.charCodeAt(0);var sp=document.createElement('span');sp.className='rletter';sp.textContent=ch;
-        sp.style.background=bgs[(i*3+c)%bgs.length];sp.style.fontFamily=fonts[(i+c)%fonts.length];
-        sp.style.transform='rotate('+(((i%2)?1:-1)*(2+(c%5)))+'deg)';el.appendChild(sp);}
-    })(els[k]);}
-  })();
-</script>
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous">
-  /* 잡지 오려붙인 제목(랜섬노트) */
-  (function(){
-    var bgs=['#f3c9d2','#f4e3a3','#c3e0ea','#d0e0a2','#dccbe9','#f6d2a6','#ffffff'];
-    var fonts=["Georgia,serif","'Noto Sans KR',sans-serif","'Times New Roman',serif","Verdana,sans-serif"];
-    var els=document.querySelectorAll('.eyebrow');
-    for(var k=0;k<els.length;k++){(function(el){
-      var t=el.textContent.trim();el.textContent='';el.classList.add('ransom-on');
-      for(var i=0;i<t.length;i++){var ch=t[i];
-        if(ch===' '){var s0=document.createElement('span');s0.className='rspace';el.appendChild(s0);continue;}
-        var c=ch.charCodeAt(0);var sp=document.createElement('span');sp.className='rletter';sp.textContent=ch;
-        sp.style.background=bgs[(i*3+c)%bgs.length];sp.style.fontFamily=fonts[(i+c)%fonts.length];
-        sp.style.transform='rotate('+(((i%2)?1:-1)*(2+(c%5)))+'deg)';el.appendChild(sp);}
-    })(els[k]);}
-  })();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b811b9a27eda364420cbc58bd53d3fa8&autoload=false" crossorigin="anonymous"></script>
 </head>
 <body>
 <style>
@@ -222,7 +193,6 @@
   .map-empty{aspect-ratio:4/3;min-height:0}
   .mapcard{background:#fff;border:1px solid var(--lime-dim);border-radius:16px;padding:8px;box-shadow:0 8px 24px rgba(60,63,48,.10)}
   .mapcard svg{width:100%;height:auto;display:block;border-radius:10px;font-family:var(--sans)}
-  .mapcard .mapimg{width:100%;display:block;border-radius:10px}
   .card-white .photo-empty .tag{color:#6b7a2f}
   .venue-cards{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 26px 12px;margin:0 -26px;-webkit-overflow-scrolling:touch}
   .venue-cards::-webkit-scrollbar{height:0}
@@ -316,16 +286,17 @@
   .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--lime);color:var(--olive-deep);padding:12px 22px;border-radius:999px;font-size:13.5px;font-weight:500;opacity:0;transition:.25s;z-index:80;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  /* ===== 핀터레스트 콜라주 감성 ===== */
+  /* ===== 핀터레스트 콜라주 ===== */
   .eyebrow{text-align:center;margin-bottom:12px}
   .eyebrow.ransom-on{display:flex;flex-wrap:wrap;gap:4px 3px;justify-content:center;align-items:center;letter-spacing:normal}
   .rletter{display:inline-block;padding:2px 6px;border-radius:3px;color:#2f3226;font-weight:700;font-size:22px;line-height:1.1;text-transform:uppercase;box-shadow:0 1px 2px rgba(60,63,48,.2)}
   .rspace{width:9px;display:inline-block}
-  .stitle{font-family:var(--serif);font-size:15.5px;font-weight:500;color:var(--ink-mute);letter-spacing:.02em;margin-top:0}
+  .stitle{font-family:var(--serif);font-size:15.5px;font-weight:500;color:var(--ink-mute);letter-spacing:.02em}
   .divider::before,.divider::after{display:none}
   .divider .star{color:var(--lime);font-size:14px;letter-spacing:7px}
   .postit{position:relative}
   .postit::before{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%) rotate(-4deg);width:50px;height:16px;background:rgba(255,255,255,.55);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+  #kakaoMap{width:100%;height:280px;border-radius:10px}
 </style>
 
 <div class="frame">
@@ -352,7 +323,6 @@
 
   <!-- 2. 초대장 -->
   <section class="invite">
-    
     <div class="parents">
       <div class="prow">
         <span class="pnames">양주식<br/>최영미</span>
@@ -479,9 +449,9 @@
     <h2 class="stitle">오시는 길</h2>
     <div style="height:18px"></div>
     <div class="mapcard">
-      <img class="mapimg" src="images/route-map.jpg" alt="로얄파크컨벤션 오시는 길 — 삼각지역 12번 출구에서 노란선 따라 도보" />
+      <div id="kakaoMap"></div>
     </div>
-    <p class="gallery-hint" style="margin-top:10px">삼각지역 12번 출구 → 노란선 따라 도보 약 5분</p>
+    <p class="gallery-hint" style="margin-top:10px">삼각지역 12번 출구에서 도보 약 5분</p>
     <p class="addr"><span class="place">로얄파크컨벤션</span>서울 용산구 이태원로 29 (전쟁기념관 내)</p>
     <div class="map-links">
       <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://naver.me/IFgdRRqM">네이버 지도</a>
@@ -858,6 +828,19 @@
         sp.style.background=bgs[(i*3+c)%bgs.length];sp.style.fontFamily=fonts[(i+c)%fonts.length];
         sp.style.transform='rotate('+(((i%2)?1:-1)*(2+(c%5)))+'deg)';el.appendChild(sp);}
     })(els[k]);}
+  })();
+  /* 카카오 지도 */
+  (function(){
+    if(!(window.kakao && kakao.maps && kakao.maps.load))return;
+    kakao.maps.load(function(){
+      var el=document.getElementById('kakaoMap'); if(!el)return;
+      var pos=new kakao.maps.LatLng(37.53760,126.97715);
+      var map=new kakao.maps.Map(el,{center:pos,level:4});
+      var marker=new kakao.maps.Marker({position:pos}); marker.setMap(map);
+      var iw=new kakao.maps.InfoWindow({content:'<div style="padding:5px 9px;font-size:12px;white-space:nowrap;">로얄파크컨벤션</div>'});
+      iw.open(map,marker);
+      map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+    });
   })();
 </script>
 </body>
