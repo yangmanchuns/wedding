@@ -27,20 +27,6 @@
         sp.style.transform='rotate('+(((i%2)?1:-1)*(2+(c%5)))+'deg)';el.appendChild(sp);}
     })(els[k]);}
   })();
-
-  /* 카카오 지도 */
-  (function(){
-    if(!(window.kakao && kakao.maps && kakao.maps.load))return;
-    kakao.maps.load(function(){
-      var el=document.getElementById('kakaoMap'); if(!el)return;
-      var pos=new kakao.maps.LatLng(37.53760,126.97715);
-      var map=new kakao.maps.Map(el,{center:pos,level:4});
-      var marker=new kakao.maps.Marker({position:pos}); marker.setMap(map);
-      var iw=new kakao.maps.InfoWindow({content:'<div style="padding:5px 9px;font-size:12px;white-space:nowrap;">로얄파크컨벤션</div>'});
-      iw.open(map,marker);
-      map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
-    });
-  })();
 </script>
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous">
   /* 잡지 오려붙인 제목(랜섬노트) */
@@ -56,20 +42,6 @@
         sp.style.background=bgs[(i*3+c)%bgs.length];sp.style.fontFamily=fonts[(i+c)%fonts.length];
         sp.style.transform='rotate('+(((i%2)?1:-1)*(2+(c%5)))+'deg)';el.appendChild(sp);}
     })(els[k]);}
-  })();
-
-  /* 카카오 지도 */
-  (function(){
-    if(!(window.kakao && kakao.maps && kakao.maps.load))return;
-    kakao.maps.load(function(){
-      var el=document.getElementById('kakaoMap'); if(!el)return;
-      var pos=new kakao.maps.LatLng(37.53760,126.97715);
-      var map=new kakao.maps.Map(el,{center:pos,level:4});
-      var marker=new kakao.maps.Marker({position:pos}); marker.setMap(map);
-      var iw=new kakao.maps.InfoWindow({content:'<div style="padding:5px 9px;font-size:12px;white-space:nowrap;">로얄파크컨벤션</div>'});
-      iw.open(map,marker);
-      map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
-    });
   })();
 </script>
 </head>
@@ -251,7 +223,6 @@
   .mapcard{background:#fff;border:1px solid var(--lime-dim);border-radius:16px;padding:8px;box-shadow:0 8px 24px rgba(60,63,48,.10)}
   .mapcard svg{width:100%;height:auto;display:block;border-radius:10px;font-family:var(--sans)}
   .mapcard .mapimg{width:100%;display:block;border-radius:10px}
-  #kakaoMap{width:100%;height:280px;border-radius:10px}
   .card-white .photo-empty .tag{color:#6b7a2f}
   .venue-cards{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 26px 12px;margin:0 -26px;-webkit-overflow-scrolling:touch}
   .venue-cards::-webkit-scrollbar{height:0}
@@ -508,7 +479,7 @@
     <h2 class="stitle">오시는 길</h2>
     <div style="height:18px"></div>
     <div class="mapcard">
-      <div id="kakaoMap"></div>
+      <img class="mapimg" src="images/route-map.jpg" alt="로얄파크컨벤션 오시는 길 — 삼각지역 12번 출구에서 노란선 따라 도보" />
     </div>
     <p class="gallery-hint" style="margin-top:10px">삼각지역 12번 출구 → 노란선 따라 도보 약 5분</p>
     <p class="addr"><span class="place">로얄파크컨벤션</span>서울 용산구 이태원로 29 (전쟁기념관 내)</p>
@@ -887,20 +858,6 @@
         sp.style.background=bgs[(i*3+c)%bgs.length];sp.style.fontFamily=fonts[(i+c)%fonts.length];
         sp.style.transform='rotate('+(((i%2)?1:-1)*(2+(c%5)))+'deg)';el.appendChild(sp);}
     })(els[k]);}
-  })();
-
-  /* 카카오 지도 */
-  (function(){
-    if(!(window.kakao && kakao.maps && kakao.maps.load))return;
-    kakao.maps.load(function(){
-      var el=document.getElementById('kakaoMap'); if(!el)return;
-      var pos=new kakao.maps.LatLng(37.53760,126.97715);
-      var map=new kakao.maps.Map(el,{center:pos,level:4});
-      var marker=new kakao.maps.Marker({position:pos}); marker.setMap(map);
-      var iw=new kakao.maps.InfoWindow({content:'<div style="padding:5px 9px;font-size:12px;white-space:nowrap;">로얄파크컨벤션</div>'});
-      iw.open(map,marker);
-      map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
-    });
   })();
 </script>
 </body>
