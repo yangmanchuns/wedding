@@ -18,7 +18,7 @@
 <body>
 <style>
   /* 실제 호스팅 시 이 폰트가 적용됩니다. (미리보기 환경에선 대체 폰트로 보일 수 있어요) */
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Batang:wght@400;700&family=Nanum+Brush+Script&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Batang:wght@400;700&display=swap');
 
   :root{
     --olive:#f6f4ea;              /* 페이지 배경 (아이보리) */
@@ -33,8 +33,7 @@
     --paper-ink:#3c3f30;
     --hero-lime:#d8e592;          /* 히어로(어두운 사진) 위 라임 포인트 */
     --sans:'Noto Sans KR',system-ui,-apple-system,'Malgun Gothic',sans-serif;
-    --serif:'Gowun Batang','Noto Sans KR',serif;
-    --script:'Nanum Brush Script','Gowun Batang',cursive;
+    --serif:'Gowun Batang','Noto Sans KR',serif;
     --w:480px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -61,7 +60,7 @@
   /* ===== 공통 ===== */
   section{padding:56px 26px;position:relative}
   .eyebrow{font-size:12px;letter-spacing:.32em;color:var(--lime);text-transform:uppercase;text-align:center;margin-bottom:14px;font-weight:700}
-  .stitle{font-family:var(--script);font-size:31px;font-weight:400;text-align:center;text-wrap:balance;color:var(--ink);letter-spacing:.01em}
+  .stitle{font-family:var(--serif);font-size:23px;font-weight:700;text-align:center;text-wrap:balance;color:var(--ink);letter-spacing:.01em}
   .divider{display:flex;align-items:center;justify-content:center;gap:14px;padding:8px 0;color:var(--lime-dim)}
   .divider::before,.divider::after{content:"";height:1px;width:54px;background:linear-gradient(90deg,transparent,var(--lime-dim))}
   .divider::after{background:linear-gradient(90deg,var(--lime-dim),transparent)}
@@ -95,7 +94,7 @@
   .hero .cover{position:absolute;inset:0;border:none;border-radius:0;min-height:0;height:100%}
   .hero .inner{position:relative;z-index:2;padding:30px;color:#f7f6ec}
   .hero .kicker{font-size:13px;letter-spacing:.34em;color:var(--hero-lime);margin-bottom:22px;font-weight:500}
-  .hero h1{font-family:var(--script);font-weight:400;font-size:52px;line-height:1.15;letter-spacing:.02em;color:#fff}
+  .hero h1{font-family:var(--serif);font-weight:700;font-size:40px;line-height:1.35;letter-spacing:.02em;color:#fff}
   .hero h1 .amp{display:block;color:var(--hero-lime);font-size:22px;margin:10px 0}
   .hero .when{margin-top:26px;font-size:14px;color:#f1f0e4;letter-spacing:.06em;line-height:1.9}
   .scroll-ind{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--hero-lime);font-size:11px;letter-spacing:.2em}
@@ -107,7 +106,7 @@
   .invite .names{font-family:var(--serif);font-size:16px;line-height:2.1;color:var(--ink);margin:6px 0 26px}
   .invite .names b{font-weight:700}
   .invite .msg{font-family:var(--serif);font-size:15.5px;line-height:2.5;color:var(--ink);white-space:pre-line}
-  .invite .sign{margin-top:26px;font-family:var(--script);font-size:22px;color:var(--lime)}
+  .invite .sign{margin-top:26px;font-family:var(--serif);font-size:15px;color:var(--lime)}
   .invite .ministar{color:var(--lime);font-size:16px;margin:0 0 18px;letter-spacing:.5em}
   .parents{display:flex;flex-direction:column;gap:18px;align-items:center;margin:8px 0 28px;font-family:var(--serif)}
   .prow{display:grid;grid-template-columns:76px auto auto;align-items:center;gap:14px}
@@ -147,7 +146,7 @@
   /* 어린시절 + 부모님 손글씨 (신랑/신부 각각) */
   .story-block{margin-top:30px}
   .story-block + .story-block{margin-top:46px;padding-top:40px;border-top:1px solid var(--lime-dim)}
-  .story-h{font-family:var(--script);font-size:23px;letter-spacing:.02em;color:var(--lime);text-align:center;margin-bottom:16px}
+  .story-h{font-family:var(--serif);font-size:16px;letter-spacing:.06em;color:var(--lime);text-align:center;margin-bottom:16px}
   /* 폴라로이드 프레임 + 살짝 기울임 + 테이프 스티커 */
   .story-block figure{margin:0 auto;max-width:240px;background:#fff;padding:10px 10px 14px;box-shadow:0 6px 18px rgba(60,63,48,.16);position:relative;transform:rotate(-2deg)}
   .story-block:last-child figure{transform:rotate(1.8deg)}
@@ -161,7 +160,7 @@
 
   /* ===== 5. 날짜 & 카운트다운 ===== */
   .cal{background:#ffffff;border:1px solid var(--lime-dim);border-radius:16px;padding:20px 16px;margin:6px auto 22px;max-width:340px}
-  .cal .cal-h{text-align:center;font-family:var(--script);font-size:22px;color:var(--lime);margin-bottom:14px}
+  .cal .cal-h{text-align:center;font-family:var(--serif);font-size:17px;color:var(--lime);margin-bottom:14px}
   .cal table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
   .cal th{font-size:11px;color:var(--ink-mute);font-weight:400;padding:6px 0}
   .cal td{text-align:center;font-size:13.5px;color:var(--ink);padding:7px 0;height:34px}
@@ -236,7 +235,7 @@
   /* ===== 11. 푸터 ===== */
   footer{padding:40px 26px 56px;text-align:center}
   .foot-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
-  .foot-sign{font-family:var(--script);font-size:23px;color:var(--lime);line-height:1.5}
+  .foot-sign{font-family:var(--serif);font-size:15px;color:var(--lime);line-height:1.9}
   .foot-note{font-size:11px;color:var(--ink-mute);margin-top:14px;letter-spacing:.05em}
 
   /* ===== 모달 / 바텀시트 ===== */
@@ -265,7 +264,7 @@
 
   <!-- 배경음악 -->
   <audio id="bgm" loop preload="auto"><source src="music/bgm.mp3" type="audio/mpeg" /></audio>
-  <button type="button" id="bgmBtn" class="bgm-btn" onclick="toggleBgm(event)" aria-label="배경음악 켜기/끄기">🔊</button>
+  <button type="button" id="bgmBtn" class="bgm-btn" onclick="toggleBgm(event)" aria-label="배경음악 재생/정지">▶</button>
 
   <!-- 1. 히어로 -->
   <section class="hero">
@@ -451,17 +450,17 @@
     <div style="height:20px"></div>
     <div class="card-white">
       <div class="venue-item">
-        <div class="photo-empty"><span class="tag">안내1</span><span>사진</span></div>
+        <!-- <div class="photo-empty"><span class="tag">안내1</span><span>사진</span></div> -->
         <div class="vh">예식 안내</div>
         <div class="vt">3층 로얄홀에서 예식이 진행됩니다. 정시에 시작되오니 10분 전까지 착석 부탁드립니다.</div>
       </div>
       <div class="venue-item">
-        <div class="photo-empty"><span class="tag">안내2</span><span>사진</span></div>
+        <!-- <div class="photo-empty"><span class="tag">안내2</span><span>사진</span></div> -->
         <div class="vh">식사 안내</div>
         <div class="vt">예식 후 준비된 연회장에서 식사가 제공됩니다. 귀한 걸음 하신 만큼 맛있는 식사도 함께해 주세요.</div>
       </div>
       <div class="venue-item">
-        <div class="photo-empty"><span class="tag">안내3</span><span>사진</span></div>
+        <!-- <div class="photo-empty"><span class="tag">안내3</span><span>사진</span></div> -->
         <div class="vh">주차 안내</div>
         <div class="vt">전쟁기념관 내 주차장을 2시간 무료로 이용하실 수 있습니다. (약 1,000대 주차 가능)</div>
       </div>
@@ -589,7 +588,7 @@
 
   /* 배경음악 — 우측 상단 토글 + 첫 터치 시 자동재생 */
   var _bgmStarted=false;
-  function _bgmIcon(){var a=document.getElementById('bgm'),b=document.getElementById('bgmBtn');if(!a||!b)return;if(a.paused){b.classList.remove('playing');b.textContent='🔇';}else{b.classList.add('playing');b.textContent='🔊';}}
+  function _bgmIcon(){var a=document.getElementById('bgm'),b=document.getElementById('bgmBtn');if(!a||!b)return;if(a.paused){b.classList.remove('playing');b.textContent='▶';}else{b.classList.add('playing');b.textContent='⏸';}}
   function toggleBgm(e){if(e)e.stopPropagation();var a=document.getElementById('bgm');if(!a)return;if(a.paused){a.play().catch(function(){});}else{a.pause();}_bgmStarted=true;setTimeout(_bgmIcon,60);}
   function _bgmFirstPlay(){if(_bgmStarted)return;var a=document.getElementById('bgm');if(!a)return;a.play().then(function(){_bgmStarted=true;_bgmIcon();}).catch(function(){});}
   document.addEventListener('touchstart',_bgmFirstPlay,{once:true,passive:true});
