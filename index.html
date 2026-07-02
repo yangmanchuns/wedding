@@ -648,6 +648,11 @@
   function lbNav(e,d){e.stopPropagation();lbIndex=(lbIndex+d+GALLERY_SRCS.length)%GALLERY_SRCS.length;lbShow();}
   function closeLightbox(e,force){if(force||(e&&e.target&&e.target.id==='lightbox')){if(_backClose){history.back();}else{lbClose();}}}
   function toggleGallery(){var g=document.getElementById('galleryGrid'),b=document.getElementById('galMore');g.classList.toggle('open');b.textContent=g.classList.contains('open')?'접기':'더보기 (10장)';}
+  /* 라이트박스 스와이프(좌우 넘기기) */
+  (function(){var el=document.getElementById('lightbox');if(!el)return;var sx=null,sy=null;
+    el.addEventListener('touchstart',function(e){if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;}},{passive:true});
+    el.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;sx=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){lbNav({stopPropagation:function(){}},dx<0?1:-1);}},{passive:true});
+  })();
 
   /* 복사 */
   function copyText(t,msg){
