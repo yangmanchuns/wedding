@@ -818,11 +818,10 @@
     kakao.maps.load(function(){
       var el=document.getElementById('kakaoMap'); if(!el)return;
       var pos=new kakao.maps.LatLng(37.5367693,126.9755383);
-      var map=new kakao.maps.Map(el,{center:pos,level:4});
+      var map=new kakao.maps.Map(el,{center:pos,level:4}); map.setDraggable(false); map.setZoomable(false);
       var marker=new kakao.maps.Marker({position:pos}); marker.setMap(map);
       var iw=new kakao.maps.InfoWindow({content:'<div style="padding:5px 9px;font-size:12px;white-space:nowrap;">로얄파크컨벤션</div>'});
       iw.open(map,marker);
-      map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
     });
   })();
 
