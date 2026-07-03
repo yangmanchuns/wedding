@@ -193,12 +193,12 @@
   .pdot.on{background:var(--lime);width:22px;border-radius:4px}
 
   /* 갤러리 그리드 + 라이트박스 */
-  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .gcell{padding:5px;border:none;background:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(60,63,48,.15);border-radius:1px}
-  .gcell img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
-  .gcell:nth-child(3n+1){transform:rotate(-1.5deg)}
-  .gcell:nth-child(3n+2){transform:rotate(1deg)}
-  .gcell:nth-child(3n){transform:rotate(-0.5deg)}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:0 -24px;background:#e9e6d9}
+  .gcell{padding:0;border:none;background:#e9e6d9;cursor:pointer;box-shadow:none;border-radius:0;transform:none;overflow:hidden}
+  .gcell img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;transition:transform .2s}
+  .gcell:active img{transform:scale(1.04)}
+  .gcell.gfeat{grid-column:1/-1}
+  .gcell.gfeat img{aspect-ratio:4/3}
   .gcell.gmore{display:none}
   .pgrid.open .gcell.gmore{display:block}
   .lightbox{position:fixed;inset:0;z-index:90;background:rgba(20,21,15,.92);display:none;align-items:center;justify-content:center}
@@ -474,7 +474,7 @@
         <p class="app-sub">저희의 소중한 순간들을 담았어요</p>
       </div>
       <div class="pgrid" id="galleryGrid">
-        <button type="button" class="gcell" onclick="openLightbox(0)"><img loading="lazy" src="images/gallery-01.jpg" alt="웨딩 사진 1" /></button>
+        <button type="button" class="gcell gfeat" onclick="openLightbox(0)"><img loading="lazy" src="images/gallery-01.jpg" alt="웨딩 사진 1" /></button>
         <button type="button" class="gcell" onclick="openLightbox(1)"><img loading="lazy" src="images/gallery-02.jpg" alt="웨딩 사진 2" /></button>
         <button type="button" class="gcell" onclick="openLightbox(2)"><img loading="lazy" src="images/gallery-03.jpg" alt="웨딩 사진 3" /></button>
         <button type="button" class="gcell" onclick="openLightbox(3)"><img loading="lazy" src="images/gallery-04.jpg" alt="웨딩 사진 4" /></button>
