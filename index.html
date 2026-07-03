@@ -297,7 +297,7 @@
   .pw-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:20px;color:var(--ink-mute);cursor:pointer;line-height:1}
   .pw-title{font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:6px}
   .pw-sub{font-size:13px;color:var(--ink-mute);margin-bottom:18px}
-  .pw-box input{width:100%;text-align:center;letter-spacing:.4em;font-size:20px;padding:12px;border:1px solid var(--lime-dim);border-radius:12px;background:#fff;color:var(--ink);margin-bottom:14px;font-variant-numeric:tabular-nums}
+  .pw-box input{width:100%;text-align:center;letter-spacing:.4em;font-size:20px;padding:12px;border:1px solid var(--lime-dim);border-radius:12px;background:#fff;color:var(--ink);margin-bottom:14px;font-variant-numeric:tabular-nums;-webkit-text-security:disc;text-security:disc}
   .pw-box input:focus{outline:none;border-color:var(--lime)}
   .pw-box .btn{width:100%}
   .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--lime);color:#fff;padding:12px 22px;border-radius:999px;font-size:13.5px;font-weight:500;opacity:0;transition:.25s;z-index:120;pointer-events:none}
@@ -686,7 +686,7 @@
     <button class="pw-x" onclick="closeSecretPw()" aria-label="닫기">✕</button>
     <div class="pw-title">🔒 비밀 공간</div>
     <p class="pw-sub">비밀번호를 입력하세요</p>
-    <input id="secretPwInput" type="password" inputmode="numeric" maxlength="6" placeholder="••••••" onkeydown="if(event.key==='Enter')checkSecret()" />
+    <input id="secretPwInput" type="tel" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="6" placeholder="••••••" onkeydown="if(event.key==='Enter')checkSecret()" />
     <button class="btn btn-lime" onclick="checkSecret()">확인</button>
   </div>
 </div>
