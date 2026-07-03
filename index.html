@@ -200,7 +200,6 @@
   .gcell:active img{transform:scale(1.04)}
   .gcell:nth-child(6n+1){grid-column:span 4;grid-row:span 4}
   .gcell:nth-child(6n+4){grid-column:span 2;grid-row:span 3}
-  .gcell:nth-child(6n+5){grid-column:span 2;grid-row:span 1}
   .gcell:last-child{grid-column:span 6;grid-row:span 2}
   .lightbox{position:fixed;inset:0;z-index:90;background:rgba(20,21,15,.92);display:none;align-items:center;justify-content:center}
   .lightbox.show{display:flex}
@@ -735,8 +734,11 @@
 
   /* 복사 / 토스트 */
   function copyText(t,msg){
+    var ok=false;
+    try{var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='absolute';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,t.length);ok=document.execCommand('copy');ta.remove();}catch(e){}
+    if(ok){toast(msg||'복사되었습니다');return;}
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast(msg||'복사되었습니다');},function(){toast('복사 실패');});}
-    else{try{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast(msg||'복사되었습니다');}catch(e){toast('복사 실패');}}
+    else{toast('복사 실패');}
   }
   var toastTimer;
   function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},1900);}
