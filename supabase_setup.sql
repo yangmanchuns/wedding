@@ -51,6 +51,8 @@ create policy "gb_insert" on public.guestbook_messages for insert with check (tr
 -- RSVP: 누구나 쓰기 (개인정보라 읽기는 정책 없음 → 커플은 대시보드에서 확인)
 drop policy if exists "rsvp_insert" on public.rsvp_submissions;
 create policy "rsvp_insert" on public.rsvp_submissions for insert with check (true);
+drop policy if exists "rsvp_select" on public.rsvp_submissions;
+create policy "rsvp_select" on public.rsvp_submissions for select using (true);
 
 -- 사진: 누구나 읽기 + 쓰기(메타)
 drop policy if exists "photos_select" on public.photos;
