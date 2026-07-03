@@ -713,7 +713,7 @@
   /* 확대(핀치/더블탭) 방지 */
   document.addEventListener('gesturestart', function(e){ e.preventDefault(); }, {passive:false});
   document.addEventListener('dblclick', function(e){ e.preventDefault(); }, {passive:false});
-  document.addEventListener('contextmenu', function(e){ if(e.target && e.target.tagName==='IMG') e.preventDefault(); }, {passive:false});
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, {passive:false});
   document.addEventListener('dragstart', function(e){ if(e.target && e.target.tagName==='IMG') e.preventDefault(); });
 
   /* ===== 잠금 → 홈 ===== */
