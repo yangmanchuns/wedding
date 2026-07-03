@@ -636,7 +636,6 @@
   window.addEventListener('resize',_setVH);
   window.addEventListener('orientationchange',function(){setTimeout(_setVH,200);});
   if(window.visualViewport){window.visualViewport.addEventListener('resize',_setVH);}
-  (function(){var ua=navigator.userAgent||'';if(/KAKAOTALK/i.test(ua)){try{location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(location.href);}catch(e){}}})();
 
   /* Supabase */
   var SUPABASE_URL = 'https://yzdphqaotttwgxswczvm.supabase.co';
