@@ -963,9 +963,10 @@
     list.innerHTML="";sum.innerHTML="";empty.textContent="불러오는 중…";empty.style.display="block";
     if(!sb){empty.textContent="Supabase 연결 후 볼 수 있어요";return;}
     sb.from("rsvp_submissions").select("*").order("created_at",{ascending:false}).then(function(r){
-      if(r.error){empty.textContent="불러오기 실패 (rsvp 조회 권한 SQL 실행 필요)";empty.style.display="block";return;}
+      console.log("[RSVP result]",r);
+      if(r.error){empty.textContent="에러: "+(r.error.message||r.error.code||"권한 확인");empty.style.display="block";return;}
       var rows=r.data||[];
-      if(!rows.length){empty.textContent="아직 응답이 없어요";empty.style.display="block";return;}
+      if(!rows.length){empty.textContent="0건 조회됨 — RLS 조회정책(rsvp_select)이 실제 Supabase에 적용됐는지 확인하세요";empty.style.display="block";return;}
       empty.style.display="none";
       var attend=rows.filter(function(x){return x.attendance==="참석";});
       var ppl=attend.reduce(function(a,x){return a+(x.guest_count||0);},0);
