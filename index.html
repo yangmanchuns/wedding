@@ -669,9 +669,9 @@
   })();
 
   /* ===== 앱 열기/닫기 ===== */
-  var _backClose=null;
-  window.addEventListener('popstate',function(){var fn=_backClose;_backClose=null;if(fn)fn();});
-  function pushBackClose(fn){_backClose=fn;try{history.pushState({m:1},'');}catch(e){}}
+  var _backStack=[];
+  window.addEventListener('popstate',function(){var fn=_backStack.pop();if(fn)fn();});
+  function pushBackClose(fn){_backStack.push(fn);try{history.pushState({d:_backStack.length},'');}catch(e){}}
   var _curApp=null;
   function openApp(id){
     var el=document.getElementById(id); if(!el)return;
@@ -679,7 +679,7 @@
     pushBackClose(_closeAppNow);
   }
   function _closeAppNow(){ if(_curApp){_curApp.classList.remove('show');_curApp=null;} }
-  function closeApp(){ if(_backClose){history.back();}else{_closeAppNow();} }
+  function closeApp(){ if(_backStack.length){history.back();}else{_closeAppNow();} }
 
   /* 배경음악 */
   var _bgmStarted=false;
@@ -732,11 +732,11 @@
   for(var _gi=1;_gi<=19;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
   var lbIndex=0;
   function lbShow(){document.getElementById('lbImg').src=GALLERY_SRCS[lbIndex];document.getElementById('lbCount').textContent=(lbIndex+1)+' / '+GALLERY_SRCS.length;}
-  var _lbBack=null;
-  function openLightbox(i){lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');_lbBack=true;pushBackClose(lbClose);}
-  function lbClose(){document.getElementById('lightbox').classList.remove('show');_lbBack=null;}
+  function openLightbox(i){lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');pushBackClose(_lbHide);}
+  function _lbHide(){document.getElementById('lightbox').classList.remove('show');}
+  function lbClose(){ if(_backStack.length){history.back();}else{_lbHide();} }
   function lbNav(e,d){e.stopPropagation();lbIndex=(lbIndex+d+GALLERY_SRCS.length)%GALLERY_SRCS.length;lbShow();}
-  function closeLightbox(e,force){if(force||(e&&e.target&&e.target.id==='lightbox')){if(_backClose){history.back();}else{lbClose();}}}
+  function closeLightbox(e,force){if(force||(e&&e.target&&e.target.id==='lightbox')){lbClose();}}
   function toggleGallery(){var g=document.getElementById('galleryGrid'),b=document.getElementById('galMore');g.classList.toggle('open');b.textContent=g.classList.contains('open')?'접기':'더보기 (10장)';}
   (function(){var el=document.getElementById('lightbox');if(!el)return;var sx=null,sy=null;
     el.addEventListener('touchstart',function(e){if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;}},{passive:true});
@@ -821,10 +821,10 @@
   /* 하객 사진 업로드 */
   var _uploading=0;
   window.addEventListener('beforeunload',function(e){if(_uploading>0){e.preventDefault();e.returnValue='';}});
-  function uploadGate(e){ var _open=new Date(2026,11,19,0,0,0); if(new Date()<_open){ if(e&&e.preventDefault)e.preventDefault(); toast("사진 업로드는 결혼식 당일(2026.12.19)부터 가능해요 😊"); return false; } return true; }
+  function uploadGate(e){ var _open=new Date(2026,11,19,0,0,0); if(new Date()<_open){ if(e&&e.preventDefault)e.preventDefault(); toast("사진 업로드는 결혼식 당일(26.12.19)부터 가능해요 😊"); return false; } return true; }
   function uploadPhotos(input){
     var _open=new Date(2026,11,19,0,0,0);
-    if(new Date()<_open){ toast('사진 업로드는 결혼식 당일(2026.12.19)부터 가능해요 😊'); input.value=''; return; }
+    if(new Date()<_open){ toast('사진 업로드는 결혼식 당일(26.12.19)부터 가능해요 😊'); input.value=''; return; }
     if(!sb){ toast('사진 업로드는 배포+Supabase 연결 후 됩니다'); input.value=''; return; }
     var files=input.files; if(!files||!files.length)return;
     var st=document.getElementById('photoStatus'); st.textContent='업로드 중…'; toast('사진 업로드 중이에요. 완료까지 창을 닫지 말아주세요!');
