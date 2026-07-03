@@ -62,3 +62,10 @@
 ## 8. 참고
 - 정적 사이트라 소스/이미지는 F12로 다 보임(숨김 불가). 진짜 보호가 필요하면 Supabase RPC로 서버측 검증 필요(현재 보류).
 - 백업본은 `backup/`에. 마음에 안 들면 거기서 복원.
+
+## 9. 현재 이슈 / 이어서 할 것 (2026-07-03 기준)
+- **GitHub Pages 배포(deploy 단계) 반복 실패** ("Deployment failed, try again later"). build/아티팩트는 정상, GitHub 장애 아님. 최근 커밋들(이미지 우클릭 차단, RSVP 식사예정 집계, 비번 숫자키패드 등)이 아직 라이브 미반영.
+  - 해결책: Settings → Pages → Source를 None 저장 후 다시 main /(root) 저장(파이프라인 리셋). 안 되면 Settings → Environments → github-pages 에서 정체된 배포 취소. 그래도 안 되면 actions/deploy-pages 전용 워크플로우(동시성 제어)로 전환.
+  - 배포 반영 확인: 라이브 index.html 을 캐시우회(?cb=랜덤)로 받아 "touch-callout" / "식사 예정" 문자열이 있으면 최신.
+- RSVP 조회: Supabase rsvp_select 정책 실행 완료(작동 확인됨).
+- 비밀 공간 비밀번호 입력: type=tel + text-security 로 숫자패드+마스킹 처리 완료.
