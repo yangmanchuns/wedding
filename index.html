@@ -273,6 +273,16 @@
   .app-foot .fs{font-family:var(--serif);font-size:15px;color:var(--lime);line-height:1.9}
   .app-foot .fn{font-size:11px;color:var(--ink-mute);margin-top:12px;letter-spacing:.05em}
 
+  /* 비밀 공간 모달 */
+  .overlay{position:fixed;inset:0;background:rgba(30,32,22,.55);display:none;align-items:center;justify-content:center;z-index:110;padding:30px}
+  .overlay.show{display:flex}
+  .pw-box{background:var(--olive);border-radius:20px;padding:28px 24px;width:100%;max-width:320px;text-align:center;position:relative;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+  .pw-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:20px;color:var(--ink-mute);cursor:pointer;line-height:1}
+  .pw-title{font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:6px}
+  .pw-sub{font-size:13px;color:var(--ink-mute);margin-bottom:18px}
+  .pw-box input{width:100%;text-align:center;letter-spacing:.4em;font-size:20px;padding:12px;border:1px solid var(--lime-dim);border-radius:12px;background:#fff;color:var(--ink);margin-bottom:14px;font-variant-numeric:tabular-nums}
+  .pw-box input:focus{outline:none;border-color:var(--lime)}
+  .pw-box .btn{width:100%}
   .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--lime);color:#fff;padding:12px 22px;border-radius:999px;font-size:13.5px;font-weight:500;opacity:0;transition:.25s;z-index:120;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
@@ -307,7 +317,7 @@
     <div class="home-in">
       <div class="home-top">
         <div class="ht-date">2026. 12. 19. SAT PM 12:30</div>
-        <div class="ht-names">양병민 ♥ 김보원</div>
+        <div class="ht-names">양병민 <span id="secretHeart" onclick="secretTap()" style="cursor:pointer;display:inline-block;padding:0 3px">♥</span> 김보원</div>
       </div>
       <div class="home-grid">
         <button class="appicon" onclick="openApp('app-story')"><span class="ic" style="background:#fff"><span class="heart">♥</span></span><span class="nm">우리 이야기</span></button>
@@ -617,6 +627,20 @@
     </div>
   </div>
 
+  <!-- ===== 앱: 비밀 공간 (하객 사진) ===== -->
+  <div class="app" id="app-secret">
+    <div class="app-hd"><button class="app-x" onclick="closeApp()" aria-label="닫기">✕</button></div>
+    <div class="app-body">
+      <div class="app-hero">
+        <div class="app-eyebrow">Secret Album</div>
+        <h1 class="app-title">하객 사진</h1>
+        <p class="app-sub">하객분들이 남겨주신 소중한 순간들</p>
+      </div>
+      <div id="secretPhotos" class="pgrid"></div>
+      <div id="secretEmpty" class="gb-empty">아직 올라온 사진이 없어요</div>
+    </div>
+  </div>
+
 </div>
 
 <!-- 갤러리 라이트박스 -->
@@ -626,6 +650,17 @@
   <img id="lbImg" src="" alt="웨딩 사진" />
   <button type="button" class="lb-next" aria-label="다음" onclick="lbNav(event,1)">›</button>
   <div class="lb-count" id="lbCount"></div>
+</div>
+
+<!-- 비밀 공간 비밀번호 -->
+<div class="overlay" id="secretPw" onclick="if(event.target===this)closeSecretPw()">
+  <div class="pw-box">
+    <button class="pw-x" onclick="closeSecretPw()" aria-label="닫기">✕</button>
+    <div class="pw-title">🔒 비밀 공간</div>
+    <p class="pw-sub">비밀번호를 입력하세요</p>
+    <input id="secretPwInput" type="password" inputmode="numeric" maxlength="6" placeholder="••••••" onkeydown="if(event.key==='Enter')checkSecret()" />
+    <button class="btn btn-lime" onclick="checkSecret()">확인</button>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -741,11 +776,13 @@
   var GALLERY_SRCS=[];
   for(var _gi=1;_gi<=19;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
   var lbIndex=0;
-  function lbShow(){document.getElementById('lbImg').src=GALLERY_SRCS[lbIndex];document.getElementById('lbCount').textContent=(lbIndex+1)+' / '+GALLERY_SRCS.length;}
-  function openLightbox(i){lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');pushBackClose(_lbHide);}
+  var SECRET_SRCS=[];var _lbSrcs=GALLERY_SRCS;
+  function lbShow(){document.getElementById('lbImg').src=_lbSrcs[lbIndex];document.getElementById('lbCount').textContent=(lbIndex+1)+' / '+_lbSrcs.length;}
+  function openLightbox(i){_lbSrcs=GALLERY_SRCS;lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');pushBackClose(_lbHide);}
+  function openSecretLb(i){_lbSrcs=SECRET_SRCS;lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');pushBackClose(_lbHide);}
   function _lbHide(){document.getElementById('lightbox').classList.remove('show');}
   function lbClose(){ if(_backStack.length){history.back();}else{_lbHide();} }
-  function lbNav(e,d){e.stopPropagation();lbIndex=(lbIndex+d+GALLERY_SRCS.length)%GALLERY_SRCS.length;lbShow();}
+  function lbNav(e,d){e.stopPropagation();lbIndex=(lbIndex+d+_lbSrcs.length)%_lbSrcs.length;lbShow();}
   function closeLightbox(e,force){if(force||(e&&e.target&&e.target.id==='lightbox')){lbClose();}}
   function toggleGallery(){var g=document.getElementById('galleryGrid'),b=document.getElementById('galMore');g.classList.toggle('open');b.textContent=g.classList.contains('open')?'접기':'더보기 (10장)';}
   (function(){var el=document.getElementById('lightbox');if(!el)return;var sx=null,sy=null;
@@ -856,6 +893,34 @@
     sb.channel('gb').on('postgres_changes',{event:'INSERT',schema:'public',table:'guestbook_messages'},function(){renderGb();}).subscribe();
   }
 
+  /* 비밀 공간: 하트 7번 클릭 → 비밀번호(231226) → 하객 사진 */
+  var _heartTaps=0,_heartTimer=null;
+  function secretTap(){
+    _heartTaps++;
+    if(_heartTimer)clearTimeout(_heartTimer);
+    _heartTimer=setTimeout(function(){_heartTaps=0;},2000);
+    if(_heartTaps>=7){_heartTaps=0;if(_heartTimer)clearTimeout(_heartTimer);openSecretPw();}
+  }
+  function openSecretPw(){var i=document.getElementById("secretPwInput");i.value="";document.getElementById("secretPw").classList.add("show");setTimeout(function(){try{i.focus();}catch(e){}},120);}
+  function closeSecretPw(){document.getElementById("secretPw").classList.remove("show");}
+  function checkSecret(){
+    var v=(document.getElementById("secretPwInput").value||"").trim();
+    if(v==="231226"){closeSecretPw();openApp("app-secret");loadSecretPhotos();}
+    else{toast("비밀번호가 올바르지 않아요");}
+  }
+  function loadSecretPhotos(){
+    var grid=document.getElementById("secretPhotos"),empty=document.getElementById("secretEmpty");
+    grid.innerHTML="";empty.textContent="불러오는 중…";empty.style.display="block";
+    if(!sb){empty.textContent="Supabase 연결 후 볼 수 있어요";return;}
+    sb.from("photos").select("*").order("created_at",{ascending:false}).then(function(r){
+      if(r.error){empty.textContent="불러오기에 실패했어요 (사진 조회 권한 확인 필요)";empty.style.display="block";return;}
+      var rows=r.data||[];
+      if(!rows.length){empty.textContent="아직 올라온 사진이 없어요";empty.style.display="block";return;}
+      empty.style.display="none";
+      SECRET_SRCS=rows.map(function(x){return x.url;});
+      grid.innerHTML=rows.map(function(x,i){return "<button type=\"button\" class=\"gcell\" onclick=\"openSecretLb("+i+")\"><img loading=\"lazy\" src=\""+x.url+"\" alt=\"하객 사진\" /></button>";}).join("");
+    });
+  }
   /* 카카오 공유 */
   function shareKakao(){
     var base=location.origin+location.pathname; if(base.charAt(base.length-1)!=='/') base=base.replace(/[^/]*$/,'');
