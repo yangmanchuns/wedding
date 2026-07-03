@@ -50,8 +50,8 @@
   img{max-width:100%}
 
   /* ===== 아이폰 프레임 ===== */
-  .iphone{position:relative;width:100%;max-width:var(--w);height:100vh;height:100dvh;margin:0 auto;overflow:hidden;background:#000;box-shadow:0 0 60px rgba(0,0,0,.5)}
-  .screen{position:absolute;inset:0;overflow:hidden}
+  .iphone{position:relative;width:100%;max-width:var(--w);height:100%;margin:0 auto;overflow:hidden;background:#000;box-shadow:0 0 60px rgba(0,0,0,.5)}
+  .screen{position:absolute;inset:0;overflow:hidden;overscroll-behavior:none}
 
   /* 배경(월페이퍼) 공통 */
   .wall{position:absolute;inset:0;background:url('images/main.jpg') center/cover no-repeat}
@@ -101,7 +101,7 @@
   .dock #bgmBtn.playing{background:rgba(111,159,79,.85)}
 
   /* ===== 앱 페이지(오버레이) ===== */
-  .app{position:absolute;inset:0;z-index:20;background-color:var(--olive);background-image:radial-gradient(var(--dot) 1.1px,transparent 1.2px);background-size:22px 22px;transform:translateY(100%);transition:transform .4s cubic-bezier(.2,.8,.2,1);overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .app{position:absolute;inset:0;z-index:20;background-color:var(--olive);background-image:radial-gradient(var(--dot) 1.1px,transparent 1.2px);background-size:22px 22px;transform:translateY(100%);transition:transform .4s cubic-bezier(.2,.8,.2,1);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
   .app.show{transform:translateY(0)}
   .app-hd{position:sticky;top:0;z-index:6;display:flex;justify-content:flex-end;padding:12px 14px;background:linear-gradient(180deg,var(--olive),rgba(247,242,230,.0))}
   .app-x{width:36px;height:36px;border-radius:50%;border:none;background:rgba(63,67,48,.12);color:var(--ink);font-size:17px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center}
@@ -631,6 +631,7 @@
 
 <script>
   var TARGET = new Date(2026,11,19,12,30,0); // 2026-12-19 12:30
+  (function(){var ua=navigator.userAgent||'';if(/KAKAOTALK/i.test(ua)){try{location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(location.href);}catch(e){}}})();
 
   /* Supabase */
   var SUPABASE_URL = 'https://yzdphqaotttwgxswczvm.supabase.co';
