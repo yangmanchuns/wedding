@@ -44,13 +44,13 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  html,body{height:100%}
-  body{font-family:var(--sans);color:var(--ink);background:#111;-webkit-font-smoothing:antialiased;touch-action:manipulation;position:fixed;inset:0;width:100%;overflow:hidden;overscroll-behavior:none}
+  html,body{height:100%;overflow:hidden}
+  body{font-family:var(--sans);color:var(--ink);background:#111;-webkit-font-smoothing:antialiased;touch-action:manipulation;position:fixed;top:0;left:0;width:100%;height:var(--appvh,100%);overflow:hidden;overscroll-behavior:none}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
   img{max-width:100%}
 
   /* ===== 아이폰 프레임 ===== */
-  .iphone{position:relative;width:100%;max-width:var(--w);height:100%;margin:0 auto;overflow:hidden;background:#000;box-shadow:0 0 60px rgba(0,0,0,.5)}
+  .iphone{position:relative;width:100%;max-width:var(--w);height:var(--appvh,100%);margin:0 auto;overflow:hidden;background:#000;box-shadow:0 0 60px rgba(0,0,0,.5)}
   .screen{position:absolute;inset:0;overflow:hidden;overscroll-behavior:none}
 
   /* 배경(월페이퍼) 공통 */
@@ -631,6 +631,11 @@
 
 <script>
   var TARGET = new Date(2026,11,19,12,30,0); // 2026-12-19 12:30
+  function _setVH(){var h=(window.visualViewport&&window.visualViewport.height)||window.innerHeight;document.documentElement.style.setProperty('--appvh',h+'px');}
+  _setVH();
+  window.addEventListener('resize',_setVH);
+  window.addEventListener('orientationchange',function(){setTimeout(_setVH,200);});
+  if(window.visualViewport){window.visualViewport.addEventListener('resize',_setVH);}
   (function(){var ua=navigator.userAgent||'';if(/KAKAOTALK/i.test(ua)){try{location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(location.href);}catch(e){}}})();
 
   /* Supabase */
