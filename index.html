@@ -653,7 +653,16 @@
 
   /* ===== 잠금 → 홈 ===== */
   var _unlocked=false;
-  function _goFullscreen(){var el=document.documentElement;var fn=el.requestFullscreen||el.webkitRequestFullscreen||el.webkitRequestFullScreen||el.mozRequestFullScreen||el.msRequestFullscreen;if(fn){try{fn.call(el);}catch(e){}}}
+  var _ua=navigator.userAgent||'';
+  var _inApp=/KAKAOTALK|Instagram|FB_IAB|FBAN|FBAV|Line|NAVER|DaumApps/i.test(_ua);
+  function _goFullscreen(){
+    if(_inApp)return;
+    var el=document.documentElement;
+    var fn=el.requestFullscreen||el.webkitRequestFullscreen||el.webkitRequestFullScreen||el.mozRequestFullScreen||el.msRequestFullscreen;
+    if(!fn)return;
+    function lockPortrait(){try{if(screen.orientation&&screen.orientation.lock)screen.orientation.lock('portrait').catch(function(){});}catch(e){}}
+    try{var p=fn.call(el);if(p&&p.then){p.then(lockPortrait).catch(function(){});}else{setTimeout(lockPortrait,120);}}catch(e){}
+  }
   function unlock(){
     if(_unlocked)return; _unlocked=true;
     _goFullscreen();
