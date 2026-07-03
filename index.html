@@ -280,9 +280,9 @@
   .tabpanel{display:none}
   .tabpanel.on{display:block}
   .rsvp-sum{display:flex;gap:8px;margin-bottom:16px}
-  .rsvp-sum .box{flex:1;background:#fff;border:1px solid var(--lime-dim);border-radius:12px;padding:12px 6px;text-align:center}
-  .rsvp-sum .n{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--lime)}
-  .rsvp-sum .l{font-size:11px;color:var(--ink-mute);margin-top:3px}
+  .rsvp-sum .box{flex:1;min-width:0;background:#fff;border:1px solid var(--lime-dim);border-radius:12px;padding:12px 4px;text-align:center}
+  .rsvp-sum .n{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--lime)}
+  .rsvp-sum .l{font-size:10.5px;color:var(--ink-mute);margin-top:3px;white-space:nowrap}
   .rsvp-item{background:#fff;border:1px solid var(--lime-dim);border-radius:12px;padding:12px 14px;margin-bottom:10px}
   .rsvp-item .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
   .rsvp-item .nm{font-family:var(--serif);font-size:15px;color:var(--ink);font-weight:700}
@@ -970,7 +970,8 @@
       empty.style.display="none";
       var attend=rows.filter(function(x){return x.attendance==="참석";});
       var ppl=attend.reduce(function(a,x){return a+(x.guest_count||0);},0);
-      sum.innerHTML="<div class=\"box\"><div class=\"n\">"+rows.length+"</div><div class=\"l\">응답</div></div>"+"<div class=\"box\"><div class=\"n\">"+attend.length+"</div><div class=\"l\">참석</div></div>"+"<div class=\"box\"><div class=\"n\">"+ppl+"</div><div class=\"l\">총 인원</div></div>";
+      var mealPpl=attend.filter(function(x){return x.meal_preference==="예정";}).reduce(function(a,x){return a+(x.guest_count||0);},0);
+      sum.innerHTML="<div class=\"box\"><div class=\"n\">"+rows.length+"</div><div class=\"l\">응답</div></div>"+"<div class=\"box\"><div class=\"n\">"+attend.length+"</div><div class=\"l\">참석</div></div>"+"<div class=\"box\"><div class=\"n\">"+ppl+"</div><div class=\"l\">총 인원</div></div>"+"<div class=\"box\"><div class=\"n\">"+mealPpl+"</div><div class=\"l\">식사 예정</div></div>";
       list.innerHTML=rows.map(function(x){
         var yes=x.attendance==="참석";
         var d=x.created_at?new Date(x.created_at):null;var ds=(d&&!isNaN(d))?((d.getMonth()+1)+"/"+d.getDate()):"";
