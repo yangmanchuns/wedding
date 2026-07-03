@@ -1,0 +1,13 @@
+{
+  "name": "병민 ❤ 보원 결혼합니다",
+  "short_name": "병민♥보원",
+  "start_url": ".",
+  "scope": ".",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "icons": [
+    { "src": "images/app-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

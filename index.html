@@ -12,6 +12,13 @@
 <meta property="og:url" content="https://yangmanchuns.github.io/wedding/" />
 <meta property="og:locale" content="ko_KR" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#111111" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="병민♥보원" />
+<link rel="apple-touch-icon" href="images/app-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b811b9a27eda364420cbc58bd53d3fa8&autoload=false&libraries=services"></script>
@@ -640,8 +647,10 @@
 
   /* ===== 잠금 → 홈 ===== */
   var _unlocked=false;
+  function _goFullscreen(){var el=document.documentElement;var fn=el.requestFullscreen||el.webkitRequestFullscreen||el.webkitRequestFullScreen||el.mozRequestFullScreen||el.msRequestFullscreen;if(fn){try{fn.call(el);}catch(e){}}}
   function unlock(){
     if(_unlocked)return; _unlocked=true;
+    _goFullscreen();
     document.getElementById('lock').classList.add('up');
     document.getElementById('home').classList.add('show');
     _bgmFirstPlay();
@@ -730,12 +739,12 @@
   })();
 
   /* 복사 / 토스트 */
+  var _isAndroid=/Android/i.test(navigator.userAgent||'');
+  function _copyToast(msg){ if(!_isAndroid) toast(msg||'복사되었습니다'); }
+  function _fallbackCopy(t,msg){ try{var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='absolute';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();_copyToast(msg);}catch(e){ if(!_isAndroid) toast('복사 실패'); } }
   function copyText(t,msg){
-    var ok=false;
-    try{var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='absolute';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,t.length);ok=document.execCommand('copy');ta.remove();}catch(e){}
-    if(ok){toast(msg||'복사되었습니다');return;}
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast(msg||'복사되었습니다');},function(){toast('복사 실패');});}
-    else{toast('복사 실패');}
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(function(){_copyToast(msg);},function(){_fallbackCopy(t,msg);}); }
+    else{ _fallbackCopy(t,msg); }
   }
   var toastTimer;
   function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},1900);}
