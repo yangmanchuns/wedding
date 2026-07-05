@@ -127,8 +127,9 @@
   .gallery-hint{text-align:center;font-size:12px;color:var(--ink-mute);margin-top:6px}
   /* 갤러리 그리드 + 라이트박스 */
   .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .gcell{padding:5px;border:none;background:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(60,63,48,.15);border-radius:1px}
-  .gcell img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+  .gcell{position:relative;padding:5px;border:none;background:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(60,63,48,.15);border-radius:1px;-webkit-touch-callout:none}
+  .gcell::after{content:"";position:absolute;inset:0;z-index:2}
+  .gcell img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;pointer-events:none}
   .gcell:nth-child(3n+1){transform:rotate(-1.5deg)}
   .gcell:nth-child(3n+2){transform:rotate(1deg)}
   .gcell:nth-child(3n){transform:rotate(-0.5deg)}
@@ -337,7 +338,7 @@
     <div class="cover" style="background:linear-gradient(180deg,rgba(44,46,34,.30),rgba(44,46,34,.72)),url('images/main.jpg') center/cover no-repeat"></div>
     <div class="inner">
       <div class="kicker">WE ARE GETTING MARRIED</div>
-      <h1>양병민<span class="amp" id="secretStar" onclick="secretTap()" style="cursor:pointer">✦</span>김보원</h1>
+      <h1>양병민<span class="amp" id="secretStar" onclick="secretTap()" style="cursor:default;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none">✦</span>김보원</h1>
       <div class="when">2026. 12. 19. SAT PM 12:30<br/>로얄파크컨벤션</div>
     </div>
     <div class="scroll-ind">
