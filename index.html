@@ -22,27 +22,28 @@
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&display=swap');
 
   :root{
-    --olive:#f7f2e6;              /* 페이지 배경 (웜 크림) */
+    --olive:#E8D3D1;              /* 페이지 배경 (웜 크림) */
     --olive-deep:#ffffff;         /* 카드/입력 표면 · 그린버튼 위 글씨(화이트) */
     --olive-soft:#eef0e2;         /* 살짝 톤다운 표면 */
-    --lime:#6f9f4f;               /* 메인 포인트 (프레시 그린) */
-    --lime-dim:rgba(111,159,79,.30);
-    --dot:rgba(111,159,79,.13);   /* 배경 도트 */
-    --ink:#3f4330;                /* 본문 텍스트 (딥올리브) */
+    --lime:#511514;               /* 메인 포인트 (프레시 그린) */
+    --lime-dim:rgba(81,21,20,.30);
+    --dot:rgba(81,21,20,.13);   /* 배경 도트 */
+    --ink:#511514;                /* 본문 텍스트 (딥올리브) */
     --ink-mute:#8b8d74;           /* 보조 텍스트 */
     --paper:#ffffff;              /* 화이트 카드 */
-    --paper-ink:#3c3f30;
-    --hero-lime:#d8e592;          /* 히어로(어두운 사진) 위 라임 포인트 */
+    --paper-ink:#511514;
+    --hero-lime:#e0b7b6;          /* 히어로(어두운 사진) 위 라임 포인트 */
     --sans:'Noto Sans KR',system-ui,-apple-system,'Malgun Gothic',sans-serif;
     --serif:'Gowun Batang','Noto Sans KR',serif;
     --w:480px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  img{-webkit-user-drag:none;-khtml-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;pointer-events:auto}
   html{scroll-behavior:smooth}
   body{
     font-family:var(--sans);
     color:var(--ink);
-    background:#ece5d3;
+    background:#E8D3D1;
     -webkit-font-smoothing:antialiased;
     touch-action:manipulation;
   }
@@ -69,7 +70,7 @@
 
   .photo-empty{
     width:100%;border:1.5px dashed var(--lime-dim);border-radius:14px;
-    background:repeating-linear-gradient(45deg,rgba(111,159,79,.05) 0 10px,transparent 10px 20px);
+    background:repeating-linear-gradient(45deg,rgba(81,21,20,.05) 0 10px,transparent 10px 20px);
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
     color:var(--ink-mute);font-size:12.5px;letter-spacing:.04em;text-align:center;min-height:220px;
   }
@@ -81,9 +82,9 @@
     padding:13px 22px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.18s ease;
   }
   .btn-lime{background:var(--lime);color:#fff}
-  .btn-lime:hover,.btn-lime:active{background:#7cb35a;transform:translateY(-1px)}
+  .btn-lime:hover,.btn-lime:active{background:#6e2422;transform:translateY(-1px)}
   .btn-ghost{background:transparent;color:var(--lime);border:1.5px solid var(--lime-dim)}
-  .btn-ghost:hover{background:rgba(111,159,79,.10)}
+  .btn-ghost:hover{background:rgba(81,21,20,.10)}
   :focus-visible{outline:2px solid var(--lime);outline-offset:2px}
 
   /* 배경음악 토글 버튼 */
@@ -153,11 +154,11 @@
   .story-block:last-child figure{transform:rotate(1.8deg)}
   .story-block figure img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:0;display:block}
   .story-block .photo-empty{aspect-ratio:4/5;min-height:0;border-radius:0}
-  .story-block figure::after{content:"";position:absolute;top:-9px;left:24px;width:72px;height:22px;background:rgba(216,229,146,.72);transform:rotate(-6deg);box-shadow:0 1px 2px rgba(60,63,48,.15)}
+  .story-block figure::after{content:"";position:absolute;top:-9px;left:24px;width:72px;height:22px;background:rgba(224,183,182,.72);transform:rotate(-6deg);box-shadow:0 1px 2px rgba(60,63,48,.15)}
   .story-cap{text-align:center;font-size:13px;color:var(--ink-mute);margin:18px 0 12px}
   .handwriting{text-align:center}
   .handwriting img{max-width:300px;width:100%;display:block;margin:0 auto}
-  .handnote{font-family:'Nanum Pen Script',cursive;font-size:36px;color:#3f4330;text-align:center;padding:22px 0;line-height:1.2}
+  .handnote{font-family:'Nanum Pen Script',cursive;font-size:36px;color:#511514;text-align:center;padding:22px 0;line-height:1.2}
   .handwriting .photo-empty{aspect-ratio:4/3;min-height:0}
 
   /* ===== 5. 날짜 & 카운트다운 ===== */
@@ -194,14 +195,14 @@
   .map-empty{aspect-ratio:4/3;min-height:0}
   .mapcard{background:#fff;border:1px solid var(--lime-dim);border-radius:16px;padding:8px;box-shadow:0 8px 24px rgba(60,63,48,.10)}
   .mapcard svg{width:100%;height:auto;display:block;border-radius:10px;font-family:var(--sans)}
-  .card-white .photo-empty .tag{color:#6b7a2f}
+  .card-white .photo-empty .tag{color:#511514}
   .venue-cards{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 26px 12px;margin:0 -26px;-webkit-overflow-scrolling:touch}
   .venue-cards::-webkit-scrollbar{height:0}
   .pola-card{flex:0 0 80%;scroll-snap-align:center;scroll-snap-stop:always;background:#fff;border:1px solid var(--lime-dim);border-radius:16px;padding:16px 15px 18px;box-shadow:0 6px 16px rgba(60,63,48,.10)}
   .pola{display:block;background:#fff;padding:9px 9px 40px;box-shadow:0 3px 10px rgba(60,63,48,.16);border:1px solid rgba(60,63,48,.07);position:relative;width:100%}
-  .pola::before{content:"";position:absolute;top:-11px;left:50%;transform:translateX(-50%) rotate(-4deg);width:92px;height:24px;background:rgba(216,229,146,.72);box-shadow:0 1px 3px rgba(60,63,48,.15)}
+  .pola::before{content:"";position:absolute;top:-11px;left:50%;transform:translateX(-50%) rotate(-4deg);width:92px;height:24px;background:rgba(224,183,182,.72);box-shadow:0 1px 3px rgba(60,63,48,.15)}
   .pola img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
-  .pola-label{position:absolute;left:0;right:0;bottom:8px;font-family:'Nanum Pen Script',cursive;font-size:25px;color:#3f4330;line-height:1}
+  .pola-label{position:absolute;left:0;right:0;bottom:8px;font-family:'Nanum Pen Script',cursive;font-size:25px;color:#511514;line-height:1}
   .pola-desc{margin-top:16px;text-align:left}
   .pola-desc .vh{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--ink);margin-bottom:6px}
   .pola-desc .vt{font-size:13.5px;line-height:1.8;color:var(--ink-mute)}
@@ -222,7 +223,7 @@
   .acct .who{color:var(--ink-mute);font-size:11.5px}
   .acct .no{color:var(--ink);font-variant-numeric:tabular-nums;font-size:14.5px;margin:2px 0}
   .acct .abank{color:var(--ink-mute);font-size:11.5px}
-  .acct .copy{flex:0 0 auto;background:rgba(111,159,79,.14);color:var(--lime);border:none;border-radius:8px;padding:7px 11px;font-size:12px;cursor:pointer}
+  .acct .copy{flex:0 0 auto;background:rgba(81,21,20,.14);color:var(--lime);border:none;border-radius:8px;padding:7px 11px;font-size:12px;cursor:pointer}
   .acct .copy:active{background:var(--lime);color:#fff}
 
   /* ===== 9 & 10 폼 공통 ===== */
@@ -246,9 +247,8 @@
   .gb-name::placeholder,.gb-msg::placeholder{color:#8a8d76}
   .gb-name:focus,.gb-msg:focus{border-color:var(--lime);outline:none}
   .gb-send{flex:0 0 46px;width:46px;height:46px;border-radius:50%;border:none;background:var(--lime);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-  .masonry{columns:2;column-gap:12px}
-  .masonry .pcard{break-inside:avoid;margin-bottom:12px}
-  .masonry .pcard img{width:100%;border-radius:10px;display:block;box-shadow:0 6px 16px rgba(60,63,48,.16)}
+  .masonry{display:flex;gap:12px;align-items:flex-start}
+  .masonry .gcol{flex:1;min-width:0}
   .upload-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:24px}
   .postit{break-inside:avoid;margin-bottom:12px;border-radius:12px;padding:15px 15px 14px;color:#2f3226;box-shadow:0 5px 14px rgba(60,63,48,.14);font-size:13.5px;line-height:1.6}
   .postit .pc{white-space:pre-wrap;word-break:break-word}
@@ -279,13 +279,35 @@
   .person .rel{font-size:11px;color:var(--ink-mute)}
   .person .nm{font-family:var(--serif);font-size:15px;margin:3px 0 9px}
   .person .acts{display:flex;gap:8px;justify-content:center}
-  .person .acts a{width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(111,159,79,.13);color:var(--lime)}
+  .person .acts a{width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(81,21,20,.13);color:var(--lime)}
   .person .acts a:active{background:var(--lime);color:#fff}
   .contact-panel{max-height:0;overflow:hidden;transition:max-height .35s ease}
   .contact-panel.open{max-height:660px}
   .contact-panel .cols2{padding-top:4px}
   .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--lime);color:var(--olive-deep);padding:12px 22px;border-radius:999px;font-size:13.5px;font-weight:500;opacity:0;transition:.25s;z-index:80;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ===== 비밀 공간 ===== */
+  .tabs{display:flex;gap:8px;margin:4px 0 16px}
+  .tabs button{flex:1;background:var(--olive-deep);border:1px solid var(--lime-dim);color:var(--ink-mute);border-radius:10px;padding:10px;font-size:13.5px;font-family:var(--sans);cursor:pointer}
+  .tabs button.on{background:var(--lime);color:#fff;border-color:var(--lime);font-weight:700}
+  .tabpanel{display:none}
+  .tabpanel.on{display:block}
+  .sgrid{columns:2;column-gap:8px}
+  .sgrid .gcell{width:100%;margin:0 0 8px;padding:0;border:none;background:none;cursor:pointer;break-inside:avoid;display:block}
+  .sgrid .gcell img{width:100%;border-radius:8px;display:block}
+  .rsvp-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+  .rsvp-sum .box{background:var(--olive-deep);border:1px solid var(--lime-dim);border-radius:10px;padding:10px 4px;text-align:center}
+  .rsvp-sum .n{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--lime)}
+  .rsvp-sum .l{font-size:10.5px;color:var(--ink-mute);margin-top:2px}
+  .rsvp-item{background:var(--olive-deep);border:1px solid var(--lime-dim);border-radius:10px;padding:11px 13px;margin-bottom:8px}
+  .rsvp-item .top{display:flex;justify-content:space-between;align-items:center}
+  .rsvp-item .nm{font-weight:700;font-size:14px;color:var(--ink)}
+  .rsvp-item .badge{font-size:11px;padding:2px 9px;border-radius:99px}
+  .rsvp-item .badge.yes{background:var(--lime);color:#fff}
+  .rsvp-item .badge.no{background:rgba(81,21,20,.14);color:var(--ink-mute)}
+  .rsvp-item .meta{font-size:11.5px;color:var(--ink-mute);margin-top:5px;line-height:1.5}
+  .pw-input{width:100%;text-align:center;letter-spacing:.4em;font-size:20px;-webkit-text-security:disc;text-security:disc;background:#fff;border:1px solid var(--lime-dim);color:var(--ink);border-radius:10px;padding:0 12px;height:52px;margin-bottom:14px}
 
   /* ===== 핀터레스트 콜라주 ===== */
   .eyebrow{text-align:center;margin-bottom:12px}
@@ -315,7 +337,7 @@
     <div class="cover" style="background:linear-gradient(180deg,rgba(44,46,34,.30),rgba(44,46,34,.72)),url('images/main.jpg') center/cover no-repeat"></div>
     <div class="inner">
       <div class="kicker">WE ARE GETTING MARRIED</div>
-      <h1>양병민<span class="amp">✦</span>김보원</h1>
+      <h1>양병민<span class="amp" id="secretStar" onclick="secretTap()" style="cursor:pointer">✦</span>김보원</h1>
       <div class="when">2026. 12. 19. SAT PM 12:30<br/>로얄파크컨벤션</div>
     </div>
     <div class="scroll-ind">
@@ -569,6 +591,7 @@
     </div>
     <p class="foot-sign">양병민 · 김보원</p>
     <p class="foot-note">2026. 12. 19. SAT PM 12:30 · 로얄파크컨벤션</p>
+    <p class="foot-note" style="margin-top:6px;opacity:.7">Made by ManChun</p>
   </footer>
 
 </div>
@@ -600,6 +623,41 @@
   </div>
 </div>
 
+<!-- 비밀 공간: 비밀번호 -->
+<div class="overlay" id="secretPwSheet" onclick="if(event.target===this)closeSheet(this)">
+  <div class="sheet" style="text-align:center">
+    <div class="grab"></div>
+    <button class="x" onclick="closeSheet(this.closest('.overlay'))">✕</button>
+    <h3>🔒 비밀 공간</h3>
+    <p class="sub">비밀번호를 입력하세요</p>
+    <input id="secretPwInput" class="pw-input" type="tel" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="6" placeholder="••••••" onkeydown="if(event.key==='Enter')checkSecret()" />
+    <button class="btn btn-lime" style="width:100%" onclick="checkSecret()">확인</button>
+  </div>
+</div>
+
+<!-- 비밀 공간: 내용 -->
+<div class="overlay" id="secretSheet" onclick="if(event.target===this)closeSheet(this)">
+  <div class="sheet">
+    <div class="grab"></div>
+    <button class="x" onclick="closeSheet(this.closest('.overlay'))">✕</button>
+    <h3>비밀 공간</h3>
+    <p class="sub">신랑·신부만 보는 공간</p>
+    <div class="tabs">
+      <button id="stab1" class="on" onclick="secretTab(1)">하객 사진</button>
+      <button id="stab2" onclick="secretTab(2)">참석 여부</button>
+    </div>
+    <div id="spanel1" class="tabpanel on">
+      <div id="secretPhotos" class="sgrid"></div>
+      <div id="secretEmpty" class="gb-empty">아직 올라온 사진이 없어요</div>
+    </div>
+    <div id="spanel2" class="tabpanel">
+      <div id="rsvpSummary" class="rsvp-sum"></div>
+      <div id="rsvpList"></div>
+      <div id="rsvpEmpty" class="gb-empty">아직 응답이 없어요</div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -624,6 +682,8 @@
   /* 확대(핀치/더블탭) 방지 — iOS 제스처 차단 */
   document.addEventListener('gesturestart', function(e){ e.preventDefault(); }, {passive:false});
   document.addEventListener('dblclick', function(e){ e.preventDefault(); }, {passive:false});
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, {passive:false});
+  document.addEventListener('dragstart', function(e){ if(e.target && e.target.tagName==='IMG') e.preventDefault(); });
 
   /* 배경음악 — 우측 상단 토글 + 첫 터치 시 자동재생 */
   var _bgmStarted=false;
@@ -684,11 +744,12 @@
   /* 갤러리 라이트박스 + 더보기 */
   var GALLERY_SRCS=[];
   for(var _gi=1;_gi<=19;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
+  var SECRET_SRCS=[];var _lbSrcs=GALLERY_SRCS;
   var lbIndex=0;
-  function lbShow(){document.getElementById('lbImg').src=GALLERY_SRCS[lbIndex];document.getElementById('lbCount').textContent=(lbIndex+1)+' / '+GALLERY_SRCS.length;}
-  function openLightbox(i){lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden';pushBackClose(lbClose);}
+  function lbShow(){document.getElementById('lbImg').src=_lbSrcs[lbIndex];document.getElementById('lbCount').textContent=(lbIndex+1)+' / '+_lbSrcs.length;}
+  function openLightbox(i){_lbSrcs=GALLERY_SRCS;lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden';pushBackClose(lbClose);}
   function lbClose(){document.getElementById('lightbox').classList.remove('show');document.body.style.overflow='';}
-  function lbNav(e,d){e.stopPropagation();lbIndex=(lbIndex+d+GALLERY_SRCS.length)%GALLERY_SRCS.length;lbShow();}
+  function lbNav(e,d){e.stopPropagation();lbIndex=(lbIndex+d+_lbSrcs.length)%_lbSrcs.length;lbShow();}
   function closeLightbox(e,force){if(force||(e&&e.target&&e.target.id==='lightbox')){if(_backClose){history.back();}else{lbClose();}}}
   function toggleGallery(){var g=document.getElementById('galleryGrid'),b=document.getElementById('galMore');g.classList.toggle('open');b.textContent=g.classList.contains('open')?'접기':'더보기 (10장)';}
   /* 라이트박스 스와이프(좌우 넘기기) */
@@ -706,6 +767,65 @@
   /* 토스트 */
   var toastTimer;
   function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},1900);}
+
+  /* ===== 비밀 공간: 히어로 별 7번 클릭 → 비밀번호(231226) ===== */
+  var _starTaps=0,_starTimer=null;
+  function secretTap(){
+    _starTaps++;
+    if(_starTimer)clearTimeout(_starTimer);
+    _starTimer=setTimeout(function(){_starTaps=0;},2000);
+    if(_starTaps>=7){_starTaps=0;if(_starTimer)clearTimeout(_starTimer);openSecretPw();}
+  }
+  function openSecretPw(){var i=document.getElementById('secretPwInput');i.value='';openSheet('secretPwSheet');setTimeout(function(){try{i.focus();}catch(e){}},200);}
+  function checkSecret(){
+    var v=(document.getElementById('secretPwInput').value||'').trim();
+    if(v!=='231226'){toast('비밀번호가 올바르지 않아요');return;}
+    document.getElementById('secretPwSheet').classList.remove('show');
+    var el=document.getElementById('secretSheet');el.classList.add('show');document.body.style.overflow='hidden';
+    _backClose=function(){el.classList.remove('show');document.body.style.overflow='';};
+    secretTab(1);loadSecretPhotos();
+  }
+  function openSecretLb(i){_lbSrcs=SECRET_SRCS;lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden';pushBackClose(lbClose);}
+  function loadSecretPhotos(){
+    var grid=document.getElementById('secretPhotos'),empty=document.getElementById('secretEmpty');
+    grid.innerHTML='';empty.textContent='불러오는 중…';empty.style.display='block';
+    if(!sb){empty.textContent='Supabase 연결 후 볼 수 있어요';return;}
+    sb.from('photos').select('*').order('created_at',{ascending:false}).then(function(r){
+      if(r.error){empty.textContent='불러오기에 실패했어요 (사진 조회 권한 확인 필요)';empty.style.display='block';return;}
+      var rows=r.data||[];
+      if(!rows.length){empty.textContent='아직 올라온 사진이 없어요';empty.style.display='block';return;}
+      empty.style.display='none';
+      SECRET_SRCS=rows.map(function(x){return x.url;});
+      grid.innerHTML=rows.map(function(x,i){return '<button type="button" class="gcell" onclick="openSecretLb('+i+')"><img loading="lazy" src="'+x.url+'" alt="하객 사진" /></button>';}).join('');
+    });
+  }
+  function secretTab(n){
+    document.getElementById('stab1').classList.toggle('on',n===1);
+    document.getElementById('stab2').classList.toggle('on',n===2);
+    document.getElementById('spanel1').classList.toggle('on',n===1);
+    document.getElementById('spanel2').classList.toggle('on',n===2);
+    if(n===2)loadRsvp();
+  }
+  function loadRsvp(){
+    var list=document.getElementById('rsvpList'),empty=document.getElementById('rsvpEmpty'),sum=document.getElementById('rsvpSummary');
+    list.innerHTML='';sum.innerHTML='';empty.textContent='불러오는 중…';empty.style.display='block';
+    if(!sb){empty.textContent='Supabase 연결 후 볼 수 있어요';return;}
+    sb.from('rsvp_submissions').select('*').order('created_at',{ascending:false}).then(function(r){
+      if(r.error){empty.textContent='에러: '+(r.error.message||r.error.code||'권한 확인');empty.style.display='block';return;}
+      var rows=r.data||[];
+      if(!rows.length){empty.textContent='아직 응답이 없어요';empty.style.display='block';return;}
+      empty.style.display='none';
+      var attend=rows.filter(function(x){return x.attendance==='참석';});
+      var ppl=attend.reduce(function(a,x){return a+(x.guest_count||0);},0);
+      var mealPpl=attend.filter(function(x){return x.meal_preference==='예정';}).reduce(function(a,x){return a+(x.guest_count||0);},0);
+      sum.innerHTML='<div class="box"><div class="n">'+rows.length+'</div><div class="l">응답</div></div>'+'<div class="box"><div class="n">'+attend.length+'</div><div class="l">참석</div></div>'+'<div class="box"><div class="n">'+ppl+'</div><div class="l">총 인원</div></div>'+'<div class="box"><div class="n">'+mealPpl+'</div><div class="l">식사 예정</div></div>';
+      list.innerHTML=rows.map(function(x){
+        var yes=x.attendance==='참석';
+        var d=x.created_at?new Date(x.created_at):null;var ds=(d&&!isNaN(d))?((d.getMonth()+1)+'/'+d.getDate()):'';
+        return '<div class="rsvp-item"><div class="top"><span class="nm">'+esc(x.name||'')+'</span><span class="badge '+(yes?'yes':'no')+'">'+esc(x.attendance||'')+'</span></div><div class="meta">'+esc(x.side||'')+' · 인원 '+(x.guest_count||'-')+'명 · 식사 '+esc(x.meal_preference||'-')+(x.guest?(' · 동행 '+esc(x.guest)):'')+(ds?(' · '+ds):'')+'</div></div>';
+      }).join('');
+    });
+  }
 
   /* RSVP — Supabase 연결 시 DB 저장, 아니면 로컬 */
   function submitRsvp(){
@@ -727,7 +847,7 @@
 
   /* 방명록 — Supabase 연결 시 실시간 공유, 아니면 브라우저 로컬 */
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-  var GBCOL=['#d8e592','#f3d9a4','#f5b8b8','#bcd9c8','#c9c3ec','#a9d4e5'];
+  var GBCOL=['#e0b7b6','#f3d9a4','#f5b8b8','#bcd9c8','#c9c3ec','#a9d4e5'];
   function gbCard(g){
     var d=g.created_at?new Date(g.created_at):(g.ts?new Date(g.ts):null);
     var ds=(d&&!isNaN(d))?((d.getMonth()+1)+'. '+d.getDate()+'.'):'';
@@ -735,10 +855,12 @@
   }
   var _gbAll=[], _gbExpanded=false;
   function paintGb(arr){
-    _gbAll=arr;
+    _gbAll=(arr=(arr||[]).filter(function(g){return g&&String(g.content||'').trim()&&String(g.author||'').trim();}));
     document.getElementById('gbEmpty').style.display=arr.length?'none':'block';
     var show=_gbExpanded?arr:arr.slice(0,6);
-    document.getElementById('gbList').innerHTML=show.map(gbCard).join('');
+    var cols=['',''];
+    show.forEach(function(g,i){cols[i%2]+=gbCard(g);});
+    document.getElementById('gbList').innerHTML='<div class="gcol">'+cols[0]+'</div><div class="gcol">'+cols[1]+'</div>';
     var mb=document.getElementById('gbMore');
     if(mb){if(arr.length>6){mb.style.display='inline-flex';mb.textContent=_gbExpanded?'접기':'더보기 ('+(arr.length-6)+')';}else{mb.style.display='none';}}
   }
