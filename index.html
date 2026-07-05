@@ -297,6 +297,8 @@
   .sgrid{columns:2;column-gap:8px}
   .sgrid .gcell{width:100%;margin:0 0 8px;padding:0;border:none;background:none;cursor:pointer;break-inside:avoid;display:block}
   .sgrid .gcell img{width:100%;border-radius:8px;display:block}
+  .sgrid .gcell::after{content:none}
+  .sgrid .gcell img,.lightbox.lb-save img{pointer-events:auto;-webkit-user-drag:auto;user-select:auto;-webkit-user-select:auto;-webkit-touch-callout:default}
   .rsvp-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
   .rsvp-sum .box{background:var(--olive-deep);border:1px solid var(--lime-dim);border-radius:10px;padding:10px 4px;text-align:center}
   .rsvp-sum .n{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--lime)}
@@ -375,8 +377,8 @@
         <div class="contact-col">
           <h4>신부측</h4>
           <div class="person"><div class="rel">신부</div><div class="nm">김보원</div><div class="acts"><a href="tel:010-9749-8736" aria-label="전화">✆</a><a href="sms:010-9749-8736" aria-label="문자">✉</a></div></div>
-          <div class="person"><div class="rel">신부 아버지</div><div class="nm">김점식</div><div class="acts" style="font-size:11px;color:var(--ink-mute)">준비중</div></div>
-          <div class="person"><div class="rel">신부 어머니</div><div class="nm">신연정</div><div class="acts" style="font-size:11px;color:var(--ink-mute)">준비중</div></div>
+          <div class="person"><div class="rel">신부 아버지</div><div class="nm">김점식</div><div class="acts"><a href="tel:010-3734-6408" aria-label="전화">✆</a><a href="sms:010-3734-6408" aria-label="문자">✉</a></div></div>
+          <div class="person"><div class="rel">신부 어머니</div><div class="nm">신연정</div><div class="acts"><a href="tel:010-2080-3340" aria-label="전화">✆</a><a href="sms:010-2080-3340" aria-label="문자">✉</a></div></div>
         </div>
       </div>
     </div>
@@ -541,7 +543,7 @@
       <div class="acc">
         <button onclick="toggleAcc(this)">신부측 계좌 <span class="chev">▾</span></button>
         <div class="body"><div class="body-in">
-          <div class="acct"><div><div class="who">신부</div><div class="no">계좌번호 입력</div><div class="abank">은행 · 김보원</div></div><button class="copy" onclick="copyAcct(this)">복사</button></div>
+          <div class="acct"><div><div class="who">신부</div><div class="no">462202-01-414503</div><div class="abank">국민은행 · 김보원</div></div><button class="copy" onclick="copyAcct(this)">복사</button></div>
           <div class="acct"><div><div class="who">신부 아버지</div><div class="no">계좌번호 입력</div><div class="abank">은행 · 김점식</div></div><button class="copy" onclick="copyAcct(this)">복사</button></div>
           <div class="acct"><div><div class="who">신부 어머니</div><div class="no">계좌번호 입력</div><div class="abank">은행 · 신연정</div></div><button class="copy" onclick="copyAcct(this)">복사</button></div>
         </div></div>
@@ -683,8 +685,8 @@
   /* 확대(핀치/더블탭) 방지 — iOS 제스처 차단 */
   document.addEventListener('gesturestart', function(e){ e.preventDefault(); }, {passive:false});
   document.addEventListener('dblclick', function(e){ e.preventDefault(); }, {passive:false});
-  document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, {passive:false});
-  document.addEventListener('dragstart', function(e){ if(e.target && e.target.tagName==='IMG') e.preventDefault(); });
+  document.addEventListener('contextmenu', function(e){ if(e.target&&e.target.closest&&e.target.closest('.sgrid,.lightbox.lb-save'))return; e.preventDefault(); }, {passive:false});
+  document.addEventListener('dragstart', function(e){ if(e.target && e.target.tagName==='IMG'){ if(e.target.closest('.sgrid,.lightbox.lb-save'))return; e.preventDefault(); } });
 
   /* 배경음악 — 우측 상단 토글 + 첫 터치 시 자동재생 */
   var _bgmStarted=false;
@@ -748,7 +750,7 @@
   var SECRET_SRCS=[];var _lbSrcs=GALLERY_SRCS;
   var lbIndex=0;
   function lbShow(){document.getElementById('lbImg').src=_lbSrcs[lbIndex];document.getElementById('lbCount').textContent=(lbIndex+1)+' / '+_lbSrcs.length;}
-  function openLightbox(i){_lbSrcs=GALLERY_SRCS;lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden';pushBackClose(lbClose);}
+  function openLightbox(i){_lbSrcs=GALLERY_SRCS;lbIndex=i;lbShow();document.getElementById('lightbox').classList.remove('lb-save');document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden';pushBackClose(lbClose);}
   function lbClose(){document.getElementById('lightbox').classList.remove('show');document.body.style.overflow='';}
   function lbNav(e,d){e.stopPropagation();lbIndex=(lbIndex+d+_lbSrcs.length)%_lbSrcs.length;lbShow();}
   function closeLightbox(e,force){if(force||(e&&e.target&&e.target.id==='lightbox')){if(_backClose){history.back();}else{lbClose();}}}
@@ -786,7 +788,7 @@
     _backClose=function(){el.classList.remove('show');document.body.style.overflow='';};
     secretTab(1);loadSecretPhotos();
   }
-  function openSecretLb(i){_lbSrcs=SECRET_SRCS;lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden';pushBackClose(lbClose);}
+  function openSecretLb(i){_lbSrcs=SECRET_SRCS;lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('lb-save');document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden';pushBackClose(lbClose);}
   function loadSecretPhotos(){
     var grid=document.getElementById('secretPhotos'),empty=document.getElementById('secretEmpty');
     grid.innerHTML='';empty.textContent='불러오는 중…';empty.style.display='block';
