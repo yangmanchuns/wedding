@@ -189,6 +189,15 @@
   .nrow .nwho{font-family:var(--sans);font-size:12.5px;color:var(--mute);margin-top:9px}
   .gb-empty{text-align:center;color:var(--mute);font-size:13px;padding:22px 0}
   .upload-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:24px}
+  /* 영상 작품 */
+  .vidwrap{position:relative;background:#000;box-shadow:0 6px 16px rgba(0,0,0,.12)}
+  .vidposter{display:block;width:100%;border:none;padding:0;margin:0;background:none;cursor:pointer;position:relative}
+  .vidposter img{width:100%;display:block}
+  .vplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;
+    background:var(--paper2);color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:17px;padding-left:4px;
+    box-shadow:0 8px 24px rgba(0,0,0,.35)}
+  .vmeta{position:absolute;left:12px;bottom:10px;font-family:var(--disp);font-size:10.5px;letter-spacing:.2em;color:#fff;text-transform:uppercase;text-shadow:0 1px 7px rgba(0,0,0,.8)}
+  .vid{width:100%;display:block;background:#000;aspect-ratio:16/9}
 
   /* ===== 폐관 ===== */
   .closing{padding:96px 26px 110px;text-align:center}
@@ -342,13 +351,29 @@
   <!-- 전시 작품 -->
   <section style="padding-bottom:20px">
     <div class="kicker">Exhibition</div>
-    <h2 class="st">전시 작품 19점</h2>
+    <h2 class="st">전시 작품 18점</h2>
     <p class="lead">작품을 누르면 크게 볼 수 있습니다.<br/>모든 작품은 2025–2026년에 촬영되었습니다.</p>
   </section>
   <div class="works" id="works"></div>
   <div class="more-wrap"><button type="button" id="galMore" class="btn" onclick="toggleWorks()">더 보기</button></div>
 
   <div class="rule" style="margin-top:60px"></div>
+
+  <!-- 영상 작품 -->
+  <section>
+    <div class="kicker">Moving Image</div>
+    <h2 class="st">영상 작품</h2>
+    <p class="lead">「하늘에서」 · Single-channel video, 0′22″<br/>화면을 누르면 재생됩니다.</p>
+    <div class="vidwrap" id="vidWrap">
+      <button type="button" class="vidposter" onclick="playHighlight()" aria-label="영상 작품 재생">
+        <img loading="lazy" src="images/video-poster.jpg" alt="영상 작품 「하늘에서」" />
+        <span class="vplay">▶</span>
+        <span class="vmeta">No. 19 · 하늘에서</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="rule"></div>
 
   <!-- 아카이브 -->
   <section>
@@ -565,10 +590,10 @@
   document.addEventListener('click',_bgmFirstPlay,{once:true});
 
   /* 작품 목록 */
-  var WORK_TITLES=['첫 인사','나란히','손의 온도','오후 세 시','웃음의 각도','같은 방향','첫 겨울','사이','기다림','빛이 드는 자리','두 사람','여백','조용한 약속','마주보기','걸음','결','오래된 하루','우리의 계절','그리고, 시작'];
+  var WORK_TITLES=['첫 인사','나란히','손의 온도','오후 세 시','웃음의 각도','같은 방향','첫 겨울','사이','기다림','빛이 드는 자리','두 사람','여백','조용한 약속','마주보기','걸음','결','우리의 계절','그리고, 시작'];
   var WORK_MEDIA=['Archival pigment print','Gelatin silver print','Archival pigment print','Digital photograph'];
   var GALLERY_SRCS=[];
-  for(var _gi=1;_gi<=19;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
+  for(var _gi=1;_gi<=18;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
   var WORKS_SHOWN=8;
   (function(){
     var w=document.getElementById('works');if(!w)return;
@@ -630,6 +655,21 @@
     el.addEventListener('touchstart',function(e){if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;}},{passive:true});
     el.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;sx=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){lbNav({stopPropagation:function(){}},dx<0?1:-1);}},{passive:true});
   })();
+
+  /* 하이라이트 영상 — 탭할 때만 로드(데이터 절약), 재생 시 BGM 자동 정지 */
+  function playHighlight(){
+    var w=document.getElementById('vidWrap');
+    if(!w||w.getAttribute('data-loaded'))return;
+    w.setAttribute('data-loaded','1');
+    w.innerHTML='<video id="hlVideo" class="vid" controls playsinline preload="auto" poster="images/video-poster.jpg">'+
+      '<source src="video/highlight.mp4" type="video/mp4" />브라우저가 영상 재생을 지원하지 않습니다.</video>';
+    var v=document.getElementById('hlVideo');
+    if(!v)return;
+    var bgm=document.getElementById('bgm');
+    if(bgm&&!bgm.paused){bgm.pause();try{_bgmIcon();}catch(e){}}
+    v.addEventListener('play',function(){var b=document.getElementById('bgm');if(b&&!b.paused){b.pause();try{_bgmIcon();}catch(e){}}});
+    v.play().catch(function(){});
+  }
 
   function copyText(t,msg){
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast(msg||'복사되었습니다');},function(){toast('복사 실패');});}

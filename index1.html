@@ -221,6 +221,15 @@
 
   /* ===== 하객 사진 업로드 ===== */
   .upload-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:22px}
+  /* 예고편 */
+  .vidwrap{position:relative;border:1px solid var(--line);background:#000;padding:7px}
+  .vidposter{display:block;width:100%;border:none;padding:0;margin:0;background:none;cursor:pointer;position:relative}
+  .vidposter img{width:100%;display:block;filter:saturate(.88)}
+  .vplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;
+    background:var(--gold);color:#111;display:flex;align-items:center;justify-content:center;font-size:17px;padding-left:4px;
+    box-shadow:0 8px 26px rgba(0,0,0,.6)}
+  .vmeta{position:absolute;left:11px;bottom:9px;font-family:var(--disp);font-size:10.5px;letter-spacing:.24em;color:#fff;text-transform:uppercase;text-shadow:0 1px 7px rgba(0,0,0,.8)}
+  .vid{width:100%;display:block;background:#000;aspect-ratio:16/9}
 
   /* ===== 엔드 크레딧 (방명록) ===== */
   .credits{position:relative;height:340px;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
@@ -247,7 +256,7 @@
 
   /* ===== THE END ===== */
   .theend{height:88vh;min-height:520px;padding:0;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
-  .theend .bg{position:absolute;inset:0;background:linear-gradient(rgba(8,8,10,.62),rgba(8,8,10,.88)),url('images/gallery-19.jpg') center/cover;filter:grayscale(.4)}
+  .theend .bg{position:absolute;inset:0;background:linear-gradient(rgba(8,8,10,.62),rgba(8,8,10,.88)),url('images/outro.jpg') center/cover;filter:grayscale(.4)}
   .theend .in{position:relative;z-index:2;padding:0 28px}
   .theend .fin{font-family:var(--serif);font-weight:800;font-size:30px;letter-spacing:.3em;color:#fff;margin-bottom:26px}
   .theend .ct{font-family:var(--serif);font-size:15px;line-height:2.4;color:#ddd7ca}
@@ -398,11 +407,22 @@
   <section>
     <div class="scene"><span class="no">SCENE 04</span><span class="bar"></span></div>
     <h2 class="st">Still Cut</h2>
-    <div class="st-ko">스틸컷 19장</div>
+    <div class="st-ko">스틸컷 18장</div>
     <div class="strip-wrap"><div class="strip" id="filmStrip"></div></div>
     <p class="strip-hint">◀  옆으로 밀어서 보기 · 탭하면 크게  ▶</p>
 
-    <div style="height:34px"></div>
+    <div style="height:38px"></div>
+    <h2 class="st" style="font-size:19px">Trailer</h2>
+    <div class="st-ko" style="margin-bottom:14px">하늘에서 본 우리 · 눌러야 재생됩니다</div>
+    <div class="vidwrap" id="vidWrap">
+      <button type="button" class="vidposter" onclick="playHighlight()" aria-label="예고편 재생">
+        <img loading="lazy" src="images/video-poster.jpg" alt="드론 하이라이트 영상" />
+        <span class="vplay">▶</span>
+        <span class="vmeta">Drone Highlight · 0:22</span>
+      </button>
+    </div>
+
+    <div style="height:38px"></div>
     <h2 class="st" style="font-size:19px">Guest Roll</h2>
     <div class="st-ko" style="margin-bottom:14px">하객 사진 · 결혼식 당일(12.19)부터 올릴 수 있어요</div>
     <div class="upload-wrap">
@@ -655,7 +675,7 @@
 
   /* 필름 스트립 생성 */
   var GALLERY_SRCS=[];
-  for(var _gi=1;_gi<=19;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
+  for(var _gi=1;_gi<=18;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
   (function(){
     var s=document.getElementById('filmStrip');if(!s)return;
     s.innerHTML=GALLERY_SRCS.map(function(src,i){
@@ -717,6 +737,21 @@
     el.addEventListener('touchstart',function(e){if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;}},{passive:true});
     el.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;sx=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){lbNav({stopPropagation:function(){}},dx<0?1:-1);}},{passive:true});
   })();
+
+  /* 하이라이트 영상 — 탭할 때만 로드(데이터 절약), 재생 시 BGM 자동 정지 */
+  function playHighlight(){
+    var w=document.getElementById('vidWrap');
+    if(!w||w.getAttribute('data-loaded'))return;
+    w.setAttribute('data-loaded','1');
+    w.innerHTML='<video id="hlVideo" class="vid" controls playsinline preload="auto" poster="images/video-poster.jpg">'+
+      '<source src="video/highlight.mp4" type="video/mp4" />브라우저가 영상 재생을 지원하지 않습니다.</video>';
+    var v=document.getElementById('hlVideo');
+    if(!v)return;
+    var bgm=document.getElementById('bgm');
+    if(bgm&&!bgm.paused){bgm.pause();try{_bgmIcon();}catch(e){}}
+    v.addEventListener('play',function(){var b=document.getElementById('bgm');if(b&&!b.paused){b.pause();try{_bgmIcon();}catch(e){}}});
+    v.play().catch(function(){});
+  }
 
   function copyText(t,msg){
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast(msg||'복사되었습니다');},function(){toast('복사 실패');});}
