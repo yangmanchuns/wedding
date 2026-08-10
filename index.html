@@ -222,14 +222,18 @@
   .gb-name::placeholder,.gb-msg::placeholder{color:#6d7f97}
   .gb-name:focus,.gb-msg:focus{border-color:var(--ice);outline:none}
   .gb-send{flex:0 0 46px;width:46px;height:46px;border-radius:50%;border:none;background:var(--warm);color:#2a2418;font-size:15px;cursor:pointer}
-  .gblist{columns:2;column-gap:11px}
-  .snowcard{break-inside:avoid;margin-bottom:11px;background:rgba(255,255,255,.085);border:1px solid var(--frost-line);border-radius:14px;padding:16px 14px 13px;
-    backdrop-filter:blur(8px);position:relative;box-shadow:0 6px 20px rgba(0,0,0,.22)}
-  .snowcard::before{content:"❄";position:absolute;top:-9px;left:12px;font-size:13px;color:var(--ice);opacity:.75}
-  .snowcard .sc{font-size:13.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word;color:#e2ecf9}
-  .snowcard .sline{height:1px;background:var(--frost-line);margin:11px 0 8px}
-  .snowcard .sa{font-family:var(--serif);font-size:13px;color:var(--warm)}
-  .snowcard .sd{font-size:10.5px;color:var(--mute);margin-top:2px}
+  .gblist{display:flex;flex-direction:column;position:relative;padding-left:26px}
+  .gblist::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:1px;
+    background:linear-gradient(180deg,transparent,var(--frost-line) 12%,var(--frost-line) 88%,transparent)}
+  .gbrow{position:relative;padding:20px 0 19px}
+  .gbrow+.gbrow{border-top:1px solid rgba(255,255,255,.07)}
+  .gbrow::before{content:"❅";position:absolute;left:-26px;top:20px;width:13px;text-align:center;
+    font-size:11.5px;color:var(--ice);opacity:.75;background:var(--night2);padding:3px 0;line-height:1}
+  .gbrow .gbm{font-family:var(--serif);font-size:15px;line-height:2.05;color:#e6eefa;
+    white-space:pre-wrap;word-break:break-word;letter-spacing:.01em}
+  .gbrow .gbf{display:flex;align-items:baseline;justify-content:flex-end;gap:10px;margin-top:11px}
+  .gbrow .gba{font-family:var(--serif);font-size:13px;color:var(--warm);letter-spacing:.06em}
+  .gbrow .gbd{font-family:var(--disp);font-size:11.5px;color:var(--mute);letter-spacing:.12em}
   .gb-empty{text-align:center;color:var(--mute);font-size:13px;padding:22px 0}
 
   /* ===== 클로징 ===== */
@@ -369,7 +373,6 @@
       <figure><img loading="lazy" src="images/story-bride-child.jpg" alt="신부 어린시절" /><figcaption>Bride</figcaption></figure>
     </div>
     <div class="child-note"><img loading="lazy" src="images/story-groom-note.png" alt="어머니 손글씨" /></div>
-    <div class="child-hand">보원뚜</div>
   </section>
 
   <!-- 갤러리 -->
@@ -839,15 +842,17 @@
   function gbCard(g){
     var d=g.created_at?new Date(g.created_at):(g.ts?new Date(g.ts):null);
     var ds=(d&&!isNaN(d))?((d.getMonth()+1)+'. '+d.getDate()+'.'):'';
-    return '<div class="snowcard"><div class="sc">'+esc(g.content)+'</div><div class="sline"></div><div class="sa">'+esc(g.author)+'</div>'+(ds?'<div class="sd">'+ds+'</div>':'')+'</div>';
+    return '<div class="gbrow"><div class="gbm">'+esc(g.content)+'</div>'+
+      '<div class="gbf"><span class="gba">'+esc(g.author)+'</span>'+
+      (ds?'<span class="gbd">'+ds+'</span>':'')+'</div></div>';
   }
   function paintGb(arr){
     _gbAll=(arr=(arr||[]).filter(function(g){return g&&String(g.content||'').trim()&&String(g.author||'').trim();}));
     document.getElementById('gbEmpty').style.display=arr.length?'none':'block';
-    var show=_gbExpanded?arr:arr.slice(0,6);
+    var show=_gbExpanded?arr:arr.slice(0,4);
     document.getElementById('gbList').innerHTML=show.map(gbCard).join('');
     var mb=document.getElementById('gbMore');
-    if(mb){if(arr.length>6){mb.style.display='inline-flex';mb.textContent=_gbExpanded?'접기':'더보기 ('+(arr.length-6)+')';}else{mb.style.display='none';}}
+    if(mb){if(arr.length>4){mb.style.display='inline-flex';mb.textContent=_gbExpanded?'접기':'더보기 ('+(arr.length-4)+')';}else{mb.style.display='none';}}
   }
   function toggleGb(){_gbExpanded=!_gbExpanded;paintGb(_gbAll);}
   function renderGb(){
