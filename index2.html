@@ -20,7 +20,7 @@
 </head>
 <body>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Nanum+Pen+Script&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
 
   :root{
     --night:#0a1424;
@@ -37,7 +37,6 @@
     --sans:'Noto Sans KR',system-ui,-apple-system,'Malgun Gothic',sans-serif;
     --serif:'Gowun Batang','Noto Sans KR',serif;
     --disp:'Cormorant Garamond','Gowun Batang',serif;
-    --hand:'Nanum Pen Script',cursive;
     --w:480px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -103,7 +102,7 @@
   .letter::before{content:"❅";position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:32px;height:32px;border-radius:50%;
     background:var(--paper);display:flex;align-items:center;justify-content:center;color:#98a4bb;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
   .letter .lmsg{font-family:var(--serif);font-size:15.5px;line-height:2.45;white-space:pre-line;text-align:center;letter-spacing:.01em}
-  .letter .lsign{margin-top:26px;font-family:var(--hand);font-size:26px;text-align:center;color:#4a5468}
+  .letter .lsign{margin-top:26px;font-family:var(--serif);font-size:15px;letter-spacing:.06em;text-align:center;color:#5a6274}
   .parents{display:flex;flex-direction:column;gap:14px;align-items:center;margin-bottom:26px;font-family:var(--serif)}
   .prow{display:grid;grid-template-columns:62px 52px auto;align-items:center;gap:10px;color:var(--ink)}
   .prow .pn{text-align:left;line-height:1.6;font-size:15px}
@@ -128,7 +127,7 @@
   .child figcaption{text-align:center;font-family:var(--disp);font-size:11.5px;letter-spacing:.22em;color:var(--mute);padding:10px 0 2px;text-transform:uppercase}
   .child-note{margin-top:22px;text-align:center}
   .child-note img{max-width:270px;width:100%;margin:0 auto;display:block;filter:invert(1) brightness(1.7) contrast(1.15);opacity:.8}
-  .child-hand{font-family:var(--hand);font-size:34px;color:var(--warm);padding:12px 0}
+  .child-hand{font-family:var(--serif);font-size:17px;letter-spacing:.2em;color:var(--warm);padding:14px 0}
 
   /* ===== 갤러리: 풀블리드 패럴랙스 + 그리드 ===== */
   /* 갤러리 — 가로 슬라이드 */
