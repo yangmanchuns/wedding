@@ -131,15 +131,15 @@
   .child-hand{font-family:var(--hand);font-size:34px;color:var(--warm);padding:12px 0}
 
   /* ===== 갤러리: 풀블리드 패럴랙스 + 그리드 ===== */
-  .pl{position:relative;height:78vh;min-height:440px;overflow:hidden;margin:0 -26px}
-  .pl img{position:absolute;left:0;top:-12%;width:100%;height:124%;object-fit:cover;will-change:transform}
-  .pl .cap{position:absolute;left:22px;bottom:22px;z-index:2;font-family:var(--disp);font-size:12px;letter-spacing:.3em;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.7)}
-  .pl::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,15,29,.5),transparent 30%,transparent 62%,rgba(7,15,29,.72))}
-  .ggrid{columns:2;column-gap:10px;margin-top:4px}
-  .gcell{width:100%;margin:0 0 10px;padding:0;border:none;background:none;cursor:pointer;break-inside:avoid;display:block;position:relative}
-  .gcell img{width:100%;border-radius:12px;display:block;border:1px solid var(--frost-line)}
-  .gcell.gmore{display:none}
-  .ggrid.open .gcell.gmore{display:block}
+  /* 갤러리 — 가로 슬라이드 */
+  .gstrip-wrap{margin:0 -26px}
+  .gstrip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 26px 8px;-webkit-overflow-scrolling:touch}
+  .gstrip::-webkit-scrollbar{height:0}
+  .gcell{flex:0 0 68%;scroll-snap-align:center;scroll-snap-stop:always;padding:0;margin:0;border:none;background:none;cursor:pointer;position:relative;display:block}
+  .gcell img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;display:block;border:1px solid var(--frost-line);box-shadow:0 10px 26px rgba(0,0,0,.3)}
+  .gcell .gn{position:absolute;left:11px;bottom:11px;font-family:var(--disp);font-size:12px;letter-spacing:.18em;color:#fff;text-shadow:0 1px 7px rgba(0,0,0,.8)}
+  .gcount{text-align:center;font-family:var(--disp);font-size:13px;letter-spacing:.26em;color:var(--ice);margin-top:12px}
+  .ghint{text-align:center;font-size:11.5px;color:var(--mute);letter-spacing:.06em;margin-top:5px}
   .lightbox{position:fixed;inset:0;z-index:96;background:rgba(4,9,18,.95);display:none;align-items:center;justify-content:center}
   .lightbox.show{display:flex}
   .lightbox img{max-width:93vw;max-height:82vh;border-radius:8px}
@@ -378,8 +378,9 @@
     <div class="lbl">Gallery</div>
     <h2 class="st">우리의 순간</h2>
     <div class="st-sub">사진을 누르면 크게 볼 수 있어요</div>
-    <div class="ggrid" id="galleryGrid"></div>
-    <div class="center" style="margin-top:16px"><button type="button" id="galMore" class="btn" onclick="toggleGallery()">더보기</button></div>
+    <div class="gstrip-wrap"><div class="gstrip" id="galleryStrip"></div></div>
+    <div class="gcount" id="gCount">01 / 18</div>
+    <p class="ghint">◀  옆으로 밀어서 보기 · 탭하면 크게  ▶</p>
 
     <div style="height:38px"></div>
     <div class="lbl">Film</div>
@@ -657,23 +658,6 @@
     window.addEventListener('resize',upd);upd();
   })();
 
-  /* 갤러리 패럴랙스 */
-  (function(){
-    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduce)return;
-    var els=document.querySelectorAll('.pl');
-    function upd(){
-      for(var i=0;i<els.length;i++){
-        var el=els[i],r=el.getBoundingClientRect();
-        if(r.bottom<0||r.top>window.innerHeight)continue;
-        var p=(r.top+r.height/2-window.innerHeight/2)/window.innerHeight;
-        var img=el.querySelector('img');
-        if(img)img.style.transform='translateY('+(p*-34)+'px)';
-      }
-    }
-    window.addEventListener('scroll',upd,{passive:true});
-    window.addEventListener('resize',upd);upd();
-  })();
 
   /* 배경음악 */
   var _bgmStarted=false;
@@ -689,18 +673,25 @@
   var GALLERY_SRCS=[];
   for(var _gi=1;_gi<=18;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
   (function(){
-    var g=document.getElementById('galleryGrid');if(!g)return;
+    var g=document.getElementById('galleryStrip');if(!g)return;
     g.innerHTML=GALLERY_SRCS.map(function(src,i){
-      return '<button type="button" class="gcell'+(i>=8?' gmore':'')+'" onclick="openLightbox('+i+')"><img loading="lazy" src="'+src+'" alt="웨딩 사진 '+(i+1)+'" /></button>';
+      return '<button type="button" class="gcell" onclick="openLightbox('+i+')">'+
+        '<img loading="lazy" src="'+src+'" alt="웨딩 사진 '+(i+1)+'" />'+
+        '<span class="gn">'+String(i+1).padStart(2,'0')+'</span></button>';
     }).join('');
-    var b=document.getElementById('galMore');
-    if(b)b.textContent='더보기 ('+(GALLERY_SRCS.length-8)+'장)';
+    /* 가로 스크롤 위치 → 현재 장수 표시 */
+    var out=document.getElementById('gCount');
+    function upd(){
+      var cards=g.children;if(cards.length<2)return;
+      var step=cards[1].offsetLeft-cards[0].offsetLeft;if(step<=0)return;
+      var idx=Math.round(g.scrollLeft/step);
+      idx=Math.max(0,Math.min(cards.length-1,idx));
+      if(out)out.textContent=String(idx+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
+    }
+    g.addEventListener('scroll',upd,{passive:true});
+    window.addEventListener('resize',upd);
+    setTimeout(upd,120);upd();
   })();
-  function toggleGallery(){
-    var g=document.getElementById('galleryGrid'),b=document.getElementById('galMore');
-    g.classList.toggle('open');
-    b.textContent=g.classList.contains('open')?'접기':('더보기 ('+(GALLERY_SRCS.length-8)+'장)');
-  }
 
   /* 달력 */
   (function(){
