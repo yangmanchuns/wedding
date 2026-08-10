@@ -809,13 +809,13 @@
 
   function shareKakao(){
     var base=location.origin+location.pathname; if(base.charAt(base.length-1)!=='/') base=base.replace(/[^/]*$/,'');
-    /* 카카오 공유 버튼은 feed 템플릿 규격(2:1)에 맞춘 가로 이미지를 쓴다.
-       링크만 붙여넣는 경우는 og:image(세로 share-v3.jpg)가 사용된다. */
-    var SITE=base, IMG=base+'images/share-wide.jpg', MAP='https://naver.me/IFgdRRqM';
+    /* 공유 버튼·링크 붙여넣기 모두 세로 원본(share-v3.jpg)을 쓴다.
+       가로로 자르면 카카오 카드에서 인물이 과하게 확대돼 보임. */
+    var SITE=base, IMG=base+'images/share-v3.jpg', MAP='https://naver.me/IFgdRRqM';
     if(window.Kakao && Kakao.isInitialized && Kakao.isInitialized() && Kakao.Share){
       Kakao.Share.sendDefault({
         objectType:'feed',
-        content:{title:'병민 ❤ 보원 결혼합니다',description:'2026.12.19 (토) 오후 12:30 · 로얄파크컨벤션',imageUrl:IMG,imageWidth:1200,imageHeight:600,link:{mobileWebUrl:SITE,webUrl:SITE}},
+        content:{title:'병민 ❤ 보원 결혼합니다',description:'2026.12.19 (토) 오후 12:30 · 로얄파크컨벤션',imageUrl:IMG,imageWidth:1200,imageHeight:1599,link:{mobileWebUrl:SITE,webUrl:SITE}},
         buttons:[{title:'청첩장 보기',link:{mobileWebUrl:SITE,webUrl:SITE}},{title:'위치 보기',link:{mobileWebUrl:MAP,webUrl:MAP}}]
       });
     } else { copyText(SITE,'카카오 키 연결 전이라 링크를 복사했어요'); }
