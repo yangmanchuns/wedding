@@ -293,135 +293,182 @@
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
   .reveal.in{opacity:1;transform:none}
 
-  /* ===== 개발자 모드 (터미널 테마) ===== */
+
+  /* ===== 개발자 모드 (터미널) ===== */
   :root{
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'D2Coding','Courier New',monospace;
-    --tg:#7dffb0;--tg2:#39d98a;--tdim:#4c7f68;--tamb:#ffd27d;
+    --tink:#dbe7ff;          /* 본문 */
+    --tg:#8fd3ff;            /* 강조 · 명령 */
+    --tg2:#5aa9e6;           /* 프롬프트 */
+    --tdim:#5f7099;          /* 라벨 · 주석 */
+    --tamb:#ffd27d;          /* 소제목 */
+    --tpk:#f9a8d4;           /* 하트 · 키워드 */
+    --tpu:#c4b5fd;
+    --tmt:#86efac;
+    --tbd:rgba(140,190,255,.22);
+    --tbd2:rgba(140,190,255,.4);
+    --tpanel:rgba(8,14,34,.62);
+    --tpanel2:rgba(11,18,42,.86);
   }
-  .devbtn-wrap{margin-top:30px;padding-top:22px;border-top:1px dashed rgba(125,255,176,.16)}
-  .devbtn{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:#7ea99a;cursor:pointer;
-    background:rgba(125,255,176,.05);border:1px solid rgba(125,255,176,.2);border-radius:8px;padding:10px 15px;transition:.2s}
+  .devbtn-wrap{margin-top:30px;padding-top:22px;border-top:1px dashed rgba(140,190,255,.18)}
+  .devbtn{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:#8fa9d4;cursor:pointer;
+    background:rgba(140,190,255,.06);border:1px solid rgba(140,190,255,.24);border-radius:8px;padding:10px 15px;transition:.2s}
   .devbtn b{color:var(--tg);font-weight:400;margin-right:5px}
-  .devbtn:hover,.devbtn:active{color:var(--tg);border-color:rgba(125,255,176,.5);background:rgba(125,255,176,.1);box-shadow:0 0 18px rgba(125,255,176,.14)}
-  .devbtn-note{font-family:var(--mono);font-size:10.5px;color:#5f7488;margin-top:10px;letter-spacing:.03em}
+  .devbtn:hover,.devbtn:active{color:var(--tg);border-color:var(--tbd2);background:rgba(140,190,255,.12);box-shadow:0 0 18px rgba(140,190,255,.18)}
+  .devbtn-note{font-family:var(--mono);font-size:10.5px;color:#61748f;margin-top:10px;letter-spacing:.03em}
 
-  #devmode{position:fixed;inset:0;height:100dvh;z-index:120;display:none;background:#03070a;
-    font-family:var(--mono);color:var(--tg);overflow:hidden;-webkit-text-size-adjust:100%}
+  #devmode{position:fixed;inset:0;height:100dvh;z-index:120;display:none;overflow:hidden;
+    background:linear-gradient(180deg,#050a1c 0%,#0a1330 45%,#060c22 100%);
+    font-family:var(--mono);color:var(--tink);-webkit-text-size-adjust:100%}
   #devmode.on{display:block}
   #devmode.boot{animation:crtOn .5s cubic-bezier(.2,.85,.2,1)}
   @keyframes crtOn{0%{transform:scaleY(.006);filter:brightness(6)}45%{transform:scaleY(.07);filter:brightness(3)}100%{transform:scaleY(1);filter:none}}
   #matrix{position:absolute;inset:0;z-index:1;opacity:1}
   .dev-vig{position:absolute;inset:0;z-index:2;pointer-events:none;
-    background:radial-gradient(125% 95% at 50% 42%,transparent 30%,rgba(0,0,0,.72) 100%)}
+    background:radial-gradient(125% 95% at 50% 40%,transparent 32%,rgba(2,5,16,.78) 100%)}
   .dev-scan{position:absolute;inset:0;z-index:3;pointer-events:none;
-    background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.2) 2px 4px)}
+    background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.18) 2px 4px)}
   .dev-sweep{position:absolute;left:0;right:0;height:130px;z-index:3;pointer-events:none;
-    background:linear-gradient(180deg,rgba(125,255,176,0),rgba(125,255,176,.06),rgba(125,255,176,0));animation:devSweep 7s linear infinite}
+    background:linear-gradient(180deg,rgba(140,190,255,0),rgba(140,190,255,.07),rgba(140,190,255,0));animation:devSweep 7s linear infinite}
   @keyframes devSweep{0%{top:-150px}100%{top:100%}}
 
   .dev-wrap{position:relative;z-index:4;display:flex;flex-direction:column;width:100%;max-width:var(--w);height:100%;margin:0 auto;
     padding:calc(11px + env(safe-area-inset-top)) 11px calc(11px + env(safe-area-inset-bottom))}
-  .dev-top{display:flex;align-items:center;gap:7px;padding:9px 11px;background:rgba(6,18,14,.82);
-    border:1px solid rgba(125,255,176,.22);border-bottom:none;border-radius:10px 10px 0 0}
-  .dev-top .d{width:9px;height:9px;border-radius:99px;background:#2b3a36;flex:0 0 auto}
-  .dev-top .d.r{background:#ff5f57}.dev-top .d.y{background:#ffbd2e}.dev-top .d.g{background:#28c840}
-  .dev-top .tt{flex:1;text-align:center;font-size:10px;color:var(--tdim);letter-spacing:.02em;overflow:hidden;white-space:nowrap}
-  .dev-x{font-family:var(--mono);font-size:10.5px;color:#ff8b84;background:rgba(255,95,87,.08);
-    border:1px solid rgba(255,95,87,.32);border-radius:6px;padding:4px 8px;cursor:pointer;flex:0 0 auto}
+  .dev-top{display:flex;align-items:center;gap:7px;padding:9px 11px;background:var(--tpanel2);
+    border:1px solid var(--tbd);border-bottom:none;border-radius:10px 10px 0 0}
+  .dev-top .d{width:9px;height:9px;border-radius:99px;background:#2b3a56;flex:0 0 auto}
+  .dev-top .d.r{background:#f9a8d4}.dev-top .d.y{background:#e8eefc}.dev-top .d.g{background:#86efac}
+  .dev-top .tt{flex:1;text-align:center;font-size:10.5px;color:var(--tdim);letter-spacing:.02em;overflow:hidden;white-space:nowrap}
+  .dev-top .tt b{color:var(--tink);font-weight:400}
+  .dev-top .tt i{color:var(--tpk);font-style:normal}
+  .dev-x{font-family:var(--mono);font-size:10.5px;color:#ffb4ad;background:rgba(255,120,110,.08);
+    border:1px solid rgba(255,120,110,.32);border-radius:6px;padding:4px 8px;cursor:pointer;flex:0 0 auto}
 
-  .dev-hud{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(125,255,176,.16);
-    border-left:1px solid rgba(125,255,176,.22);border-right:1px solid rgba(125,255,176,.22)}
-  .dev-hud>div{background:rgba(6,18,14,.84);padding:7px 3px;text-align:center}
-  .dev-hud .n{font-size:15px;color:var(--tg);text-shadow:0 0 10px rgba(125,255,176,.35)}
+  .dev-hud{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--tbd);
+    border-left:1px solid var(--tbd);border-right:1px solid var(--tbd)}
+  .dev-hud>div{background:var(--tpanel2);padding:7px 3px;text-align:center}
+  .dev-hud .n{font-size:15px;color:var(--tg);text-shadow:0 0 10px rgba(140,190,255,.4)}
   .dev-hud .k{font-size:8px;color:var(--tdim);margin-top:3px;letter-spacing:.14em}
 
-  .dev-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;background:rgba(3,12,9,.55);text-shadow:0 0 7px rgba(0,0,0,.95),0 0 2px rgba(0,0,0,.9);
-    border:1px solid rgba(125,255,176,.22);border-top:none;border-bottom:none;padding:13px 12px 18px;
+  .dev-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--tpanel);
+    text-shadow:0 0 8px rgba(2,6,20,.95),0 0 2px rgba(2,6,20,.9);
+    border:1px solid var(--tbd);border-top:none;border-bottom:none;padding:13px 12px 18px;
     font-size:11.8px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
   .dev-body::-webkit-scrollbar{width:5px}
-  .dev-body::-webkit-scrollbar-thumb{background:rgba(125,255,176,.22);border-radius:9px}
-  .dev-body .l{color:#b6d6c6}
-  .dev-body .cmd{color:#eafff3;margin-top:11px}
+  .dev-body::-webkit-scrollbar-thumb{background:var(--tbd2);border-radius:9px}
+  .dev-body .l{color:#b9c7e6}
+  .dev-body .cmd{color:#eaf1ff;margin-top:11px}
   .dev-body .cmd i{color:var(--tg2);font-style:normal;margin-right:7px}
-  .dev-body .ok{color:var(--tg)}
+  .dev-body .ok{color:var(--tmt)}
   .dev-body .warn{color:var(--tamb)}
-  .dev-body .err{color:#ff8b84}
+  .dev-body .err{color:#ffb4ad}
   .dev-body .dim{color:var(--tdim)}
-  .dev-body .cmt{color:#5e93ad}
-  .dev-body .kw{color:#8fb8ff}
-  .dev-body .str{color:#ffd27d}
-  .dev-body .num{color:#ff9ecb}
-  .dev-body .art{color:var(--tg2);font-size:11px;line-height:1.35;text-shadow:0 0 12px rgba(57,217,138,.3)}
+  .dev-body .cmt{color:#6b8fd8}
+  .dev-body .kw{color:var(--tg)}
+  .dev-body .str{color:var(--tamb)}
+  .dev-body .num{color:var(--tpk)}
+  .dev-body .tg{color:#7dd3fc;text-shadow:0 0 11px rgba(125,211,252,.4)}
+  .dev-body .pk{color:var(--tpk);text-shadow:0 0 11px rgba(249,168,212,.35)}
+  .dev-body .pu{color:var(--tpu);text-shadow:0 0 11px rgba(196,181,253,.35)}
   .dev-body .row{display:flex;gap:9px}
   .dev-body .row>.k{color:var(--tdim);flex:0 0 82px}
-  .dev-body .row>.v{flex:1;color:#cfe9dc}
-  .dev-body .hr{color:rgba(125,255,176,.28)}
+  .dev-body .row>.v{flex:1;color:var(--tink)}
+  .dev-body .hr{color:var(--tbd2)}
   .dev-body a{color:var(--tg)}
   .cur{display:inline-block;width:7px;height:12px;background:var(--tg);vertical-align:-1px;animation:devBlink 1.05s steps(1) infinite}
   @keyframes devBlink{50%{opacity:0}}
 
-  .dev-chips{display:flex;gap:6px;overflow-x:auto;padding:9px 10px;background:rgba(6,18,14,.86);scrollbar-width:none;
-    border-left:1px solid rgba(125,255,176,.22);border-right:1px solid rgba(125,255,176,.22);border-top:1px solid rgba(125,255,176,.14)}
+  .dev-chips{display:flex;gap:6px;overflow-x:auto;padding:9px 10px;background:var(--tpanel2);scrollbar-width:none;
+    border-left:1px solid var(--tbd);border-right:1px solid var(--tbd);border-top:1px solid var(--tbd)}
   .dev-chips::-webkit-scrollbar{display:none}
-  .dev-chips button{flex:0 0 auto;font-family:var(--mono);font-size:10.5px;color:var(--tg2);white-space:nowrap;cursor:pointer;
-    background:rgba(125,255,176,.06);border:1px solid rgba(125,255,176,.26);border-radius:99px;padding:6px 11px}
-  .dev-chips button:active{background:rgba(125,255,176,.2);color:#eafff3}
+  .dev-chips button{flex:0 0 auto;font-family:var(--mono);font-size:10.5px;color:var(--tg);white-space:nowrap;cursor:pointer;
+    background:rgba(140,190,255,.07);border:1px solid var(--tbd);border-radius:99px;padding:6px 11px}
+  .dev-chips button:active{background:rgba(140,190,255,.2);color:#eaf1ff}
 
-  .dev-prompt{display:flex;align-items:center;gap:8px;padding:10px 11px;background:rgba(6,18,14,.9);
-    border:1px solid rgba(125,255,176,.22);border-radius:0 0 10px 10px}
+  .dev-prompt{display:flex;align-items:center;gap:8px;padding:10px 11px;background:var(--tpanel2);
+    border:1px solid var(--tbd);border-radius:0 0 10px 10px}
   .dev-prompt .ps1{font-size:11px;color:var(--tg2);white-space:nowrap}
-  .dev-prompt input{flex:1;min-width:0;font-family:var(--mono);font-size:12px;background:none;border:none;color:#eafff3;outline:none;caret-color:var(--tg)}
-  .dev-prompt input::placeholder{color:#2f4a41}
+  .dev-prompt input{flex:1;min-width:0;font-family:var(--mono);font-size:12px;background:none;border:none;color:#eaf1ff;outline:none;caret-color:var(--tg)}
+  .dev-prompt input::placeholder{color:#3d4d70}
   .dev-prompt .go{font-family:var(--mono);font-size:12px;color:var(--tg);cursor:pointer;
-    background:rgba(125,255,176,.1);border:1px solid rgba(125,255,176,.3);border-radius:7px;padding:4px 10px}
+    background:rgba(140,190,255,.1);border:1px solid var(--tbd2);border-radius:7px;padding:4px 10px}
   @media (max-width:380px){.dev-body{font-size:11px}.dev-prompt .ps1{font-size:10px}}
-  #devmode.on ~ .toast, .toast{z-index:130}
+  .toast{z-index:130}
 
-  /* 개발자 모드 — 터미널 문서(청첩장 본문) */
-  .tsec{margin:0 0 22px;border-radius:4px;transition:background .6s ease}
-  .tsec.flash{background:rgba(125,255,176,.1)}
-  .tcmd{color:#eafff3;margin-bottom:7px}
+  /* ── 터미널 문서 ── */
+  .tsec{margin:0 0 20px;border-radius:4px;transition:background .6s ease}
+  .tsec.flash{background:rgba(140,190,255,.1)}
+  .tdiv{display:flex;align-items:center;gap:9px;margin:0 0 11px;color:var(--tdim);font-size:10.5px;letter-spacing:.04em}
+  .tdiv:before,.tdiv:after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--tbd2),transparent)}
+  .tdiv:before{max-width:26px}
+  .tdiv span{white-space:nowrap}
+  .tdiv span b{color:var(--tg);font-weight:400}
+  .tdiv em{font-style:normal;color:var(--tpk);opacity:.75}
+  .tcmd{color:#eaf1ff;margin:0 0 7px}
   .tcmd i{color:var(--tg2);font-style:normal;margin-right:7px}
-  .tout{border-left:2px solid rgba(125,255,176,.2);padding:1px 0 1px 11px}
-  .tbanner{font-size:18px;letter-spacing:.16em;color:#eafff3;text-shadow:0 0 16px rgba(125,255,176,.45)}
-  .tmeta{color:var(--tg2);font-size:11px;margin-top:5px;letter-spacing:.02em}
-  .tletter{color:#cfe9dc;white-space:pre-wrap;line-height:1.95}
-  .tletter.small{line-height:1.75;color:#b6d6c6;margin-bottom:11px}
-  .tsign{color:var(--tdim);margin-top:9px}
+  .tout{padding:1px 0}
+  .tout.bar{border-left:2px solid var(--tbd);padding-left:11px}
+  .tart{border:1px solid var(--tbd);border-radius:6px;padding:12px 8px;text-align:center;color:var(--tg);
+    background:rgba(6,12,30,.5);overflow-x:auto;line-height:1.35;font-size:11px}
+  .tart .pk{color:var(--tpk)}
+  .tcap{color:var(--tdim);margin-top:7px;font-size:10.5px;text-align:center}
+  .tbanner{font-size:19px;letter-spacing:.14em;color:#f2f7ff;text-align:center;text-shadow:0 0 18px rgba(140,190,255,.5)}
+  .tbanner i{color:var(--tpk);font-style:normal;margin:0 6px}
+  .tmeta{color:var(--tg2);font-size:11px;margin-top:6px;letter-spacing:.02em;text-align:center}
+  .tletter{color:#a9b8db;white-space:pre-wrap;line-height:2.05;font-size:12.2px}
+  .tletter.small{line-height:1.75;color:#b9c7e6;font-size:11.6px;margin-bottom:11px}
+  .tsign{color:var(--tdim);margin-top:10px}
   .tgrp{color:var(--tamb);margin:13px 0 5px}
   .tout>.tgrp:first-child{margin-top:0}
+  .tfetch{display:flex;gap:13px;align-items:flex-start}
+  .tfetch .art{color:var(--tpk);font-size:10px;line-height:1.25;flex:0 0 auto;text-shadow:0 0 12px rgba(249,168,212,.45)}
+  .tfetch .rows{flex:1;min-width:0}
+  .tfetch .hd{color:var(--tg);margin-bottom:2px}
+  .tfetch .ul{color:var(--tbd2);margin-bottom:4px}
   .ttree{margin:3px 0}
-  .ttree .br{color:rgba(125,255,176,.45);margin-right:7px}
-  .ttree .v{color:#cfe9dc}
+  .ttree .br{color:var(--tbd2);margin-right:7px}
   .tkv{display:flex;gap:9px;margin:3px 0;align-items:baseline}
-  .tkv>.k{color:var(--tdim);flex:0 0 76px;word-break:keep-all}
-  .tkv>.v{flex:1;color:#cfe9dc}
+  .tkv>.k{color:var(--tdim);flex:0 0 74px;word-break:keep-all}
+  .tkv>.v{flex:1;color:var(--tink)}
   .tkv .acts{margin-left:8px;white-space:nowrap}
-  .tkv .no{color:#eafff3}
-  .tlink{color:var(--tg);cursor:pointer;text-decoration:none;border-bottom:1px dotted rgba(125,255,176,.45)}
-  .tbtn{font-family:var(--mono);font-size:10px;color:var(--tg2);cursor:pointer;margin-left:7px;
-    background:rgba(125,255,176,.07);border:1px solid rgba(125,255,176,.28);border-radius:5px;padding:2px 7px}
-  .tbtn:active{background:rgba(125,255,176,.2);color:#eafff3}
-  .tcal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;max-width:290px;margin:2px 0 4px}
-  .tcal span{text-align:center;padding:4px 0;font-size:11px;color:#a8ccbb}
+  .tkv .no{color:#eaf1ff;letter-spacing:.02em}
+  .tlink{color:var(--tg);cursor:pointer;text-decoration:none;border-bottom:1px dotted var(--tbd2)}
+  .tbtn{font-family:var(--mono);font-size:10px;color:var(--tg);cursor:pointer;margin-left:7px;
+    background:rgba(140,190,255,.08);border:1px solid var(--tbd);border-radius:5px;padding:2px 7px}
+  .tbtn:active{background:rgba(140,190,255,.22);color:#eaf1ff}
+  .tcal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;max-width:292px;margin:4px 0}
+  .tcal span{text-align:center;padding:4px 0;font-size:11px;color:#aebede}
   .tcal .h{color:var(--tdim);font-size:10px}
-  .tcal .sun{color:#ff9ecb}
-  .tcal .on{background:rgba(125,255,176,.2);color:#eafff3;border:1px solid rgba(125,255,176,.55);border-radius:4px;font-weight:700}
+  .tcal .sun{color:var(--tpk)}
+  .tcal .on{background:rgba(140,190,255,.22);color:#f2f7ff;border:1px solid var(--tbd2);border-radius:4px;font-weight:700}
+  .tsvc{margin:2px 0;color:#b9c7e6}
+  .tsvc .dot{color:var(--tmt)}
   .tgal{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:3px 0 2px}
   .tgal.tgal1{grid-template-columns:1fr;max-width:255px}
   .tgal button{position:relative;padding:0;overflow:hidden;cursor:pointer;aspect-ratio:1/1;
-    background:#04100b;border:1px solid rgba(125,255,176,.22);border-radius:4px}
+    background:#050b1e;border:1px solid var(--tbd);border-radius:4px}
   .tgal.tgal1 button{aspect-ratio:16/9}
-  .tgal img{width:100%;height:100%;object-fit:cover;opacity:.92;
-    filter:grayscale(1) sepia(1) hue-rotate(78deg) saturate(1.45) brightness(.62) contrast(1.16)}
+  .tgal img{width:100%;height:100%;object-fit:cover;opacity:.95;
+    filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(2.2) brightness(.72) contrast(1.12)}
   .tgal button:after{content:'';position:absolute;inset:0;pointer-events:none;
-    background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.34) 2px 3px)}
+    background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.32) 2px 3px)}
   .tgal .fn{position:absolute;left:0;right:0;bottom:0;z-index:2;font-family:var(--mono);font-size:8px;text-align:left;
-    color:var(--tg);background:rgba(3,12,9,.75);padding:2px 3px;letter-spacing:.01em}
-  .tgb{margin:3px 0;color:#cfe9dc;line-height:1.6}
-  .tgb .ts{color:var(--tdim)}
-  .tgb .who{color:var(--tamb)}
-  .teof{margin-top:4px;padding-top:12px;border-top:1px dashed rgba(125,255,176,.2)}
+    color:var(--tg);background:rgba(5,10,28,.78);padding:2px 3px;letter-spacing:.01em}
+  .tlog{margin:3px 0;color:var(--tink);line-height:1.6}
+  .tlog .ts{color:var(--tdim)}
+  .tlog .ok{color:var(--tmt)}
+  .tlog .who{color:var(--tamb)}
+  .tform{border:1px solid var(--tbd);border-radius:6px;padding:9px;margin-top:9px;background:rgba(6,12,30,.5)}
+  .tform input{width:100%;font-family:var(--mono);font-size:12px;color:#eaf1ff;background:rgba(140,190,255,.07);
+    border:1px solid var(--tbd);border-radius:5px;padding:8px 9px;outline:none;margin-bottom:6px}
+  .tform input:focus{border-color:var(--tbd2)}
+  .tform input::placeholder{color:#3d4d70}
+  .tform .go{width:100%;font-family:var(--mono);font-size:11.5px;color:#06101f;background:var(--tg);
+    border:none;border-radius:5px;padding:9px;cursor:pointer;letter-spacing:.04em}
+  .tform .go:active{background:#b6e2ff}
+  .traw{display:none;margin-top:10px;padding-left:11px;border-left:2px solid var(--tbd)}
+  .traw.on{display:block}
+  .teof{margin-top:4px;padding-top:12px;border-top:1px dashed var(--tbd)}
 </style>
 
 <canvas id="snow"></canvas>
@@ -742,7 +789,7 @@
   <div class="dev-wrap">
     <div class="dev-top">
       <span class="d r"></span><span class="d y"></span><span class="d g"></span>
-      <span class="tt">guest@wedding — zsh — ~/wedding/invitation</span>
+      <span class="tt"><b>양병민</b> <i>&#9829;</i> <b>김보원</b> <span class="dim">— invitation · zsh</span></span>
       <button type="button" class="dev-x" onclick="devMode(false)">EXIT ✕</button>
     </div>
     <div class="dev-hud" id="devHud">
@@ -753,21 +800,21 @@
     </div>
     <div class="dev-body" id="devBody"></div>
     <div class="dev-chips" id="devChips">
-      <button type="button" onclick="devJump('head')">표지</button>
+      <button type="button" onclick="devJump('art')">표지</button>
+      <button type="button" onclick="devJump('git')">git</button>
+      <button type="button" onclick="devJump('fetch')">fetch</button>
       <button type="button" onclick="devJump('invitation')">초대글</button>
-      <button type="button" onclick="devJump('family')">가족</button>
+      <button type="button" onclick="devJump('family')">혼주</button>
       <button type="button" onclick="devJump('contact')">연락처</button>
-      <button type="button" onclick="devJump('story')">어린시절</button>
+      <button type="button" onclick="devJump('schedule')">일정</button>
+      <button type="button" onclick="devJump('venue')">오시는 길</button>
+      <button type="button" onclick="devJump('notes')">안내</button>
       <button type="button" onclick="devJump('gallery')">사진</button>
       <button type="button" onclick="devJump('film')">영상</button>
-      <button type="button" onclick="devJump('date')">날짜</button>
-      <button type="button" onclick="devJump('location')">오시는 길</button>
-      <button type="button" onclick="devJump('info')">안내</button>
       <button type="button" onclick="devJump('gift')">계좌</button>
-      <button type="button" onclick="devJump('guestbook')">방명록</button>
+      <button type="button" onclick="devJump('approve')">방명록</button>
       <button type="button" onclick="devJump('closing')">마지막</button>
       <button type="button" onclick="devRun('help')">help</button>
-      <button type="button" onclick="devRun('neofetch')">neofetch</button>
       <button type="button" onclick="devRun('exit')">exit</button>
     </div>
     <form class="dev-prompt" onsubmit="devSubmit(event)" autocomplete="off">
@@ -1154,15 +1201,15 @@
       W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;
       cols=Math.ceil(W/fs);ys=[];
       for(var i=0;i<cols;i++)ys[i]=Math.random()*-45;
-      ctx.fillStyle='#03070a';ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='#050a1c';ctx.fillRect(0,0,W,H);
     }
     function draw(){
-      ctx.fillStyle='rgba(3,7,10,.062)';ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='rgba(5,10,28,.062)';ctx.fillRect(0,0,W,H);
       ctx.font=fs+'px '+'Consolas,"Malgun Gothic",ui-monospace,monospace';
       for(var i=0;i<cols;i++){
         var ch=_MTXCH.charAt(Math.floor(Math.random()*_MTXCH.length));
         var y=ys[i]*fs,r=Math.random();
-        ctx.fillStyle=r<0.03?'#f2fff8':(r<0.22?'#6dffbe':'#1aa86e');
+        ctx.fillStyle=r<0.03?'#eaf3ff':(r<0.22?'#7dd3fc':'#1e4fa8');
         ctx.fillText(ch,i*fs,y);
         if(y>H&&Math.random()>0.972)ys[i]=0;else ys[i]++;
       }
@@ -1245,8 +1292,9 @@
   function _devRow(k,v){return '<span class="row"><span class="k">'+k+'</span><span class="v">'+v+'</span></span>';}
 
   /* ===== 터미널 문서 =====
-     메인 페이지의 실제 DOM에서 내용을 읽어 터미널 출력으로 다시 그린다.
-     본문(초대글·연락처·주소·안내·계좌·방명록)을 고치면 여기도 같이 바뀐다. */
+     청첩장 본문을 개발자 말투로 다시 읽는 화면.
+     사람 이름·주소·연락처·계좌·방명록은 살아있는 DOM/DB에서 읽어오고,
+     초대글·클로징은 개발 은유 버전을 따로 쓰되 [원문 보기]로 실제 문장도 볼 수 있게 한다. */
   function _t(sel,root){var e=(root||document).querySelector(sel);return e?e.textContent.trim():'';}
   function _brText(el){
     if(!el)return '';
@@ -1255,62 +1303,185 @@
     return d.textContent.replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
   }
   function _q(s){return String(s==null?'':s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
-  function _cp(val,msg){return '<button type="button" class="tbtn" onclick="copyText(\''+_q(val)+'\',\''+_q(msg)+'\')">copy</button>';}
+  function _cp(val,msg){return '<button type="button" class="tbtn" onclick="copyText(\''+_q(val)+'\',\''+_q(msg)+'\')">cp</button>';}
   function _kv(k,v){return '<div class="tkv"><span class="k">'+k+'</span><span class="v">'+v+'</span></div>';}
 
-  function _devBanner(){
-    return '<div class="tbanner">양병민 &#10053; 김보원</div>'+
-      '<div class="tmeta">2026-12-19 (SAT) 12:30 KST · 로얄파크컨벤션 3F 로얄홀</div>'+
+  /* 개발 용어에 색을 입힌다 */
+  var _KWC=[
+    ['tg','repository|repo|branch|merge|commit|checkout|pull request|code review|review|approve|LGTM|conflict|fast-forward|deploy|release|rollback|build|version|main'],
+    ['pu','debug|test|refactor|log|logs|stack|memory|cache|thread|mutex|sync|clock|loop|boot|interrupt|register|process|runtime|uptime|kernel|daily build'],
+    ['pk','love|panic|hotfix|forever|production|heart']
+  ];
+  function _kw(t){
+    var h=esc(t);
+    for(var i=0;i<_KWC.length;i++){
+      h=h.replace(new RegExp('\\b('+_KWC[i][1]+')\\b','g'),'<span class="'+_KWC[i][0]+'">$1</span>');
+    }
+    return h;
+  }
+  function _ago(d){
+    if(!d||isNaN(d))return '기록 전';
+    var s=Math.floor((Date.now()-d.getTime())/1000);
+    if(s<60)return '방금 전';
+    if(s<3600)return Math.floor(s/60)+'분 전';
+    if(s<86400)return Math.floor(s/3600)+'시간 전';
+    if(s<86400*30)return Math.floor(s/86400)+'일 전';
+    return (d.getMonth()+1)+'월 '+d.getDate()+'일';
+  }
+
+  /* 01 표지 */
+  var _ART=[
+    "     .---.              .---.  ",
+    "    ( o o )            ( o o ) ",
+    "     '-^-'              '-^-'  ",
+    "     /|=|\\      @       /|=|\\  ",
+    "      | |              /_____\\ ",
+    "     _/ \\_            /_______\\"
+  ].join("\n").replace("@","<span class=\"pk\">&#9829;</span>");
+  function _devArt(){
+    return '<div class="tart">'+_ART+'</div>'+
+      '<div class="tcap">our_wedding.jpg &mdash; 신랑 양병민 &amp; 신부 김보원</div>'+
+      '<div class="tbanner" style="margin-top:13px">양병민<i>&#9829;</i>김보원</div>'+
+      '<div class="tmeta">2026-12-19 (Sat) 12:30 KST &middot; 로얄파크컨벤션 3F 로얄홀</div>'+
       '<div class="tmeta"><span class="dim">remain</span> <span class="ok" id="tRemain">D-'+_devDday()+' '+_devClock()+'</span></div>';
   }
-  function _devLetter(){
-    var msg=_t('.letter .lmsg'),sign=_t('.letter .lsign');
-    var pel=document.querySelector('.parents'),psec=pel?pel.closest('section'):null;
-    var sub=psec?_t('.st-sub',psec):'';
-    return '<div class="tletter">'+esc(msg)+'</div>'+
-      (sign?'<div class="tsign">— '+esc(sign)+'</div>':'')+
-      (sub?'<div class="tsign dim">// '+esc(sub)+'</div>':'');
+
+  /* 02 git */
+  function _devGit(){
+    return '<div class="tcmd"><i>$</i>git checkout -b our-life</div>'+
+      '<div class="l dim">Switched to a new branch <span class="str">\'our-life\'</span></div>'+
+      '<div class="tcmd"><i>$</i>git merge yang-byeongmin kim-bowon --strategy=<span class="pk">love</span></div>'+
+      '<div class="l dim">Auto-merging hearts ...</div>'+
+      '<div class="l"><span class="ok">&#10004; 0 conflicts</span> <span class="dim">&mdash; fast-forward</span></div>'+
+      '<div class="tcmd"><i>$</i>git commit -m <span class="str">"우리, 결혼합니다"</span></div>'+
+      '<div class="l dim">[our-life <span class="num">20261219</span>] 우리, 결혼합니다</div>'+
+      '<div class="l dim"> 2 people changed, 1 family created</div>';
   }
+
+  /* 03 weddingfetch */
+  function _devFetch(){
+    var heart=[
+      " ,d88b. ,d88b.",
+      "88888888888888",
+      " `Y88888888Y' ",
+      "   `Y8888Y'   ",
+      "     `YY'     "
+    ].join('\n');
+    var det=_t('.addr .det')||'서울 용산구 이태원로 29';
+    var rows='<div class="hd">guest@wedding</div><div class="ul">&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;</div>'+
+      _kv('host','로얄파크컨벤션 3F 로얄홀')+
+      _kv('date','<span class="num">2026-12-19</span> (Sat)')+
+      _kv('time','<span class="num">12:30</span> KST')+
+      _kv('addr',esc(det))+
+      _kv('uptime','<span class="ok">D-'+_devDday()+'</span> <span class="dim">'+_devClock()+' 남음</span>')+
+      _kv('kernel','winter-night 26.12.19')+
+      _kv('shell','vanilla-js <span class="dim">(no framework, no build)</span>')+
+      _kv('assets','사진 '+GALLERY_SRCS.length+'장 &middot; 드론영상 1편 &middot; bgm 1곡')+
+      _kv('db','supabase <span class="dim">(guestbook &middot; rsvp &middot; photos)</span>')+
+      _kv('author','양병민 <span class="dim">(신랑, 개발자)</span>');
+    return '<div class="tfetch"><div class="art">'+heart+'</div><div class="rows">'+rows+'</div></div>';
+  }
+
+  /* 04 초대글 */
+  function _devInvite(){
+    var dev=[
+      '서로를 알아가는 동안',
+      '몇 번의 release가 지났습니다.',
+      '',
+      '이제는 같은 repository에서',
+      '같은 아침을 build 하기로 했습니다.',
+      '',
+      '오래 곁에서 review 해주신 분들 앞에서',
+      '이 merge를 commit 하려 합니다.',
+      '',
+      'conflict 없이 두 branch가 하나가 되는 날,',
+      '귀한 걸음으로 approve 해주세요.'
+    ].join('\n');
+    var raw=_t('.letter .lmsg'),sign=_t('.letter .lsign');
+    return '<div class="tletter">'+_kw(dev)+'</div>'+
+      '<div class="tsign">&mdash; '+esc(sign||'양병민 · 김보원 드림')+
+      '<button type="button" class="tbtn" onclick="devToggleRaw(\'rawInvite\')">원문 보기</button></div>'+
+      '<div class="traw" id="rawInvite"><div class="dim" style="margin-bottom:6px">// 청첩장에 실린 문장</div>'+
+      '<div class="tletter small">'+esc(raw)+'</div></div>';
+  }
+
+  /* 05 혼주 */
   function _devFamily(){
-    var rows=document.querySelectorAll('.parents .prow'),out='';
+    var rows=document.querySelectorAll('.parents .prow'),out='<div class="dim" style="margin-bottom:6px">// CODEOWNERS</div>';
     for(var i=0;i<rows.length;i++){
       var pn=_brText(rows[i].querySelector('.pn')).split('\n').join(' · ');
       var pr=_t('.pr',rows[i]).replace(/^의\s*/,'');
       var pc=_t('.pc',rows[i]);
       out+='<div class="ttree"><span class="br">'+(i===rows.length-1?'&#9492;&#9472;':'&#9500;&#9472;')+'</span>'+
-        '<span class="v">'+esc(pn)+'</span><span class="dim"> &#8594; '+esc(pr)+' </span><span class="ok">'+esc(pc)+'</span></div>';
+        '<span>'+esc(pn)+'</span><span class="dim"> &#8594; '+esc(pr)+' </span><span class="kw">'+esc(pc)+'</span></div>';
     }
     return out;
   }
+
+  /* 06 연락처 */
   function _devContacts(){
     var cols=document.querySelectorAll('#contactPanel .contact-col'),out='';
     for(var i=0;i<cols.length;i++){
       out+='<div class="tgrp">'+esc(_t('h4',cols[i]))+'</div>';
       var ps=cols[i].querySelectorAll('.person');
       for(var j=0;j<ps.length;j++){
-        var rel=_t('.rel',ps[j]),nm=_t('.nm',ps[j]);
-        var tel=ps[j].querySelector('a[href^="tel:"]'),sms=ps[j].querySelector('a[href^="sms:"]');
-        var acts='';
-        if(tel)acts+='<a class="tlink" href="'+tel.getAttribute('href')+'">[전화]</a> ';
-        if(sms)acts+='<a class="tlink" href="'+sms.getAttribute('href')+'">[문자]</a>';
-        out+='<div class="tkv"><span class="k">'+esc(rel)+'</span><span class="v">'+esc(nm)+
-          '<span class="acts">'+acts+'</span></span></div>';
+        var tel=ps[j].querySelector('a[href^="tel:"]'),sms=ps[j].querySelector('a[href^="sms:"]'),acts='';
+        if(tel)acts+='<a class="tlink" href="'+tel.getAttribute('href')+'">[call]</a> ';
+        if(sms)acts+='<a class="tlink" href="'+sms.getAttribute('href')+'">[sms]</a>';
+        out+='<div class="tkv"><span class="k">'+esc(_t('.rel',ps[j]))+'</span><span class="v">'+
+          esc(_t('.nm',ps[j]))+'<span class="acts">'+acts+'</span></span></div>';
       }
     }
     return out;
   }
-  function _devCal(){
+
+  /* 07 일정 */
+  function _devSchedule(){
     var y=2026,m=11,first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
-    var hd=['일','월','화','수','목','금','토'],out='<div class="tcal">';
-    for(var i=0;i<7;i++)out+='<span class="h'+(i===0?' sun':'')+'">'+hd[i]+'</span>';
-    for(var b=0;b<first;b++)out+='<span></span>';
+    var hd=['일','월','화','수','목','금','토'],cal='<div class="tcal">';
+    for(var i=0;i<7;i++)cal+='<span class="h'+(i===0?' sun':'')+'">'+hd[i]+'</span>';
+    for(var b=0;b<first;b++)cal+='<span></span>';
     for(var d=1;d<=days;d++){
       var dow=(first+d-1)%7;
-      out+='<span class="'+(d===19?'on':(dow===0?'sun':''))+'">'+d+'</span>';
+      cal+='<span class="'+(d===19?'on':(dow===0?'sun':''))+'">'+d+'</span>';
     }
-    out+='</div>';
-    return out+'<div class="tsign dim">// 2026-12-19 (토) 12:30 · 굵게 표시된 날</div>';
+    cal+='</div>';
+    return '<div class="tcmd"><i>$</i>crontab -l</div>'+
+      '<div class="l"><span class="num">30 12 19 12 *</span>  wedding --start   <span class="cmt"># 2026-12-19 12:30 KST</span></div>'+
+      '<div class="tcmd"><i>$</i>systemctl status wedding.service</div>'+
+      '<div class="tsvc"><span class="dot">&#9679;</span> wedding.service &mdash; 양병민 <span class="pk">&#9829;</span> 김보원</div>'+
+      '<div class="tsvc dim">   Loaded : loaded (/etc/wedding/2026-12-19.conf; <span class="ok">enabled</span>)</div>'+
+      '<div class="tsvc dim">   Active : <span class="warn">activating (start-pre)</span> &mdash; <span class="ok" id="tRemain2">D-'+_devDday()+' '+_devClock()+'</span></div>'+
+      '<div class="tsvc dim">   Where  : 로얄파크컨벤션 3F 로얄홀</div>'+
+      '<div class="tcmd"><i>$</i>cal 12 2026</div>'+cal;
   }
+
+  /* 08 오시는 길 */
+  function _devLocation(){
+    var place=_t('.addr .place'),det=_t('.addr .det'),out='';
+    out+=_kv('place','<span class="kw">'+esc(place)+'</span>');
+    out+=_kv('address',esc(det)+_cp(det,'주소가 복사되었습니다'));
+    out+=_kv('coords','<span class="num">37.5367693</span>, <span class="num">126.9755383</span>');
+    var links=document.querySelectorAll('#location .center a'),ls='';
+    for(var i=0;i<links.length;i++)
+      ls+='<a class="tlink" target="_blank" rel="noopener" href="'+links[i].getAttribute('href')+'">['+esc(links[i].textContent.trim())+']</a> ';
+    if(ls)out+=_kv('open',ls);
+    var lis=document.querySelectorAll('#location .info-list li');
+    for(var j=0;j<lis.length;j++)out+=_kv(esc(_t('b',lis[j])),esc(_t('span',lis[j])));
+    return out;
+  }
+
+  /* 09 안내 */
+  function _devNotes(){
+    var cards=document.querySelectorAll('.venue-cards .vcard'),out='';
+    for(var i=0;i<cards.length;i++){
+      out+='<div class="tgrp"># '+esc(_t('.vh',cards[i]))+'</div>'+
+        '<div class="tletter small">'+esc(_brText(cards[i].querySelector('.vt')))+'</div>';
+    }
+    return out;
+  }
+
+  /* 10 사진 */
   function _devGallery(){
     var out='<div class="tgal">';
     for(var i=0;i<GALLERY_SRCS.length;i++){
@@ -1318,112 +1489,150 @@
         '<img loading="lazy" src="'+GALLERY_SRCS[i]+'" alt="사진 '+(i+1)+'" />'+
         '<span class="fn">'+GALLERY_SRCS[i].replace('images/','')+'</span></button>';
     }
-    out+='</div>';
-    return out+'<div class="tsign dim">// '+GALLERY_SRCS.length+'개 파일 · 누르면 원본 크기로 열립니다</div>';
-  }
-  function _devChild(){
-    var figs=document.querySelectorAll('.child figure'),out='<div class="tgal tgal3">';
-    for(var i=0;i<figs.length;i++){
-      var im=figs[i].querySelector('img');if(!im)continue;
-      out+='<button type="button" onclick="devPage(\'story\')"><img loading="lazy" src="'+im.getAttribute('src')+'" alt="어린시절" />'+
-        '<span class="fn">'+esc(_t('figcaption',figs[i]).toLowerCase()||'child')+'</span></button>';
+    out+='</div><div class="tsign dim">// '+GALLERY_SRCS.length+' files &middot; 누르면 원본 크기로 열립니다</div>';
+    var figs=document.querySelectorAll('.child figure');
+    if(figs.length){
+      out+='<div class="tgrp">./childhood</div><div class="tgal tgal3">';
+      for(var j=0;j<figs.length;j++){
+        var im=figs[j].querySelector('img');if(!im)continue;
+        out+='<button type="button" onclick="devPage(\'story\')"><img loading="lazy" src="'+im.getAttribute('src')+'" alt="어린시절" />'+
+          '<span class="fn">'+esc((_t('figcaption',figs[j])||'child').toLowerCase())+'</span></button>';
+      }
+      var note=document.querySelector('.child-note img');
+      if(note)out+='<button type="button" onclick="devPage(\'story\')"><img loading="lazy" src="'+note.getAttribute('src')+'" alt="손글씨" /><span class="fn">note.png</span></button>';
+      out+='</div>';
     }
-    var note=document.querySelector('.child-note img');
-    if(note)out+='<button type="button" onclick="devPage(\'story\')"><img loading="lazy" src="'+note.getAttribute('src')+'" alt="손글씨" /><span class="fn">note.png</span></button>';
-    out+='</div>';
     return out;
   }
+
+  /* 11 영상 */
   function _devFilm(){
-    var p=document.querySelector('.vidposter img'),meta=_t('.vidwrap .vmeta');
-    var out='';
+    var p=document.querySelector('.vidposter img'),meta=_t('.vidwrap .vmeta'),out='';
     if(p)out+='<div class="tgal tgal1"><button type="button" onclick="devPage(\'film\')">'+
       '<img loading="lazy" src="'+p.getAttribute('src')+'" alt="드론 영상" /><span class="fn">drone-highlight.mp4</span></button></div>';
-    return out+'<div class="tsign dim">// '+esc(meta||'DRONE HIGHLIGHT')+' · <span class="tlink" onclick="devPage(\'film\')">[재생하려면 페이지로 이동]</span></div>';
+    return out+'<div class="tsign dim">// '+esc(meta||'DRONE HIGHLIGHT')+' &middot; <span class="tlink" onclick="devPage(\'film\')">[재생하려면 페이지로]</span></div>';
   }
-  function _devLocation(){
-    var place=_t('.addr .place'),det=_t('.addr .det'),out='';
-    out+=_kv('place','<span class="ok">'+esc(place)+'</span>');
-    out+=_kv('address',esc(det)+_cp(det,'주소가 복사되었습니다'));
-    out+=_kv('coords','<span class="num">37.5367693</span>, <span class="num">126.9755383</span>');
-    var links=document.querySelectorAll('#location .center a'),ls='';
-    for(var i=0;i<links.length;i++){
-      ls+='<a class="tlink" target="_blank" rel="noopener" href="'+links[i].getAttribute('href')+'">['+esc(links[i].textContent.trim())+']</a> ';
-    }
-    if(ls)out+=_kv('open',ls);
-    var lis=document.querySelectorAll('#location .info-list li');
-    for(var j=0;j<lis.length;j++){
-      out+=_kv(esc(_t('b',lis[j])),esc(_t('span',lis[j])));
-    }
-    return out;
-  }
-  function _devInfo(){
-    var cards=document.querySelectorAll('.venue-cards .vcard'),out='';
-    for(var i=0;i<cards.length;i++){
-      out+='<div class="tgrp">'+esc(_t('.vh',cards[i]))+'</div>'+
-        '<div class="tletter small">'+esc(_brText(cards[i].querySelector('.vt')))+'</div>';
-    }
-    return out;
-  }
+
+  /* 12 계좌 */
   function _devAccounts(){
     var accs=document.querySelectorAll('.acc'),out='';
     for(var i=0;i<accs.length;i++){
-      var head=_t('.acc>button',accs[i])||_t('button',accs[i]);
-      out+='<div class="tgrp">'+esc(head.replace('▾','').trim())+'</div>';
+      out+='<div class="tgrp">'+esc((_t('button',accs[i])||'').replace('▾','').trim())+'</div>';
       var rows=accs[i].querySelectorAll('.acct');
       for(var j=0;j<rows.length;j++){
         var who=_t('.who',rows[j]),no=_t('.no',rows[j]),bank=_t('.abank',rows[j]);
         var filled=no&&no.indexOf('입력')<0;
         out+='<div class="tkv"><span class="k">'+esc(who)+'</span><span class="v">'+
           (filled?'<span class="no">'+esc(no)+'</span> <span class="dim">'+esc(bank)+'</span>'+_cp(no,'계좌번호가 복사되었습니다')
-                 :'<span class="dim">null // 아직 비어 있습니다</span>')+
+                 :'<span class="dim">null <span class="cmt">// 확정되면 채워집니다</span></span>')+
           '</span></div>';
       }
     }
     return out;
   }
+
+  /* 13 방명록 = approvals.log */
   function _devGbBody(){
-    var arr=(typeof _gbAll!=='undefined'&&_gbAll)?_gbAll:[];
-    var out='';
+    var arr=(typeof _gbAll!=='undefined'&&_gbAll)?_gbAll:[],out='';
+    out+='<div class="tcmd"><i>$</i>tail -f /var/log/wedding/approvals.log</div>';
     if(!arr.length){
-      out+='<div class="dim">아직 기록이 없습니다. 첫 줄을 남겨주세요.</div>';
+      out+='<div class="l dim">아직 approve 기록이 없습니다. 첫 줄을 남겨주세요.</div>';
     }else{
       for(var i=0;i<arr.length&&i<40;i++){
         var g=arr[i],d=g.created_at?new Date(g.created_at):(g.ts?new Date(g.ts):null);
-        var ds=(d&&!isNaN(d))?(pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())):'--:--';
-        out+='<div class="tgb"><span class="ts">['+ds+']</span> <span class="who">'+esc(g.author)+'</span> <span class="dim">&#8250;</span> '+esc(g.content)+'</div>';
+        out+='<div class="tlog"><span class="ts">['+_ago(d)+']</span> <span class="ok">approve</span> '+
+          '<span class="who">'+esc(g.author)+'</span> <span class="dim">&#8250;</span> '+esc(g.content)+'</div>';
       }
-      if(arr.length>40)out+='<div class="dim">... 그리고 '+(arr.length-40)+'개 더</div>';
+      if(arr.length>40)out+='<div class="l dim">... '+(arr.length-40)+'건 더</div>';
     }
-    return out+'<div class="tsign"><button type="button" class="tbtn" onclick="devReloadGb()">refresh</button>'+
-      '<span class="tlink" style="margin-left:8px" onclick="devPage(\'guestbook\')">[메시지 남기러 가기]</span></div>';
+    out+='<div class="tform">'+
+      '<div class="dim" style="margin-bottom:7px">$ echo "축하 한마디" &gt;&gt; approvals.log</div>'+
+      '<input id="devGbName" maxlength="20" placeholder="이름" />'+
+      '<input id="devGbMsg" maxlength="200" placeholder="축하 메시지" />'+
+      '<button type="button" class="go" onclick="devApprove()">approve &#10003;</button>'+
+      '</div>'+
+      '<div class="tsign"><button type="button" class="tbtn" onclick="devReloadGb()">refresh</button></div>';
+    return out;
   }
+  function devApprove(){
+    var n=_dq('devGbName'),m=_dq('devGbMsg');
+    if(!n||!m)return;
+    if(!n.value.trim()||!m.value.trim()){toast('이름과 메시지를 입력해주세요');return;}
+    var mn=document.getElementById('gbName'),mm=document.getElementById('gbMsg');
+    if(!mn||!mm)return;
+    mn.value=n.value;mm.value=m.value;
+    addGuestbook();
+    n.value='';m.value='';
+    setTimeout(function(){
+      var el=document.querySelector('#t-approve .tout');
+      if(el)el.innerHTML=_devGbBody();
+    },1100);
+  }
+  function devReloadGb(){
+    if(typeof renderGb==='function')renderGb();
+    setTimeout(function(){
+      var el=document.querySelector('#t-approve .tout');
+      if(el)el.innerHTML=_devGbBody();
+      toast('방명록을 다시 불러왔어요');
+    },700);
+  }
+  function devToggleRaw(id){var e=document.getElementById(id);if(e)e.classList.toggle('on');}
+
+  /* 14 클로징 */
   function _devClosing(){
-    var ct=_brText(document.querySelector('.closing .ct'));
-    return '<div class="tletter">'+esc(ct)+'</div>'+
-      '<div class="tsign">— '+esc(_t('.closing .names'))+'</div>';
+    var dev=[
+      '## 26.12.19 — first stable release',
+      '',
+      '저희가 처음 만난 것도 winter였고,',
+      '그해 겨울의 log는 유난히 따뜻했습니다.',
+      '',
+      '특별한 release보다',
+      '평범한 daily build를 더 많이',
+      '함께하고 싶습니다.',
+      '',
+      '같은 계절을 몇 번이고 loop 하며',
+      '익숙한 하루를 commit 하고',
+      '저희만의 repository를 천천히 키워가겠습니다.',
+      '',
+      '그 첫 deploy에 함께해 주세요.'
+    ].join('\n');
+    var raw=_brText(document.querySelector('.closing .ct'));
+    return '<div class="tletter">'+_kw(dev)+'</div>'+
+      '<div class="tsign">&mdash; '+esc(_t('.closing .names')||'병민 · 보원')+
+      '<button type="button" class="tbtn" onclick="devToggleRaw(\'rawClosing\')">원문 보기</button></div>'+
+      '<div class="traw" id="rawClosing"><div class="dim" style="margin-bottom:6px">// 청첩장에 실린 문장</div>'+
+      '<div class="tletter small">'+esc(raw)+'</div></div>';
   }
 
+  /* 문서 조립 */
   function _devDoc(){
-    var out=[];
-    function sec(id,cmd,body){
+    var out=[],n=0;
+    function sec(id,label,body,bar){
       if(!body)return;
-      out.push('<div class="tsec" id="t-'+id+'"><div class="tcmd"><i>$</i>'+cmd+'</div><div class="tout">'+body+'</div></div>');
+      n++;
+      var num=(n<10?'0':'')+n;
+      out.push('<div class="tsec" id="t-'+id+'">'+
+        '<div class="tdiv"><span>section: <b>'+label+'</b></span><em>'+num+'</em></div>'+
+        '<div class="tout'+(bar===false?'':' bar')+'">'+body+'</div></div>');
     }
-    sec('head','cat README.md',_devBanner());
-    sec('invitation','cat 01-invitation.txt',_devLetter());
-    sec('family','tree ./family',_devFamily());
-    sec('contact','cat contacts.tsv',_devContacts());
-    sec('story','ls ./images/childhood',_devChild());
-    sec('gallery','ls ./images/gallery',_devGallery());
-    sec('film','ffplay drone-highlight.mp4',_devFilm());
-    sec('date','cal 12 2026',_devCal());
-    sec('location','cat location.json',_devLocation());
-    sec('info','cat ./info/*.md',_devInfo());
-    sec('gift','cat accounts.json',_devAccounts());
-    sec('guestbook','tail -n 40 guestbook.log',_devGbBody());
-    sec('closing','cat CLOSING.txt',_devClosing());
-    out.push('<div class="tsec teof"><span class="dim">// EOF · 2026-12-19 12:30 · 로얄파크컨벤션</span><br/>'+
-      '<span class="dim">// 아래 프롬프트에 </span><span class="ok">help</span><span class="dim"> · 청첩장으로 돌아가려면 </span><span class="ok">exit</span></div>');
+    sec('art','our_wedding.jpg',_devArt(),false);
+    sec('git','git · our-life',_devGit(),false);
+    sec('fetch','weddingfetch',_devFetch(),false);
+    sec('invitation','invitation · README',_devInvite());
+    sec('family','family · CODEOWNERS',_devFamily());
+    sec('contact','contact · maintainers',_devContacts());
+    sec('schedule','schedule · cron',_devSchedule(),false);
+    sec('venue','venue · location.json',_devLocation());
+    sec('notes','notes · info.md',_devNotes());
+    sec('gallery','assets · images',_devGallery(),false);
+    sec('film','assets · film',_devFilm(),false);
+    sec('gift','gift · accounts.json',_devAccounts());
+    sec('approve','approve · guestbook',_devGbBody(),false);
+    sec('closing','closing · CHANGELOG',_devClosing());
+    out.push('<div class="tsec teof">'+
+      '<div class="dim">// EOF &middot; 2026-12-19 12:30 KST &middot; 로얄파크컨벤션</div>'+
+      '<div class="dim">// 이 청첩장은 신랑이 밤마다 한 줄씩 직접 만들었습니다.</div>'+
+      '<div class="dim">// 명령어는 <span class="ok">help</span>, 청첩장으로 돌아가려면 <span class="ok">exit</span></div></div>');
     return out;
   }
 
@@ -1435,71 +1644,62 @@
     items.push({t:'f',fn:function(){if(isReload)b.scrollTop=0;}});
     _devPush(items);
   }
-  function devReloadGb(){
-    if(typeof renderGb==='function')renderGb();
-    setTimeout(function(){
-      var el=document.querySelector('#t-guestbook .tout');
-      if(el)el.innerHTML=_devGbBody();
-      toast('방명록을 다시 불러왔어요');
-    },700);
-  }
 
-  /* 부팅 (짧게) */
+  /* 부팅 */
   function _devBoot(){
     _devPush([
       {t:'c',s:'ssh guest@wedding.yangmanchuns.io'},
-      {s:'<span class="dim">connected. </span><span class="ok">WeddingOS 26.12 (winter-night)</span><span class="dim"> · 신랑이 직접 만든 청첩장입니다.</span>'},
-      {s:'<span class="dim">청첩장 내용을 그대로 터미널로 출력합니다. 아래로 쭉 읽어주세요.</span>',d:220},
+      {s:'<span class="dim">connected. </span><span class="ok">winter-night 26.12.19</span><span class="dim"> &middot; 신랑이 직접 만든 청첩장입니다.</span>'},
+      {s:'<span class="dim">청첩장을 개발자 말투로 출력합니다. 아래로 쭉 읽어주세요.</span>',d:200},
       {t:'f',fn:function(){_devRenderDoc(false);}}
     ]);
   }
 
   /* 이동 */
   var _DEVSEC=[
-    ['head','표지 · 남은 시간','head readme 표지 배너','Invitation'],
+    ['art','표지 · 남은 시간','art cover 표지 배너 readme','Invitation'],
+    ['git','git merge','git merge branch 깃','Invitation'],
+    ['fetch','weddingfetch','fetch neofetch weddingfetch 정보','Invitation'],
     ['invitation','초대글','invitation invite letter 초대 초대글','Invitation'],
-    ['family','혼주 · 가족','family parents 가족 혼주 부모','Invitation'],
-    ['contact','연락처','contact tel phone 연락처 전화','Invitation'],
-    ['story','어린 시절','story child once 어린시절 어린','Once Upon'],
-    ['gallery','사진 (갤러리)','gallery photo photos 사진 갤러리','Gallery'],
+    ['family','혼주 · 가족','family parents codeowners 가족 혼주 부모','Invitation'],
+    ['contact','연락처','contact tel phone call 연락처 전화','Invitation'],
+    ['schedule','일정 · 달력','schedule cron date calendar cal 달력 날짜 일정','Save the Date'],
+    ['venue','오시는 길','venue location map way 지도 오시는길 길','Location'],
+    ['notes','안내 사항','notes info information 안내','Information'],
+    ['gallery','사진','gallery assets photo photos images 사진 갤러리','Gallery'],
     ['film','드론 영상','film video drone 영상 비디오','#vidWrap'],
-    ['date','날짜 · 달력','date calendar cal 달력 날짜','Save the Date'],
-    ['location','오시는 길','location map way 지도 오시는길 길','Location'],
-    ['info','안내 사항','info information 안내','Information'],
-    ['gift','마음 전하실 곳 (계좌)','gift account money 계좌 축의금','With Heart'],
-    ['guestbook','방명록','guestbook gb 방명록 메시지','Guestbook'],
-    ['closing','마지막 인사','closing end fin 마지막 클로징','section.closing']
+    ['gift','마음 전하실 곳','gift account accounts money 계좌 축의금','With Heart'],
+    ['approve','방명록 (approve)','approve guestbook gb 방명록 메시지 축하','Guestbook'],
+    ['closing','마지막 인사','closing changelog end fin 마지막 클로징','section.closing'],
+    ['story','어린 시절','story child childhood 어린시절 어린','Once Upon']
   ];
   function _devFind(arg){
     if(!arg)return null;
-    for(var i=0;i<_DEVSEC.length;i++){
+    for(var i=0;i<_DEVSEC.length;i++)
       if((' '+_DEVSEC[i][2]+' ').indexOf(' '+arg+' ')>=0)return _DEVSEC[i];
-    }
     return null;
   }
-  /* 터미널 문서 안에서 이동 */
   function devJump(key){
     var b=_dq('devBody'),el=document.getElementById('t-'+key);
     if(!b||!el)return false;
-    b.scrollTo?b.scrollTo({top:Math.max(0,el.offsetTop-6),behavior:'smooth'}):(b.scrollTop=el.offsetTop-6);
+    if(b.scrollTo)b.scrollTo({top:Math.max(0,el.offsetTop-6),behavior:'smooth'});else b.scrollTop=el.offsetTop-6;
     el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
     return true;
   }
   function _devJumpCmd(arg){
-    if(!arg)return [{s:'<span class="err">사용법:</span> <span class="dim">open &lt;이름&gt;  ·  목록은</span> <span class="ok">ls</span>',c:'l'}];
+    if(!arg)return [{s:'<span class="err">사용법:</span> <span class="dim">open &lt;이름&gt; &middot; 목록은</span> <span class="ok">ls</span>',c:'l'}];
     var hit=_devFind(arg);
-    if(!hit)return [{s:'<span class="err">no such section: '+esc(arg)+'</span> <span class="dim">— </span><span class="ok">ls</span><span class="dim"> 로 목록을 보세요</span>',c:'l'}];
+    if(!hit)return [{s:'<span class="err">no such section: '+esc(arg)+'</span> <span class="dim">&mdash; </span><span class="ok">ls</span><span class="dim"> 로 목록을 보세요</span>',c:'l'}];
+    if(!document.getElementById('t-'+hit[0]))return [{s:'<span class="dim">그 내용은 페이지에 있습니다 &#8594; </span><span class="ok">page '+hit[0]+'</span>',c:'l'}];
     return [{s:'<span class="dim">jump &#8594; </span><span class="ok">'+hit[0]+'</span><span class="dim">  '+esc(hit[1])+'</span>',c:'l'},
             {t:'f',fn:function(){devJump(hit[0]);}}];
   }
-  /* 실제 페이지로 나가서 이동 */
   function _devTarget(sel){
     if(sel.charAt(0)==='#'||sel.indexOf('section')===0)return document.querySelector(sel);
     var ls=document.querySelectorAll('.frame .lbl');
-    for(var i=0;i<ls.length;i++){
+    for(var i=0;i<ls.length;i++)
       if(ls[i].textContent.trim().toLowerCase()===sel.toLowerCase())
         return sel==='Film'?ls[i]:(ls[i].closest('section')||ls[i]);
-    }
     return null;
   }
   function devPage(key){
@@ -1510,7 +1710,7 @@
     toast(hit[1]+' 으로 이동했어요');
   }
   function _devPageCmd(arg){
-    if(!arg)return [{s:'<span class="err">사용법:</span> <span class="dim">page &lt;이름&gt; — 터미널을 닫고 실제 페이지의 그 섹션으로 이동합니다</span>',c:'l'}];
+    if(!arg)return [{s:'<span class="err">사용법:</span> <span class="dim">page &lt;이름&gt; &mdash; 터미널을 닫고 실제 페이지의 그 섹션으로</span>',c:'l'}];
     var hit=_devFind(arg);
     if(!hit)return [{s:'<span class="err">no such section: '+esc(arg)+'</span>',c:'l'}];
     return [{s:'<span class="dim">exit &amp; scroll &#8594; </span><span class="ok">'+hit[0]+'</span>',c:'l'},
@@ -1555,20 +1755,7 @@
       ];
     }
     if(c==='neofetch'||c==='fetch'||c==='uname'||c==='uname -a'){
-      return [
-        L('<span class="art">             &#9829;&#9829;&#9829;   &#9829;&#9829;&#9829;\n    &#9829;&#9829;&#9829;&#9829;&#9829; &#9829;&#9829;&#9829;&#9829;&#9829;\n    &#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;\n     &#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;\n      &#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;\n       &#9829;&#9829;&#9829;&#9829;&#9829;\n        &#9829;&#9829;&#9829;\n         &#9829;</span>'),
-        L(_devRow('user','guest@wedding')),
-        L(_devRow('os','WeddingOS 26.12 &#8220;Winter Night&#8221;')),
-        L(_devRow('kernel','love-2026.12.19-12:30-KST')),
-        L(_devRow('host','로얄파크컨벤션 3F 로얄홀 (전쟁기념관 내)')),
-        L(_devRow('uptime','D-'+_devDday()+' '+_devClock()+' 남음')),
-        L(_devRow('shell','vanilla-js (no framework, no build)')),
-        L(_devRow('packages','사진 '+GALLERY_SRCS.length+'장, 드론영상 1편, bgm 1곡')),
-        L(_devRow('db','supabase — 방명록 · 참석여부 · 하객사진')),
-        L(_devRow('theme','Ivory Frost / Winter Night &#10053;')),
-        L(_devRow('resolution','480 x &#8734;')),
-        L(_devRow('made by','양병민 (신랑, 개발자) · 감수 김보원'))
-      ];
+      return [L(_devFetch())];
     }
     if(c==='dday'||c==='d-day'||c==='countdown'||c==='uptime'||c==='date'){
       var t=_devDiff();
@@ -1723,6 +1910,8 @@
     s.textContent=pad(Math.floor(t/1000)%60);
     var rm=_dq('tRemain');
     if(rm)rm.textContent='D-'+Math.floor(t/86400000)+' '+_devClock();
+    var rm2=_dq('tRemain2');
+    if(rm2)rm2.textContent='D-'+Math.floor(t/86400000)+' '+_devClock();
   }
 
   /* 열기 / 닫기 */
