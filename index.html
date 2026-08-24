@@ -315,7 +315,6 @@
     background:rgba(140,190,255,.06);border:1px solid rgba(140,190,255,.24);border-radius:8px;padding:10px 15px;transition:.2s}
   .devbtn b{color:var(--tg);font-weight:400;margin-right:5px}
   .devbtn:hover,.devbtn:active{color:var(--tg);border-color:var(--tbd2);background:rgba(140,190,255,.12);box-shadow:0 0 18px rgba(140,190,255,.18)}
-  .devbtn-note{font-family:var(--mono);font-size:10.5px;color:#61748f;margin-top:10px;letter-spacing:.03em}
 
   #devmode{position:fixed;inset:0;height:100dvh;z-index:120;display:none;overflow:hidden;
     background:linear-gradient(180deg,#050a1c 0%,#0a1330 45%,#060c22 100%);
@@ -716,7 +715,6 @@
     <p class="foot-note" style="opacity:.6">Made by ManChun</p>
     <div class="devbtn-wrap">
       <button type="button" class="devbtn" onclick="devMode(true)"><b>&gt;_</b>개발자 모드</button>
-      <p class="devbtn-note">신랑이 개발자라서 만든 이스터에그입니다</p>
     </div>
   </footer>
 </div>
@@ -1378,7 +1376,7 @@
       _kv('shell','vanilla-js <span class="dim">(no framework, no build)</span>')+
       _kv('assets','사진 '+GALLERY_SRCS.length+'장 &middot; 드론영상 1편 &middot; bgm 1곡')+
       _kv('db','supabase <span class="dim">(guestbook &middot; rsvp &middot; photos)</span>')+
-      _kv('author','양병민 <span class="dim">(신랑, 개발자)</span>');
+      _kv('author','양병민');
     return '<div class="tfetch"><div class="art">'+heart+'</div><div class="rows">'+rows+'</div></div>';
   }
 
@@ -1631,7 +1629,6 @@
     sec('closing','closing · CHANGELOG',_devClosing());
     out.push('<div class="tsec teof">'+
       '<div class="dim">// EOF &middot; 2026-12-19 12:30 KST &middot; 로얄파크컨벤션</div>'+
-      '<div class="dim">// 이 청첩장은 신랑이 밤마다 한 줄씩 직접 만들었습니다.</div>'+
       '<div class="dim">// 명령어는 <span class="ok">help</span>, 청첩장으로 돌아가려면 <span class="ok">exit</span></div></div>');
     return out;
   }
@@ -1649,7 +1646,7 @@
   function _devBoot(){
     _devPush([
       {t:'c',s:'ssh guest@wedding.yangmanchuns.io'},
-      {s:'<span class="dim">connected. </span><span class="ok">winter-night 26.12.19</span><span class="dim"> &middot; 신랑이 직접 만든 청첩장입니다.</span>'},
+      {s:'<span class="dim">connected. </span><span class="ok">winter-night 26.12.19</span>'},
       {s:'<span class="dim">청첩장을 개발자 말투로 출력합니다. 아래로 쭉 읽어주세요.</span>',d:200},
       {t:'f',fn:function(){_devRenderDoc(false);}}
     ]);
