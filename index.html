@@ -1089,7 +1089,7 @@
      화면 전체를 터미널로 바꾸고 코드비(matrix)를 흘린다. 명령어는 devRun() 참고. */
   var _devOn=false,_devBooted=false,_devQ=[],_devBusy=false,_devHist=[],_devHi=0,_devHudT=null;
   var _mtxRAF=null,_mtxResize=null;
-  var _MTXCH='01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモ❅♥{}[]()<>=;$#*+-/_01110';
+  var _MTXCH='ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅔㅚㅟ01{}[]()<>=;$#*+-/_❅♥병민보원결혼사랑겨울눈꽃축하ㄱㄴㅅㅇㅁㅎ0110';
 
   function _dq(id){return document.getElementById(id);}
 
@@ -1106,7 +1106,7 @@
     }
     function draw(){
       ctx.fillStyle='rgba(3,7,10,.062)';ctx.fillRect(0,0,W,H);
-      ctx.font=fs+'px '+'ui-monospace,Consolas,monospace';
+      ctx.font=fs+'px '+'Consolas,"Malgun Gothic",ui-monospace,monospace';
       for(var i=0;i<cols;i++){
         var ch=_MTXCH.charAt(Math.floor(Math.random()*_MTXCH.length));
         var y=ys[i]*fs,r=Math.random();
