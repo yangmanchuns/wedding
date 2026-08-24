@@ -467,6 +467,15 @@
   .tform .go:active{background:#b6e2ff}
   .traw{display:none;margin-top:10px;padding-left:11px;border-left:2px solid var(--tbd)}
   .traw.on{display:block}
+  .tagents{display:grid;grid-template-columns:repeat(auto-fit,minmax(62px,1fr));gap:6px;margin:8px 0 10px}
+  .tagent{background:rgba(140,190,255,.06);border:1px solid var(--tbd);border-radius:8px;padding:9px 2px;cursor:pointer;text-align:center;transition:.18s}
+  .tagent svg{display:block;margin:0 auto 5px}
+  .tagent span{display:block;font-family:var(--mono);font-size:8.5px;color:var(--tdim);letter-spacing:0}
+  .tagent.on{background:rgba(140,190,255,.18);border-color:var(--tbd2)}
+  .tagent.on span{color:var(--tink)}
+  .tagent:active{background:rgba(140,190,255,.24)}
+  .tagmsg{border:1px solid var(--tbd);border-radius:6px;padding:11px;background:rgba(6,12,30,.5);
+    min-height:56px;line-height:1.75;color:var(--tink)}
   .teof{margin-top:4px;padding-top:12px;border-top:1px dashed var(--tbd)}
 </style>
 
@@ -810,6 +819,7 @@
       <button type="button" onclick="devJump('gallery')">사진</button>
       <button type="button" onclick="devJump('film')">영상</button>
       <button type="button" onclick="devJump('gift')">계좌</button>
+      <button type="button" onclick="devJump('agents')">AI 축하</button>
       <button type="button" onclick="devJump('approve')">방명록</button>
       <button type="button" onclick="devJump('closing')">마지막</button>
       <button type="button" onclick="devRun('help')">help</button>
@@ -1529,6 +1539,51 @@
     return out;
   }
 
+  /* 13 AI 에이전트 축하 — 미리 써둔 멘트를 각 모델 말투로 타이핑한다.
+     실제 API 호출이 아니다(정적 페이지라 키를 넣을 수 없다). 로고는 공식 에셋이 아니라
+     각 모델을 연상시키는 단순 도형을 직접 그린 것. */
+  var _AG_SVG={
+    claude:'<svg viewBox="0 0 24 24" width="21" height="21"><g stroke="#d97757" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.2v7M12 13.8v7M3.2 12h7M13.8 12h7M6 6l4.6 4.6M13.4 13.4L18 18M18 6l-4.6 4.6M10.6 13.4L6 18"/></g></svg>',
+    gpt:'<svg viewBox="0 0 24 24" width="21" height="21"><path d="M12 2.8l8 4.6v9.2l-8 4.6-8-4.6V7.4z" fill="none" stroke="#74aa9c" stroke-width="1.5"/><path d="M12 7.4v9.2M8 9.7l8 4.6M16 9.7l-8 4.6" fill="none" stroke="#74aa9c" stroke-width="1.05"/></svg>',
+    gemini:'<svg viewBox="0 0 24 24" width="21" height="21"><path d="M12 2c1.2 5.3 4.5 8.6 9.8 9.8C16.5 13 13.2 16.3 12 21.6 10.8 16.3 7.5 13 2.2 11.8 7.5 10.6 10.8 7.3 12 2z" fill="#5b8def"/></svg>',
+    copilot:'<svg viewBox="0 0 24 24" width="21" height="21"><circle cx="12" cy="12" r="8.4" fill="none" stroke="#a9bdd6" stroke-width="1.5"/><circle cx="9.2" cy="12.4" r="1.45" fill="#a9bdd6"/><circle cx="14.8" cy="12.4" r="1.45" fill="#a9bdd6"/></svg>',
+    cursor:'<svg viewBox="0 0 24 24" width="21" height="21"><path d="M12 2.8l8.2 4.7v9.4L12 21.6l-8.2-4.7V7.5z" fill="none" stroke="#cbd5e1" stroke-width="1.4"/><path d="M12 12.1l8.2-4.6M12 12.1v9.5M12 12.1L3.8 7.5" fill="none" stroke="#cbd5e1" stroke-width="1.05"/></svg>',
+    ppx:'<svg viewBox="0 0 24 24" width="21" height="21"><path d="M12 3.4v17.2M5.6 8.2h12.8M5.6 8.2v7.6h12.8V8.2" fill="none" stroke="#3ba3ae" stroke-width="1.5"/></svg>'
+  };
+  var _AGENTS=[
+    ['Claude','#d97757','claude','두 분의 commit history를 처음부터 끝까지 읽었습니다. 리팩토링할 곳이 없네요. 그대로 merge 하셔도 좋습니다.'],
+    ['ChatGPT','#74aa9c','gpt','결혼을 축하합니다! 행복한 결혼생활을 위한 7가지 팁을 정리해 드릴까요? (거절하셔도 3개는 말씀드릴 예정입니다)'],
+    ['Gemini','#5b8def','gemini','검색 결과를 확인했습니다. 2026-12-19 12:30, 로얄파크컨벤션 — 두 분에게 가장 좋은 날입니다.'],
+    ['Copilot','#a9bdd6','copilot','두 분의 다음 줄을 예측했습니다: "평생 행복하겠습니다". Tab 을 눌러 수락하세요.'],
+    ['Cursor','#cbd5e1','cursor','변경 사항 1건을 확인했습니다 — family 1개 추가. Accept All 하시겠습니까?'],
+    ['Perplexity','#3ba3ae','ppx','출처 3건 확인 완료. 두 분은 서로에게 최적의 선택입니다 [1][2][3].']
+  ];
+  var _agTimer=null;
+  function _devAgents(){
+    var out='<div class="tcmd"><i>$</i>curl -s api.congrats/agents</div>'+
+      '<div class="l dim">// AI agents의 축하가 먼저 도착했습니다. 아이콘을 눌러보세요.</div>'+
+      '<div class="tagents">';
+    for(var i=0;i<_AGENTS.length;i++){
+      out+='<button type="button" class="tagent" onclick="devAgent('+i+')">'+
+        _AG_SVG[_AGENTS[i][2]]+'<span>'+_AGENTS[i][0]+'</span></button>';
+    }
+    out+='</div><div class="tagmsg" id="agentMsg"><span class="dim">$ waiting for response ...</span></div>';
+    return out;
+  }
+  function devAgent(i){
+    var a=_AGENTS[i],box=_dq('agentMsg');
+    if(!a||!box)return;
+    clearTimeout(_agTimer);
+    var btns=document.querySelectorAll('#t-agents .tagent');
+    for(var k=0;k<btns.length;k++){if(k===i)btns[k].classList.add('on');else btns[k].classList.remove('on');}
+    box.innerHTML='<span style="color:'+a[1]+'">'+a[0]+'</span><span class="dim"> &#8250; </span><span class="tx"></span><span class="cur"></span>';
+    var tx=box.querySelector('.tx'),msg=a[3],p=0;
+    (function step(){
+      tx.textContent=msg.slice(0,++p);
+      if(p<msg.length){_agTimer=setTimeout(step,20);return;}
+      var c=box.querySelector('.cur');if(c&&c.parentNode)c.parentNode.removeChild(c);
+    })();
+  }
   /* 13 방명록 = approvals.log */
   function _devGbBody(){
     var arr=(typeof _gbAll!=='undefined'&&_gbAll)?_gbAll:[],out='';
@@ -1625,6 +1680,7 @@
     sec('gallery','assets · images',_devGallery(),false);
     sec('film','assets · film',_devFilm(),false);
     sec('gift','gift · accounts.json',_devAccounts());
+    sec('agents','agents · congrats',_devAgents(),false);
     sec('approve','approve · guestbook',_devGbBody(),false);
     sec('closing','closing · CHANGELOG',_devClosing());
     out.push('<div class="tsec teof">'+
@@ -1666,6 +1722,7 @@
     ['gallery','사진','gallery assets photo photos images 사진 갤러리','Gallery'],
     ['film','드론 영상','film video drone 영상 비디오','#vidWrap'],
     ['gift','마음 전하실 곳','gift account accounts money 계좌 축의금','With Heart'],
+    ['agents','AI 에이전트 축하','agents ai congrats 에이전트','Guestbook'],
     ['approve','방명록 (approve)','approve guestbook gb 방명록 메시지 축하','Guestbook'],
     ['closing','마지막 인사','closing changelog end fin 마지막 클로징','section.closing'],
     ['story','어린 시절','story child childhood 어린시절 어린','Once Upon']
