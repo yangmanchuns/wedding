@@ -292,6 +292,90 @@
 
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
   .reveal.in{opacity:1;transform:none}
+
+  /* ===== 개발자 모드 (터미널 테마) ===== */
+  :root{
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'D2Coding','Courier New',monospace;
+    --tg:#7dffb0;--tg2:#39d98a;--tdim:#4c7f68;--tamb:#ffd27d;
+  }
+  .devbtn-wrap{margin-top:30px;padding-top:22px;border-top:1px dashed rgba(125,255,176,.16)}
+  .devbtn{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:#7ea99a;cursor:pointer;
+    background:rgba(125,255,176,.05);border:1px solid rgba(125,255,176,.2);border-radius:8px;padding:10px 15px;transition:.2s}
+  .devbtn b{color:var(--tg);font-weight:400;margin-right:5px}
+  .devbtn:hover,.devbtn:active{color:var(--tg);border-color:rgba(125,255,176,.5);background:rgba(125,255,176,.1);box-shadow:0 0 18px rgba(125,255,176,.14)}
+  .devbtn-note{font-family:var(--mono);font-size:10.5px;color:#5f7488;margin-top:10px;letter-spacing:.03em}
+
+  #devmode{position:fixed;inset:0;height:100dvh;z-index:120;display:none;background:#03070a;
+    font-family:var(--mono);color:var(--tg);overflow:hidden;-webkit-text-size-adjust:100%}
+  #devmode.on{display:block}
+  #devmode.boot{animation:crtOn .5s cubic-bezier(.2,.85,.2,1)}
+  @keyframes crtOn{0%{transform:scaleY(.006);filter:brightness(6)}45%{transform:scaleY(.07);filter:brightness(3)}100%{transform:scaleY(1);filter:none}}
+  #matrix{position:absolute;inset:0;z-index:1;opacity:1}
+  .dev-vig{position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:radial-gradient(125% 95% at 50% 42%,transparent 30%,rgba(0,0,0,.72) 100%)}
+  .dev-scan{position:absolute;inset:0;z-index:3;pointer-events:none;
+    background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.2) 2px 4px)}
+  .dev-sweep{position:absolute;left:0;right:0;height:130px;z-index:3;pointer-events:none;
+    background:linear-gradient(180deg,rgba(125,255,176,0),rgba(125,255,176,.06),rgba(125,255,176,0));animation:devSweep 7s linear infinite}
+  @keyframes devSweep{0%{top:-150px}100%{top:100%}}
+
+  .dev-wrap{position:relative;z-index:4;display:flex;flex-direction:column;width:100%;max-width:var(--w);height:100%;margin:0 auto;
+    padding:calc(11px + env(safe-area-inset-top)) 11px calc(11px + env(safe-area-inset-bottom))}
+  .dev-top{display:flex;align-items:center;gap:7px;padding:9px 11px;background:rgba(6,18,14,.82);
+    border:1px solid rgba(125,255,176,.22);border-bottom:none;border-radius:10px 10px 0 0}
+  .dev-top .d{width:9px;height:9px;border-radius:99px;background:#2b3a36;flex:0 0 auto}
+  .dev-top .d.r{background:#ff5f57}.dev-top .d.y{background:#ffbd2e}.dev-top .d.g{background:#28c840}
+  .dev-top .tt{flex:1;text-align:center;font-size:10px;color:var(--tdim);letter-spacing:.02em;overflow:hidden;white-space:nowrap}
+  .dev-x{font-family:var(--mono);font-size:10.5px;color:#ff8b84;background:rgba(255,95,87,.08);
+    border:1px solid rgba(255,95,87,.32);border-radius:6px;padding:4px 8px;cursor:pointer;flex:0 0 auto}
+
+  .dev-hud{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(125,255,176,.16);
+    border-left:1px solid rgba(125,255,176,.22);border-right:1px solid rgba(125,255,176,.22)}
+  .dev-hud>div{background:rgba(6,18,14,.84);padding:7px 3px;text-align:center}
+  .dev-hud .n{font-size:15px;color:var(--tg);text-shadow:0 0 10px rgba(125,255,176,.35)}
+  .dev-hud .k{font-size:8px;color:var(--tdim);margin-top:3px;letter-spacing:.14em}
+
+  .dev-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;background:rgba(3,12,9,.55);text-shadow:0 0 7px rgba(0,0,0,.95),0 0 2px rgba(0,0,0,.9);
+    border:1px solid rgba(125,255,176,.22);border-top:none;border-bottom:none;padding:13px 12px 18px;
+    font-size:11.8px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+  .dev-body::-webkit-scrollbar{width:5px}
+  .dev-body::-webkit-scrollbar-thumb{background:rgba(125,255,176,.22);border-radius:9px}
+  .dev-body .l{color:#b6d6c6}
+  .dev-body .cmd{color:#eafff3;margin-top:11px}
+  .dev-body .cmd i{color:var(--tg2);font-style:normal;margin-right:7px}
+  .dev-body .ok{color:var(--tg)}
+  .dev-body .warn{color:var(--tamb)}
+  .dev-body .err{color:#ff8b84}
+  .dev-body .dim{color:var(--tdim)}
+  .dev-body .cmt{color:#5e93ad}
+  .dev-body .kw{color:#8fb8ff}
+  .dev-body .str{color:#ffd27d}
+  .dev-body .num{color:#ff9ecb}
+  .dev-body .art{color:var(--tg2);font-size:11px;line-height:1.35;text-shadow:0 0 12px rgba(57,217,138,.3)}
+  .dev-body .row{display:flex;gap:9px}
+  .dev-body .row>.k{color:var(--tdim);flex:0 0 82px}
+  .dev-body .row>.v{flex:1;color:#cfe9dc}
+  .dev-body .hr{color:rgba(125,255,176,.28)}
+  .dev-body a{color:var(--tg)}
+  .cur{display:inline-block;width:7px;height:12px;background:var(--tg);vertical-align:-1px;animation:devBlink 1.05s steps(1) infinite}
+  @keyframes devBlink{50%{opacity:0}}
+
+  .dev-chips{display:flex;gap:6px;overflow-x:auto;padding:9px 10px;background:rgba(6,18,14,.86);scrollbar-width:none;
+    border-left:1px solid rgba(125,255,176,.22);border-right:1px solid rgba(125,255,176,.22);border-top:1px solid rgba(125,255,176,.14)}
+  .dev-chips::-webkit-scrollbar{display:none}
+  .dev-chips button{flex:0 0 auto;font-family:var(--mono);font-size:10.5px;color:var(--tg2);white-space:nowrap;cursor:pointer;
+    background:rgba(125,255,176,.06);border:1px solid rgba(125,255,176,.26);border-radius:99px;padding:6px 11px}
+  .dev-chips button:active{background:rgba(125,255,176,.2);color:#eafff3}
+
+  .dev-prompt{display:flex;align-items:center;gap:8px;padding:10px 11px;background:rgba(6,18,14,.9);
+    border:1px solid rgba(125,255,176,.22);border-radius:0 0 10px 10px}
+  .dev-prompt .ps1{font-size:11px;color:var(--tg2);white-space:nowrap}
+  .dev-prompt input{flex:1;min-width:0;font-family:var(--mono);font-size:12px;background:none;border:none;color:#eafff3;outline:none;caret-color:var(--tg)}
+  .dev-prompt input::placeholder{color:#2f4a41}
+  .dev-prompt .go{font-family:var(--mono);font-size:12px;color:var(--tg);cursor:pointer;
+    background:rgba(125,255,176,.1);border:1px solid rgba(125,255,176,.3);border-radius:7px;padding:4px 10px}
+  @media (max-width:380px){.dev-body{font-size:11px}.dev-prompt .ps1{font-size:10px}}
+  #devmode.on ~ .toast, .toast{z-index:130}
 </style>
 
 <canvas id="snow"></canvas>
@@ -537,6 +621,10 @@
     <p class="foot-sign">양병민 · 김보원</p>
     <p class="foot-note">2026. 12. 19. SAT PM 12:30 · 로얄파크컨벤션</p>
     <p class="foot-note" style="opacity:.6">Made by ManChun</p>
+    <div class="devbtn-wrap">
+      <button type="button" class="devbtn" onclick="devMode(true)"><b>&gt;_</b>개발자 모드</button>
+      <p class="devbtn-note">신랑이 개발자라서 만든 이스터에그입니다</p>
+    </div>
   </footer>
 </div>
 
@@ -596,6 +684,45 @@
       <div id="rsvpList"></div>
       <div id="rsvpEmpty" class="gb-empty">아직 응답이 없어요</div>
     </div>
+  </div>
+</div>
+
+<!-- 개발자 모드 -->
+<div id="devmode" aria-hidden="true">
+  <canvas id="matrix"></canvas>
+  <div class="dev-vig"></div>
+  <div class="dev-sweep"></div>
+  <div class="dev-scan"></div>
+  <div class="dev-wrap">
+    <div class="dev-top">
+      <span class="d r"></span><span class="d y"></span><span class="d g"></span>
+      <span class="tt">guest@wedding — zsh — wedding.config.js</span>
+      <button type="button" class="dev-x" onclick="devMode(false)">EXIT ✕</button>
+    </div>
+    <div class="dev-hud" id="devHud">
+      <div><div class="n" id="dvD">--</div><div class="k">DAYS</div></div>
+      <div><div class="n" id="dvH">--</div><div class="k">HOURS</div></div>
+      <div><div class="n" id="dvM">--</div><div class="k">MIN</div></div>
+      <div><div class="n" id="dvS">--</div><div class="k">SEC</div></div>
+    </div>
+    <div class="dev-body" id="devBody"></div>
+    <div class="dev-chips" id="devChips">
+      <button type="button" onclick="devRun('help')">help</button>
+      <button type="button" onclick="devRun('neofetch')">neofetch</button>
+      <button type="button" onclick="devRun('dday')">dday</button>
+      <button type="button" onclick="devRun('git log')">git log</button>
+      <button type="button" onclick="devRun('cat config')">cat config</button>
+      <button type="button" onclick="devRun('ls')">ls</button>
+      <button type="button" onclick="devRun('npm test')">npm test</button>
+      <button type="button" onclick="devRun('share')">share</button>
+      <button type="button" onclick="devRun('sudo rm -rf /')">sudo rm -rf /</button>
+      <button type="button" onclick="devRun('exit')">exit</button>
+    </div>
+    <form class="dev-prompt" onsubmit="devSubmit(event)" autocomplete="off">
+      <span class="ps1">guest@wedding:~$</span>
+      <input id="devInput" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="help 를 입력해보세요" onkeydown="devKey(event)" />
+      <button type="submit" class="go">⏎</button>
+    </form>
   </div>
 </div>
 
@@ -956,6 +1083,444 @@
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.08});
     for(var j=0;j<t.length;j++)io.observe(t[j]);
   })();
+
+  /* ===== 개발자 모드 (터미널) =====
+     신랑이 개발자라서 넣은 이스터에그. 푸터의 "개발자 모드" 버튼 → devMode(true).
+     화면 전체를 터미널로 바꾸고 코드비(matrix)를 흘린다. 명령어는 devRun() 참고. */
+  var _devOn=false,_devBooted=false,_devQ=[],_devBusy=false,_devHist=[],_devHi=0,_devHudT=null;
+  var _mtxRAF=null,_mtxResize=null;
+  var _MTXCH='01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモ❅♥{}[]()<>=;$#*+-/_01110';
+
+  function _dq(id){return document.getElementById(id);}
+
+  /* 코드비 */
+  function _mtxStart(){
+    var cv=_dq('matrix');if(!cv)return;if(_mtxRAF)return;
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){cv.style.display='none';return;}
+    var ctx=cv.getContext('2d'),W=0,H=0,fs=14,cols=0,ys=[];
+    function resize(){
+      W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;
+      cols=Math.ceil(W/fs);ys=[];
+      for(var i=0;i<cols;i++)ys[i]=Math.random()*-45;
+      ctx.fillStyle='#03070a';ctx.fillRect(0,0,W,H);
+    }
+    function draw(){
+      ctx.fillStyle='rgba(3,7,10,.062)';ctx.fillRect(0,0,W,H);
+      ctx.font=fs+'px '+'ui-monospace,Consolas,monospace';
+      for(var i=0;i<cols;i++){
+        var ch=_MTXCH.charAt(Math.floor(Math.random()*_MTXCH.length));
+        var y=ys[i]*fs,r=Math.random();
+        ctx.fillStyle=r<0.03?'#f2fff8':(r<0.22?'#6dffbe':'#1aa86e');
+        ctx.fillText(ch,i*fs,y);
+        if(y>H&&Math.random()>0.972)ys[i]=0;else ys[i]++;
+      }
+      _mtxRAF=requestAnimationFrame(draw);
+    }
+    _mtxResize=resize;window.addEventListener('resize',resize);
+    resize();draw();
+  }
+  function _mtxStop(){
+    if(_mtxRAF){cancelAnimationFrame(_mtxRAF);_mtxRAF=null;}
+    if(_mtxResize){window.removeEventListener('resize',_mtxResize);_mtxResize=null;}
+  }
+
+  /* 출력 */
+  function _devScroll(){var b=_dq('devBody');if(b)b.scrollTop=b.scrollHeight;}
+  function devPrint(html,cls){
+    var b=_dq('devBody');if(!b)return null;
+    var d=document.createElement('div');d.className=cls||'l';d.innerHTML=(html===''?'&nbsp;':html);
+    b.appendChild(d);_devScroll();return d;
+  }
+  function _devPush(items){
+    if(!items||!items.length)return;
+    _devQ=_devQ.concat(items);
+    if(!_devBusy)_devNext();
+  }
+  function _devNext(){
+    if(!_devQ.length){_devBusy=false;return;}
+    _devBusy=true;
+    var it=_devQ.shift();
+    if(it.t==='c'){_devTypeCmd(it.s,_devNext);return;}
+    if(it.t==='f'){try{it.fn();}catch(e){}setTimeout(_devNext,it.d==null?40:it.d);return;}
+    if(it.t==='w'){setTimeout(_devNext,it.d==null?150:it.d);return;}
+    devPrint(it.s,it.c);
+    setTimeout(_devNext,it.d==null?55:it.d);
+  }
+  function _devTypeCmd(text,done){
+    var d=devPrint('<i>$</i><span class="tx"></span><span class="cur"></span>','cmd');
+    if(!d){done();return;}
+    var tx=d.querySelector('.tx'),i=0;
+    function fin(){var c=d.querySelector('.cur');if(c)c.parentNode.removeChild(c);}
+    (function step(){
+      if(!_devOn){tx.textContent=text;fin();done();return;}
+      tx.textContent=text.slice(0,++i);_devScroll();
+      if(i>=text.length){fin();setTimeout(done,170);return;}
+      setTimeout(step,30);
+    })();
+  }
+
+  /* 조각 */
+  function _devKB(){try{return (document.documentElement.outerHTML.length/1024).toFixed(1);}catch(e){return '?';}}
+  function _devSecCount(){return document.querySelectorAll('.frame section').length;}
+  function _devDiff(){var d=TARGET-new Date();return d<0?0:d;}
+  function _devDday(){return Math.floor(_devDiff()/86400000);}
+  function _devClock(){
+    var t=_devDiff();
+    return pad(Math.floor(t/3600000)%24)+':'+pad(Math.floor(t/60000)%60)+':'+pad(Math.floor(t/1000)%60);
+  }
+  function _devCfg(){
+    function K(s){return '<span class="kw">'+s+'</span>';}
+    function S(s){return '<span class="str">\''+s+'\'</span>';}
+    function N(s){return '<span class="num">'+s+'</span>';}
+    function C(s){return '<span class="cmt">'+s+'</span>';}
+    return [
+      K('export default')+' {',
+      '  groom : { name: '+S('양병민')+', role: '+S('developer')+' },',
+      '  bride : { name: '+S('김보원')+', role: '+S('reason for every commit')+' },',
+      '  date  : '+K('new')+' Date('+S('2026-12-19T12:30:00+09:00')+'), '+C('// 토요일 낮 12시 30분'),
+      '  venue : { name: '+S('로얄파크컨벤션')+', lat: '+N('37.5367693')+', lng: '+N('126.9755383')+' },',
+      '  dress : '+S('따뜻하게. 눈이 오면 더 좋고')+',',
+      '  stack : ['+S('html')+', '+S('css')+', '+S('vanilla-js')+', '+S('supabase')+'], '+C('// 프레임워크 없음'),
+      '  dependencies: { love: '+S('^∞.0.0')+' }, '+C('// 유일한 의존성'),
+      '',
+      '  '+K('async')+' onGuestArrive(guest) {',
+      '    '+K('await')+' welcome(guest)   '+C('// 오시는 길 조심히 오세요'),
+      '    '+K('return')+' thankYou(guest) '+C('// 진심입니다'),
+      '  }',
+      '}'
+    ].join('\n');
+  }
+  function _devRow(k,v){return '<span class="row"><span class="k">'+k+'</span><span class="v">'+v+'</span></span>';}
+
+  /* 부팅 시퀀스 */
+  function _devBoot(){
+    var q=[];
+    function C(s){q.push({t:'c',s:s});}
+    function L(s,c,d){q.push({s:s,c:c||'l',d:d});}
+    function W(d){q.push({t:'w',d:d});}
+
+    L('<span class="dim">WeddingOS 26.12 (winter-night) · kernel love-6.19 · tty1</span>',null,120);
+    L('<span class="dim">booting invitation runtime .................. </span><span class="ok">[  OK  ]</span>',null,180);
+
+    C('git clone https://github.com/yangmanchuns/wedding.git');
+    L('<span class="dim">Cloning into \'wedding\'...</span>');
+    L('<span class="dim">remote: 두 사람의 기록을 내려받는 중</span>');
+    L('receiving objects: 100%  <span class="ok">done.</span>');
+
+    C('npm ci');
+    L('<span class="ok">added 0 packages</span> <span class="dim">— 프레임워크도 빌드도 없습니다. index.html 한 장입니다.</span>');
+
+    C('npm run build');
+    L('  <span class="hr">&#9656;</span> index.html   <span class="num">'+_devKB()+' KB</span>  <span class="dim">HTML + CSS + JS 전부 인라인</span>');
+    L('  <span class="hr">&#9656;</span> sections     <span class="num">'+_devSecCount()+'</span>개       <span class="dim">초대 · 어린시절 · 갤러리 · 지도 · 방명록 …</span>');
+    L('  <span class="hr">&#9656;</span> images       <span class="num">'+GALLERY_SRCS.length+'</span>장       <span class="dim">한 장 한 장 직접 골랐습니다</span>');
+    L('  <span class="hr">&#9656;</span> music        <span class="str">bgm.mp3</span>   <span class="dim">A Thousand Years</span>');
+    L('  <span class="hr">&#9656;</span> database     <span class="str">supabase</span>  <span class="dim">방명록 · 참석여부 · 하객사진</span>');
+    L('<span class="ok">build finished</span> <span class="dim">in 0.31s</span>');
+
+    C('node deploy.js --target=github-pages');
+    L('<span class="dim">uploading  [</span><span class="ok">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span><span class="dim">] 100%</span>');
+    L('<span class="ok">deploy ok</span> <span class="dim">&#8594;</span> <span class="str">https://yangmanchuns.github.io/wedding/</span>');
+    L('<span class="warn">남은 배포는 단 한 번</span><span class="dim">, 2026-12-19 12:30 KST</span>');
+
+    C('cat wedding.config.js');
+    L(_devCfg());
+
+    C('node -e "console.log(dday())"');
+    L('<span class="ok">D-'+_devDday()+'</span> <span class="dim">'+_devClock()+' — 남은 시간은 위에서 실시간으로 셉니다.</span>');
+
+    W(260);
+    L('<span class="cmt">// 이 청첩장은 신랑이 밤마다 한 줄씩 직접 만들었습니다.</span>');
+    L('<span class="cmt">// 잘 만든 코드보다, 오래 함께할 사람을 고르는 게 더 어려웠습니다.</span>');
+    L('<span class="cmt">// 12월 19일, 그 결과를 보러 와주세요.</span>');
+    W(200);
+    L('<span class="dim">아래 버튼을 누르거나 </span><span class="ok">help</span><span class="dim"> 를 입력해보세요. </span><span class="cur"></span>');
+    _devPush(q);
+  }
+
+  /* 섹션 이동 */
+  var _DEVSEC=[
+    ['invitation','초대합니다','invitation invite letter 초대 초대글','Invitation'],
+    ['story','우리의 어린 시절','story child once 어린시절 어린','Once Upon'],
+    ['gallery','우리의 순간 (사진 18장)','gallery photo photos 사진 갤러리','Gallery'],
+    ['film','하늘에서 본 우리 (드론 영상)','film video drone 영상 비디오','#vidWrap'],
+    ['date','2026년 12월 19일 (달력 · 카운트다운)','date calendar cal 달력 날짜','Save the Date'],
+    ['location','오시는 길 (지도 · 교통 · 주차)','location map way 지도 오시는길 길','Location'],
+    ['info','안내 사항 (예식 · 식사 · 주차 · 버스)','info information 안내','Information'],
+    ['gift','마음 전하실 곳 (계좌)','gift account money 계좌 축의금','With Heart'],
+    ['guestbook','축하 메시지 (방명록)','guestbook gb 방명록 메시지','Guestbook'],
+    ['closing','마지막 인사','closing end fin 마지막 클로징','section.closing']
+  ];
+  function _devTarget(sel){
+    if(sel.charAt(0)==='#'||sel.indexOf('.')===0||sel.indexOf('section')===0)return document.querySelector(sel);
+    var ls=document.querySelectorAll('.frame .lbl');
+    for(var i=0;i<ls.length;i++){
+      if(ls[i].textContent.trim().toLowerCase()===sel.toLowerCase())
+        return sel==='Film'?ls[i]:(ls[i].closest('section')||ls[i]);
+    }
+    return null;
+  }
+  function _devOpen(arg){
+    if(!arg)return [{s:'<span class="err">사용법:</span> <span class="dim">open &lt;섹션&gt;  (예: open gallery)  ·  목록은</span> <span class="ok">ls</span>',c:'l'}];
+    var hit=null;
+    for(var i=0;i<_DEVSEC.length;i++){
+      if((' '+_DEVSEC[i][2]+' ').indexOf(' '+arg+' ')>=0){hit=_DEVSEC[i];break;}
+    }
+    if(!hit)return [{s:'<span class="err">no such section: '+arg+'</span>  <span class="dim">— </span><span class="ok">ls</span><span class="dim"> 로 목록을 보세요</span>',c:'l'}];
+    var el=_devTarget(hit[3]);
+    if(!el)return [{s:'<span class="err">섹션을 찾지 못했습니다: '+hit[0]+'</span>',c:'l'}];
+    return [
+      {s:'<span class="dim">opening</span> <span class="ok">'+hit[0]+'</span><span class="dim"> → 개발자 모드를 닫고 이동합니다</span>',c:'l'},
+      {t:'f',fn:function(){
+        devMode(false);
+        setTimeout(function(){try{el.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){el.scrollIntoView();}},340);
+        toast(hit[1]+' 으로 이동했어요');
+      },d:300}
+    ];
+  }
+
+  /* 명령어 */
+  function _devCmd(raw){
+    var c=raw.toLowerCase().replace(/\s+/g,' ').trim();
+    var arg=c.indexOf(' ')>0?c.slice(c.indexOf(' ')+1).trim():'';
+    var L=function(s,cl){return {s:s,c:cl||'l'};};
+    var lines=[];
+
+    if(c==='help'||c==='?'||c==='--help'||c==='man'){
+      return [
+        L('<span class="ok">사용 가능한 명령어</span>'),
+        L(_devRow('help','이 목록을 봅니다')),
+        L(_devRow('whoami','당신이 누구인지 알려드립니다')),
+        L(_devRow('neofetch','시스템 정보 (추천)')),
+        L(_devRow('dday','남은 시간 계산')),
+        L(_devRow('cat config','wedding.config.js 열기')),
+        L(_devRow('git log','커밋 기록')),
+        L(_devRow('git blame','누가 이 청첩장을 썼는가')),
+        L(_devRow('npm test','테스트 실행')),
+        L(_devRow('ls','섹션 목록')),
+        L(_devRow('open &lt;섹션&gt;','그 섹션으로 이동 (예: open gallery)')),
+        L(_devRow('share','카카오톡으로 공유')),
+        L(_devRow('copy','청첩장 링크 복사')),
+        L(_devRow('clear','화면 정리')),
+        L(_devRow('exit','청첩장으로 돌아가기')),
+        L('<span class="dim">숨은 명령어도 몇 개 있습니다. sudo 로 시작하는 것들.</span>')
+      ];
+    }
+    if(c==='whoami'||c==='id'){
+      return [
+        L('<span class="ok">guest</span>'),
+        L('<span class="dim">uid=</span><span class="num">1219</span><span class="dim">(guest) gid=</span><span class="num">2026</span><span class="dim">(우리가 아끼는 사람) groups=hasgak,family,friend</span>'),
+        L('<span class="dim">권한 : 이 청첩장 전체 읽기 · 방명록 쓰기 · 2026-12-19 12:30 입장</span>'),
+        L('<span class="dim">비고 : 이 자리에 꼭 계셨으면 하는 분이라 초대장을 보냈습니다.</span>')
+      ];
+    }
+    if(c==='neofetch'||c==='fetch'||c==='uname'||c==='uname -a'){
+      return [
+        L('<span class="art">             &#9829;&#9829;&#9829;   &#9829;&#9829;&#9829;\n    &#9829;&#9829;&#9829;&#9829;&#9829; &#9829;&#9829;&#9829;&#9829;&#9829;\n    &#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;\n     &#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;\n      &#9829;&#9829;&#9829;&#9829;&#9829;&#9829;&#9829;\n       &#9829;&#9829;&#9829;&#9829;&#9829;\n        &#9829;&#9829;&#9829;\n         &#9829;</span>'),
+        L(_devRow('user','guest@wedding')),
+        L(_devRow('os','WeddingOS 26.12 &#8220;Winter Night&#8221;')),
+        L(_devRow('kernel','love-2026.12.19-12:30-KST')),
+        L(_devRow('host','로얄파크컨벤션 3F 로얄홀 (전쟁기념관 내)')),
+        L(_devRow('uptime','D-'+_devDday()+' '+_devClock()+' 남음')),
+        L(_devRow('shell','vanilla-js (no framework, no build)')),
+        L(_devRow('packages','사진 '+GALLERY_SRCS.length+'장, 드론영상 1편, bgm 1곡')),
+        L(_devRow('db','supabase — 방명록 · 참석여부 · 하객사진')),
+        L(_devRow('theme','Ivory Frost / Winter Night &#10053;')),
+        L(_devRow('resolution','480 x &#8734;')),
+        L(_devRow('made by','양병민 (신랑, 개발자) · 감수 김보원'))
+      ];
+    }
+    if(c==='dday'||c==='d-day'||c==='countdown'||c==='uptime'||c==='date'){
+      var t=_devDiff();
+      return [
+        L('<span class="dim">target  : </span><span class="str">2026-12-19T12:30:00+09:00</span>'),
+        L('<span class="dim">now     : </span><span class="str">'+new Date().toString().slice(0,24)+'</span>'),
+        L('<span class="ok">remain  : D-'+_devDday()+'  '+_devClock()+'</span>'),
+        L('<span class="dim">ms      : </span><span class="num">'+t+'</span>'),
+        L('<span class="cmt">// 이 숫자가 0이 되는 순간, 저희는 부부가 됩니다.</span>')
+      ];
+    }
+    if(c==='cat config'||c==='cat'||c==='config'||c==='cat wedding.config.js'||c==='cat index.html'){
+      if(c==='cat index.html')return [L('<span class="warn">'+_devKB()+' KB 를 여기 다 뿌리면 스크롤이 아프실 겁니다.</span>'),L('<span class="dim">정말 보고 싶으시면 F12 를 눌러보세요. 전부 열려 있습니다.</span>')];
+      return [L(_devCfg())];
+    }
+    if(c==='git log'||c==='log'||c==='git'||c==='git log --oneline'){
+      return [
+        L('<span class="warn">a72f6da</span> <span class="dim">(HEAD -&gt; main, origin/main)</span> 배경음악 교체: A Thousand Years'),
+        L('<span class="warn">9f76dc5</span> 초대글을 정형문에서 우리 목소리로 교체'),
+        L('<span class="warn">8fcac09</span> \'겨울\'이 춥게 읽히던 문구 두 곳 수정'),
+        L('<span class="warn">b9fba4a</span> 클로징 문구를 두 사람의 말로 교체'),
+        L('<span class="warn">4ee7fe8</span> 방명록을 2열 카드에서 1열 리스트로 변경'),
+        L('<span class="dim">...</span>'),
+        L('<span class="warn">0000001</span> <span class="dim">init: 우리의 첫 커밋</span>'),
+        L('<span class="cmt">// 커밋 메시지는 대체로 밤 2시에 쓰였습니다.</span>')
+      ];
+    }
+    if(c==='git blame'||c==='blame'||c==='git status'){
+      if(c==='git status')return [
+        L('On branch <span class="ok">main</span>'),
+        L('<span class="dim">Your branch is ahead of \'origin/main\' by </span><span class="num">1</span><span class="dim"> commit. (설렘)</span>'),
+        L('nothing to commit, <span class="ok">working tree clean</span>'),
+        L('<span class="dim">남은 작업: 2026-12-19 12:30 에 신부 앞에 서 있기</span>')
+      ];
+      return [
+        L('<span class="dim">index.html 기여도</span>'),
+        L(_devRow('양병민','100% — 마크업, CSS, JS, 눈 내리는 캔버스까지 전부')),
+        L(_devRow('김보원','리뷰어. 사진 고르기와 문구 최종 결정권자')),
+        L('<span class="cmt">// merge 는 12월 19일에 예정되어 있습니다.</span>')
+      ];
+    }
+    if(c==='npm test'||c==='test'||c==='yarn test'){
+      return [
+        L('<span class="dim">&gt; wedding@26.12.19 test</span>'),
+        L(''),
+        L('  <span class="ok">&#10004;</span> 신랑이 신부를 사랑한다 <span class="dim">(0 ms)</span>'),
+        L('  <span class="ok">&#10004;</span> 신부가 신랑을 사랑한다 <span class="dim">(0 ms)</span>'),
+        L('  <span class="ok">&#10004;</span> 12월 19일 12시 30분에 둘 다 도착한다 <span class="dim">(예정)</span>'),
+        L('  <span class="ok">&#10004;</span> 하객이 따뜻하게 돌아간다 <span class="dim">(당일 검증)</span>'),
+        L('  <span class="ok">&#10004;</span> 이 청첩장이 열린다 <span class="dim">(지금 통과)</span>'),
+        L(''),
+        L('  <span class="ok">5 passing</span> <span class="dim">(0.00s)</span> · <span class="dim">0 failing</span>')
+      ];
+    }
+    if(c==='ls'||c==='ls -al'||c==='ll'||c==='dir'||c==='ls sections'){
+      lines.push(L('<span class="dim">total '+_DEVSEC.length+'  ·  open &lt;이름&gt; 으로 이동할 수 있습니다</span>'));
+      for(var i=0;i<_DEVSEC.length;i++){
+        lines.push(L('<span class="dim">drwxr-xr-x</span>  <span class="ok">'+_DEVSEC[i][0]+'/</span>  <span class="dim">'+_DEVSEC[i][1]+'</span>'));
+      }
+      return lines;
+    }
+    if(c.indexOf('open ')===0||c.indexOf('cd ')===0||c.indexOf('goto ')===0)return _devOpen(arg);
+    if(c==='open'||c==='cd'||c==='goto')return _devOpen('');
+
+    if(c==='share'||c==='share kakao'){
+      return [L('<span class="dim">Kakao.Share.sendDefault() 호출</span>'),{t:'f',fn:function(){shareKakao();}}];
+    }
+    if(c==='copy'||c==='copy link'||c==='pbcopy'){
+      return [L('<span class="dim">navigator.clipboard.writeText(location.href)</span>'),{t:'f',fn:function(){copyText(location.href,'링크가 복사되었습니다');}}];
+    }
+    if(c==='dress'||c==='dresscode'||c==='dress code'){
+      return [L('<span class="str">\'따뜻하게. 눈이 오면 더 좋고\'</span>'),L('<span class="dim">12월의 서울입니다. 멋보다 목도리를 권합니다.</span>')];
+    }
+    if(c==='npm i love'||c==='npm install love'||c==='npm i'||c==='npm install'){
+      return [
+        L('<span class="dim">resolving dependencies...</span>'),
+        L('<span class="ok">+ love@&#8734;.0.0</span>'),
+        L('<span class="dim">added 1 package in 0.0s — 이미 설치되어 있었습니다.</span>')
+      ];
+    }
+    if(c.indexOf('rm -rf')>=0||c.indexOf('rm ')===0||c.indexOf('drop table')>=0){
+      return [
+        L('<span class="err">rm: cannot remove \'/wedding\': Operation not permitted</span>'),
+        L('<span class="dim">이 청첩장은 지울 수 없습니다. 12월 19일까지 계속 여기 있습니다.</span>')
+      ];
+    }
+    if(c==='sudo su'||c==='sudo love'||c==='su'||c==='sudo -i'){
+      return [L('<span class="ok">already root.</span> <span class="dim">권한 상승이 필요하지 않습니다. 이미 마음의 root 입니다.</span>')];
+    }
+    if(c.indexOf('sudo')===0){
+      return [
+        L('<span class="err">guest is not in the sudoers file.</span>'),
+        L('<span class="dim">This incident will be reported to 신랑.</span>')
+      ];
+    }
+    if(c==='clear'||c==='cls'){
+      return [{t:'f',fn:function(){
+        var b=_dq('devBody');if(b)b.innerHTML='';
+        devPrint('<span class="dim">guest@wedding · WeddingOS 26.12 · D-'+_devDday()+'</span>');
+      }}];
+    }
+    if(c==='exit'||c==='quit'||c==='q'||c===':q'||c==='logout'||c==='close'||c==='bye'){
+      return [
+        L('<span class="dim">logout — 다시 청첩장으로 돌아갑니다. </span><span class="ok">고맙습니다.</span>'),
+        {t:'f',fn:function(){devMode(false);},d:420}
+      ];
+    }
+    if(c==='ping'){return [L('<span class="dim">PING 보원 (127.0.0.1): 56 data bytes</span>'),L('<span class="ok">64 bytes from 보원: time=0.0 ms</span>'),L('<span class="dim">항상 응답합니다. loss 0%</span>')];}
+    if(c==='top'||c==='htop'||c==='ps'){return [L('<span class="dim">PID  COMMAND            CPU</span>'),L('  <span class="num">1</span>  결혼 준비          <span class="warn">98.7%</span>'),L('  <span class="num">2</span>  청첩장 만들기      <span class="ok">1.2%</span>'),L('  <span class="num">3</span>  잠                 <span class="err">0.1%</span>')];}
+    if(c==='help me'||c==='who made this'||c==='made by'){return [L('<span class="ok">양병민</span><span class="dim">, 신랑이자 개발자. 밤에 조금씩 만들었습니다.</span>')];}
+
+    return [
+      L('<span class="err">zsh: command not found: '+raw.replace(/</g,'&lt;')+'</span>'),
+      L('<span class="dim">쓸 수 있는 명령어는 </span><span class="ok">help</span><span class="dim"> 에 있습니다.</span>')
+    ];
+  }
+
+  function devRun(cmd){
+    if(!_devOn)return;
+    var raw=String(cmd||'').trim();if(!raw)return;
+    _devHist.push(raw);_devHi=_devHist.length;
+    _devPush([{t:'c',s:raw}]);
+    _devPush(_devCmd(raw));
+  }
+  function devSubmit(e){
+    if(e&&e.preventDefault)e.preventDefault();
+    var i=_dq('devInput');if(!i)return;
+    var v=i.value;i.value='';
+    devRun(v);
+  }
+  function devKey(e){
+    if(e.key==='ArrowUp'){
+      if(!_devHist.length)return;
+      _devHi=Math.max(0,_devHi-1);e.target.value=_devHist[_devHi]||'';e.preventDefault();
+    }else if(e.key==='ArrowDown'){
+      _devHi=Math.min(_devHist.length,_devHi+1);
+      e.target.value=_devHi>=_devHist.length?'':_devHist[_devHi];e.preventDefault();
+    }
+  }
+
+  /* HUD 카운트다운 */
+  function _devHudTick(){
+    var t=_devDiff();
+    var d=_dq('dvD'),h=_dq('dvH'),m=_dq('dvM'),s=_dq('dvS');
+    if(!d)return;
+    d.textContent=Math.floor(t/86400000);
+    h.textContent=pad(Math.floor(t/3600000)%24);
+    m.textContent=pad(Math.floor(t/60000)%60);
+    s.textContent=pad(Math.floor(t/1000)%60);
+  }
+
+  /* 열기 / 닫기 */
+  function _devVV(){
+    var el=_dq('devmode');if(!el||!_devOn||!window.visualViewport)return;
+    el.style.height=window.visualViewport.height+'px';
+  }
+  function _devShow(){
+    var el=_dq('devmode');if(!el||_devOn)return;
+    _devOn=true;
+    el.classList.add('on');el.setAttribute('aria-hidden','false');
+    void el.offsetWidth;el.classList.add('boot');
+    setTimeout(function(){el.classList.remove('boot');},620);
+    document.body.style.overflow='hidden';
+    _mtxStart();_devHudTick();_devHudT=setInterval(_devHudTick,1000);
+    if(window.visualViewport){window.visualViewport.addEventListener('resize',_devVV);_devVV();}
+    pushBackClose(_devHide);
+    if(!_devBooted){_devBooted=true;_devBoot();}
+    else{
+      _devPush([
+        {s:'<span class="dim">session restored — </span><span class="ok">welcome back, guest.</span>'},
+        {s:'<span class="dim">D-'+_devDday()+' '+_devClock()+' · </span><span class="ok">help</span><span class="dim"> / </span><span class="ok">exit</span>'}
+      ]);
+    }
+  }
+  function _devHide(){
+    var el=_dq('devmode');if(!el)return;
+    _devOn=false;
+    el.classList.remove('on');el.classList.remove('boot');el.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    _mtxStop();clearInterval(_devHudT);_devHudT=null;
+    if(window.visualViewport)window.visualViewport.removeEventListener('resize',_devVV);
+    el.style.height='';
+    var i=_dq('devInput');if(i){i.value='';try{i.blur();}catch(e){}}
+  }
+  function devMode(v){
+    if(v){_devShow();}
+    else{if(_backClose){history.back();}else{_devHide();}}
+  }
+  document.addEventListener('keydown',function(e){
+    if(!_devOn)return;
+    if(e.key==='Escape'){devMode(false);}
+  });
 </script>
 </body>
 </html>
