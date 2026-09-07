@@ -4,10 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
 <title>병민 ❤ 보원 결혼합니다 — 한겨울 밤의 초대장</title>
-<meta name="description" content="양병민 · 김보원의 모바일 청첩장 — 2026년 12월 19일 토요일 오후 12시 30분, 로얄파크컨벤션" />
+<meta name="description" content="양병민 · 김보원의 모바일 청첩장 — 2026년 12월 19일 토요일 오후 12시 30분, 로얄파크컨벤션 3층 로얄홀" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="병민 ❤ 보원 결혼합니다" />
-<meta property="og:description" content="2026년 12월 19일 토요일 오후 12시 30분 · 로얄파크컨벤션" />
+<meta property="og:description" content="2026년 12월 19일 토요일 오후 12시 30분 · 로얄파크컨벤션 3층 로얄홀" />
 <meta property="og:image" content="https://bowon-byeongmin.pages.dev/images/share-v3.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="1599" />
@@ -587,6 +587,8 @@
     <div class="gcount" id="gCount">01 / 18</div>
     <p class="ghint">◀  옆으로 밀어서 보기 · 탭하면 크게  ▶</p>
 
+    <!-- 하늘에서 본 우리(드론 영상) — 잠시 숨김. 다시 노출하려면 아래 div 의 display:none 제거 -->
+    <div id="filmSection" style="display:none">
     <div style="height:38px"></div>
     <div class="lbl">Film</div>
     <h2 class="st" style="font-size:19px">하늘에서 본 우리</h2>
@@ -598,6 +600,7 @@
         <span class="vmeta">DRONE HIGHLIGHT · 0:22</span>
       </button>
     </div>
+    </div><!-- /#filmSection -->
 
     <div style="height:38px"></div>
     <h2 class="st" style="font-size:18px">하객 사진</h2>
@@ -1167,7 +1170,7 @@
     if(window.Kakao && Kakao.isInitialized && Kakao.isInitialized() && Kakao.Share){
       Kakao.Share.sendDefault({
         objectType:'feed',
-        content:{title:'병민 ❤ 보원 결혼합니다',description:'2026.12.19 (토) 오후 12:30 · 로얄파크컨벤션',imageUrl:IMG,imageWidth:1200,imageHeight:1599,link:{mobileWebUrl:SITE,webUrl:SITE}},
+        content:{title:'병민 ❤ 보원 결혼합니다',description:'2026.12.19 (토) 오후 12:30 · 로얄파크컨벤션 3층 로얄홀',imageUrl:IMG,imageWidth:1200,imageHeight:1599,link:{mobileWebUrl:SITE,webUrl:SITE}},
         buttons:[{title:'청첩장 보기',link:{mobileWebUrl:SITE,webUrl:SITE}},{title:'위치 보기',link:{mobileWebUrl:MAP,webUrl:MAP}}]
       });
     } else { copyText(SITE,'카카오 키 연결 전이라 링크를 복사했어요'); }
