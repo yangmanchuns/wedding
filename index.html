@@ -125,8 +125,22 @@
   .child figure{margin:0;background:var(--frost);border:1px solid var(--frost-line);border-radius:16px;padding:10px;backdrop-filter:blur(6px)}
   .child figure img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;display:block}
   .child figcaption{text-align:center;font-family:var(--disp);font-size:11.5px;letter-spacing:.22em;color:var(--mute);padding:10px 0 2px;text-transform:uppercase}
-  .child-note{margin-top:22px;text-align:center}
-  .child-note img{max-width:270px;width:100%;margin:0 auto;display:block;filter:invert(1) brightness(1.7) contrast(1.15);opacity:.8}
+  /* 손글씨 카드 — 사진과 같은 프로스트 카드로 2x2 그리드의 두번째 줄에 배치 */
+  .child-note{background:var(--frost);border:1px solid var(--frost-line);border-radius:16px;padding:12px 10px;
+    display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+  .child-note img{width:100%;margin:0;display:block;filter:invert(1) brightness(1.7) contrast(1.15);opacity:.95}
+  .child-note.empty{min-height:130px;font-family:var(--disp);font-size:11.5px;letter-spacing:.16em;
+    color:var(--mute);text-align:center;line-height:2;cursor:default}
+  .child-note.zoom{cursor:zoom-in;position:relative}
+  .child-note .zoomhint{position:absolute;right:9px;bottom:7px;font-size:11px;color:var(--mute);opacity:.7;pointer-events:none}
+  /* 손글씨 전체화면 뷰어 (2열에선 작아서 안 읽히므로) */
+  #noteLb{position:fixed;inset:0;z-index:125;display:none;align-items:center;justify-content:center;
+    padding:24px 18px;background:rgba(6,11,22,.95);cursor:zoom-out}
+  #noteLb.on{display:flex}
+  #noteLb img{max-width:900px;width:100%;max-height:86vh;object-fit:contain;
+    filter:invert(1) brightness(1.7) contrast(1.15)}
+  #noteLb .nclose{position:absolute;top:12px;right:14px;background:none;border:0;padding:10px;
+    font-size:22px;line-height:1;color:var(--mute);cursor:pointer}
   .child-hand{font-family:var(--serif);font-size:17px;letter-spacing:.2em;color:var(--warm);padding:14px 0}
 
   /* ===== 갤러리: 풀블리드 패럴랙스 + 그리드 ===== */
@@ -559,8 +573,9 @@
     <div class="child">
       <figure><img loading="lazy" src="images/story-groom-child.jpg" alt="신랑 어린시절" /><figcaption>Groom</figcaption></figure>
       <figure><img loading="lazy" src="images/story-bride-child.jpg" alt="신부 어린시절" /><figcaption>Bride</figcaption></figure>
+      <div class="child-note zoom" onclick="openNote(this)"><img loading="lazy" src="images/story-note-groom.png" alt="신랑측 손글씨" /><span class="zoomhint">⤢</span></div>
+      <div class="child-note empty">신부측 손글씨<br />준비 중</div>
     </div>
-    <div class="child-note"><img loading="lazy" src="images/story-groom-note.png" alt="어머니 손글씨" /></div>
   </section>
 
   <!-- 갤러리 -->
@@ -831,6 +846,11 @@
       <button type="submit" class="go">⏎</button>
     </form>
   </div>
+</div>
+
+<div id="noteLb" aria-hidden="true" onclick="closeNote()">
+  <button type="button" class="nclose" aria-label="닫기" onclick="closeNote()">✕</button>
+  <img id="noteLbImg" src="" alt="손글씨" />
 </div>
 
 <div class="toast" id="toast"></div>
@@ -2004,6 +2024,21 @@
     if(!_devOn)return;
     if(e.key==='Escape'){devMode(false);}
   });
+
+  /* 손글씨 확대 보기 */
+  function openNote(el){
+    var im=el.querySelector('img'); if(!im) return;
+    var lb=document.getElementById('noteLb');
+    document.getElementById('noteLbImg').src=im.getAttribute('src');
+    lb.classList.add('on'); lb.setAttribute('aria-hidden','false');
+  }
+  function closeNote(){
+    var lb=document.getElementById('noteLb');
+    if(!lb.classList.contains('on')) return;
+    lb.classList.remove('on'); lb.setAttribute('aria-hidden','true');
+    document.getElementById('noteLbImg').src='';
+  }
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeNote(); });
 </script>
 </body>
 </html>
