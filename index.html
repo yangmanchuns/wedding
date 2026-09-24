@@ -778,8 +778,9 @@
     <button class="x" onclick="closeSheet(this.closest('.overlay'))">✕</button>
     <h3>🔒 비밀 공간</h3>
     <p class="sub">비밀번호를 입력하세요</p>
-    <input id="secretPwInput" class="pw-input" type="tel" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="6" placeholder="••••••" onkeydown="if(event.key==='Enter')checkSecret()" />
-    <button class="btn btn-warm" style="width:100%" onclick="checkSecret()">확인</button>
+    <!-- 비번이 숫자만이면 type="password" 를 type="tel" inputmode="numeric" pattern="[0-9]*" 로 되돌리면 숫자키패드가 뜹니다 -->
+    <input id="secretPwInput" class="pw-input" type="password" autocomplete="off" maxlength="32" placeholder="••••••" onkeydown="if(event.key==='Enter')checkSecret()" />
+    <button id="secretPwBtn" class="btn btn-warm" style="width:100%" onclick="checkSecret()">확인</button>
   </div>
 </div>
 <div class="overlay" id="secretSheet" onclick="if(event.target===this)closeSheet(this)">
@@ -1036,13 +1037,33 @@
     if(_starTaps>=7){_starTaps=0;if(_starTimer)clearTimeout(_starTimer);openSecretPw();}
   }
   function openSecretPw(){var i=document.getElementById('secretPwInput');i.value='';openSheet('secretPwSheet');setTimeout(function(){try{i.focus();}catch(e){}},200);}
+  /* 비밀번호는 더 이상 코드에 없다. Supabase 의 get_rsvp(pw) 함수가 서버에서 해시로 검증하고,
+     통과했을 때만 RSVP 행을 돌려준다. 검증된 비번은 이 세션 동안만 메모리에 둔다. */
+  var _secretPw='';
+  function _secretErr(err){
+    var m=((err&&err.message)||'')+' '+((err&&err.code)||'');
+    if(m.indexOf('unauthorized')>=0) return '비밀번호가 올바르지 않아요';
+    if(m.indexOf('PGRST202')>=0||m.indexOf('42883')>=0||m.indexOf('Could not find the function')>=0)
+      return '서버 설정이 아직이에요 (get_rsvp 함수 없음)';
+    return '확인에 실패했어요: '+((err&&err.message)||'알 수 없는 오류');
+  }
   function checkSecret(){
-    var v=(document.getElementById('secretPwInput').value||'').trim();
-    if(v!=='231226'){toast('비밀번호가 올바르지 않아요');return;}
-    document.getElementById('secretPwSheet').classList.remove('show');
-    var el=document.getElementById('secretSheet');el.classList.add('show');document.body.style.overflow='hidden';
-    _backClose=function(){el.classList.remove('show');document.body.style.overflow='';};
-    secretTab(1);loadSecretPhotos();
+    var inp=document.getElementById('secretPwInput');
+    var v=(inp.value||'').trim();
+    if(!v){toast('비밀번호를 입력해주세요');return;}
+    if(!sb){toast('Supabase 연결 후 이용할 수 있어요');return;}
+    var btn=document.getElementById('secretPwBtn');
+    function busy(on){ if(btn){btn.disabled=on;btn.textContent=on?'확인 중…':'확인';} }
+    busy(true);
+    sb.rpc('get_rsvp',{pw:v}).then(function(r){
+      busy(false);
+      if(r.error){toast(_secretErr(r.error));return;}
+      _secretPw=v; inp.value='';
+      document.getElementById('secretPwSheet').classList.remove('show');
+      var el=document.getElementById('secretSheet');el.classList.add('show');document.body.style.overflow='hidden';
+      _backClose=function(){el.classList.remove('show');document.body.style.overflow='';};
+      secretTab(1);loadSecretPhotos();
+    },function(){ busy(false); toast('네트워크 오류로 확인하지 못했어요'); });
   }
   function openSecretLb(i){_lbSrcs=SECRET_SRCS;lbIndex=i;lbShow();var el=document.getElementById('lightbox');el.classList.add('lb-save');el.classList.add('show');document.body.style.overflow='hidden';pushBackClose(lbClose);}
   function loadSecretPhotos(){
@@ -1069,8 +1090,8 @@
     var list=document.getElementById('rsvpList'),empty=document.getElementById('rsvpEmpty'),sum=document.getElementById('rsvpSummary');
     list.innerHTML='';sum.innerHTML='';empty.textContent='불러오는 중…';empty.style.display='block';
     if(!sb){empty.textContent='Supabase 연결 후 볼 수 있어요';return;}
-    sb.from('rsvp_submissions').select('*').order('created_at',{ascending:false}).then(function(r){
-      if(r.error){empty.textContent='에러: '+(r.error.message||r.error.code||'권한 확인');empty.style.display='block';return;}
+    sb.rpc('get_rsvp',{pw:_secretPw}).then(function(r){
+      if(r.error){empty.textContent=_secretErr(r.error);empty.style.display='block';return;}
       var rows=r.data||[];
       if(!rows.length){empty.textContent='아직 응답이 없어요';empty.style.display='block';return;}
       empty.style.display='none';

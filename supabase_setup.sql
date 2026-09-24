@@ -48,11 +48,11 @@ drop policy if exists "gb_insert" on public.guestbook_messages;
 create policy "gb_select" on public.guestbook_messages for select using (true);
 create policy "gb_insert" on public.guestbook_messages for insert with check (true);
 
--- RSVP: 누구나 쓰기 (개인정보라 읽기는 정책 없음 → 커플은 대시보드에서 확인)
+-- RSVP: 누구나 쓰기. 읽기는 anon 에게 열지 않는다(이름·전화번호가 들어있음).
+--       비밀공간은 아래 get_rsvp(pw) 함수를 통해서만 읽는다.
 drop policy if exists "rsvp_insert" on public.rsvp_submissions;
 create policy "rsvp_insert" on public.rsvp_submissions for insert with check (true);
-drop policy if exists "rsvp_select" on public.rsvp_submissions;
-create policy "rsvp_select" on public.rsvp_submissions for select using (true);
+drop policy if exists "rsvp_select" on public.rsvp_submissions;   -- 직접 select 금지
 
 -- 사진: 누구나 읽기 + 쓰기(메타)
 drop policy if exists "photos_select" on public.photos;
@@ -79,3 +79,48 @@ create policy "photo_read" on storage.objects for select to anon
 
 -- 끝. 이제 Settings → API 에서 Project URL + anon key 를 복사해
 -- index.html 상단 SUPABASE_URL / SUPABASE_ANON_KEY 에 넣으세요.
+
+-- ============================================================
+-- 비밀 공간 서버측 보호 (RPC)
+--   비밀번호를 클라이언트에서 비교하지 않고 서버에서 해시로 검증한다.
+--   index.html 의 checkSecret() / loadRsvp() 가 get_rsvp(pw) 를 호출한다.
+--   ※ 아래 세 단계를 '따로따로' 실행할 것. 한 번에 붙여넣으면 SQL 에디터가
+--     함수 본문의 세미콜론에서 문장을 잘라 syntax error 가 난다.
+-- ============================================================
+
+-- [1단계] pgcrypto + 비번 해시 보관함
+--   Supabase 에서 pgcrypto 는 public 이 아니라 extensions 스키마에 깔린다.
+create extension if not exists pgcrypto with schema extensions;
+
+create table if not exists private_config (k text primary key, v text);
+alter table private_config enable row level security;   -- 정책 없음 = anon 은 못 읽음
+
+insert into private_config (k, v)
+values ('secret_pw', extensions.crypt('여기에_원하는_비밀번호', extensions.gen_salt('bf')))
+on conflict (k) do update set v = excluded.v;
+
+-- [2단계] 검증 함수 (이 블록만 따로 Run)
+create or replace function get_rsvp(pw text)
+returns setof rsvp_submissions
+language plpgsql
+security definer                          -- 소유자 권한으로 실행 → RLS 우회
+set search_path = public, extensions
+as $fn$
+begin
+  if not exists (
+    select 1 from private_config
+    where k = 'secret_pw' and v = extensions.crypt(pw, v)
+  ) then
+    raise exception 'unauthorized';
+  end if;
+  return query select * from rsvp_submissions order by created_at desc;
+end;
+$fn$;
+
+-- [3단계] 실행 권한
+revoke all on function get_rsvp(text) from public;
+grant execute on function get_rsvp(text) to anon;
+
+-- 확인용
+--   select count(*) from get_rsvp('맞는비번');   -- 숫자가 나오면 성공
+--   select count(*) from get_rsvp('틀린비번');   -- unauthorized 에러가 나야 정상

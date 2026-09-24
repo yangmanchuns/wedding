@@ -34,12 +34,12 @@
   - `app-dress` 드레스 코드
   - `app-guestbook` 방명록 (Supabase 실시간)
   - `app-upload` 사진 올리기 (하객 업로드; **2026-12-18부터** 가능하도록 날짜 게이트 (테스트 위해 하루 앞당김))
-- **비밀 공간** `app-secret`: 홈 아이콘 없음. 홈의 `♥`를 **7번 클릭 → 비밀번호 → 탭2개(하객 사진 / 참석여부 데이터)**. 비번은 `checkSecret()` 참고.
+- **비밀 공간** `app-secret`: 홈 아이콘 없음. 홈의 `♥`를 **7번 클릭 → 비밀번호 → 탭2개(하객 사진 / 참석여부 데이터)**. 비번은 **코드에 없음** — Supabase `get_rsvp(pw)` RPC가 서버에서 해시 검증.
 
 ## 5. 외부 서비스
 - **Supabase** (DB+Storage+Realtime): URL/anon key는 `index.html` 상단 `SUPABASE_URL`/`SUPABASE_ANON_KEY`에 있음. anon key는 원래 공개용(보안은 RLS로).
   - 테이블: `guestbook_messages`, `rsvp_submissions`, `photos` / 스토리지 버킷 `wedding-photos`
-  - 정책: 방명록 read+write, RSVP insert+select, photos read+write (전부 `using(true)` = anon 허용)
+  - 정책: 방명록 read+write, photos read+write는 anon 허용. **RSVP는 insert만** — 읽기는 `get_rsvp(pw)` RPC(security definer)로만. `private_config` 테이블에 bcrypt 해시 보관.
   - **새 환경/정책 변경 시 `supabase_setup.sql`을 Supabase → SQL Editor에서 실행**. (로컬 파일 수정만으론 실제 DB에 반영 안 됨!)
 - **Kakao**: JS 키 `index.html`의 `KAKAO_JS_KEY`. 카카오 공유 + 지도(로얄파크컨벤션 좌표 37.5367693, 126.9755383 고정). Web 플랫폼 도메인에 `https://bowon-byeongmin.pages.dev` 가 등록돼 있어야 공유 작동.
 
@@ -57,10 +57,11 @@
 - [ ] 신부측 연락처(김점식/신연정) 전화번호
 - [ ] 계좌번호 다수 (신랑부/모, 신부·신부부/모)
 - [ ] 전세버스 출발지/시간 확정 시 문구
-- [ ] (보류) 비밀 기능 서버측 보호(RPC) — 지금은 비번이 클라이언트 소스에 노출됨
+- [x] 비밀 기능 서버측 보호(RPC) — `get_rsvp(pw)` 로 이전 완료. 비번은 Supabase `private_config` 에 bcrypt 해시로만 존재.
+- [ ] (선택) 하객 사진도 비공개화 — 지금은 버킷이 public + `photos_select using(true)` 라 사진 탭은 사실상 공개
 
 ## 8. 참고
-- 정적 사이트라 소스/이미지는 F12로 다 보임(숨김 불가). 진짜 보호가 필요하면 Supabase RPC로 서버측 검증 필요(현재 보류).
+- 정적 사이트라 소스/이미지는 F12로 다 보임(숨김 불가). RSVP 데이터는 그래서 RPC 뒤로 옮김(`supabase_setup.sql` 하단 참고).
 - 백업본은 `backup/`에. 마음에 안 들면 거기서 복원.
 
 ## 9. 현재 이슈 / 이어서 할 것 (2026-09-24 기준)
