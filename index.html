@@ -932,7 +932,8 @@
 
   /* 갤러리 */
   var GALLERY_SRCS=[];
-  for(var _gi=1;_gi<=18;_gi++){GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
+  var GALLERY_SKIP=[4,17];
+  for(var _gi=1;_gi<=18;_gi++){if(GALLERY_SKIP.indexOf(_gi)>=0)continue;GALLERY_SRCS.push('images/gallery-'+String(_gi).padStart(2,'0')+'.jpg');}
   (function(){
     var g=document.getElementById('galleryStrip');if(!g)return;
     g.innerHTML=GALLERY_SRCS.map(function(src,i){
