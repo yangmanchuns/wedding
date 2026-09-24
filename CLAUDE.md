@@ -9,9 +9,9 @@
 - **핵심 파일**: `index.html` 하나에 HTML+CSS+JS 전부 인라인 (프레임워크/빌드 없음)
 
 ## 2. 호스팅 & 배포
-- **GitHub Pages**로 호스팅. 공개 URL: `https://yangmanchuns.github.io/wedding/`
-- 이 폴더(`wedding-invitation`)가 곧 `wedding` 저장소의 루트. GitHub 계정: **yangmanchuns**
-- 배포 = **커밋 후 push**. Pages 재배포 ~1분. 캐시 때문에 옛 버전 보이면 **시크릿창/하드 새로고침**.
+- **Cloudflare Pages**로 호스팅. 공개 URL: `https://bowon-byeongmin.pages.dev/` (2026-09 GitHub Pages에서 이전)
+- 소스는 여전히 GitHub `yangmanchuns/wedding` 저장소. 이 폴더가 그 저장소의 루트.
+- 배포 = **커밋 후 push** → Cloudflare Pages가 main 브랜치를 보고 자동 빌드(~1분). 캐시 때문에 옛 버전 보이면 **시크릿창/하드 새로고침**.
 - 커밋은 자유롭게, **push는 보통 사용자(양병민)가 직접** 한다.
 
 ## 3. 파일 구조
@@ -33,7 +33,7 @@
   - `app-gift` 축의금 (계좌 아코디언)
   - `app-dress` 드레스 코드
   - `app-guestbook` 방명록 (Supabase 실시간)
-  - `app-upload` 사진 올리기 (하객 업로드; **2026-12-19부터만** 가능하도록 날짜 게이트)
+  - `app-upload` 사진 올리기 (하객 업로드; **2026-12-18부터** 가능하도록 날짜 게이트 (테스트 위해 하루 앞당김))
 - **비밀 공간** `app-secret`: 홈 아이콘 없음. 홈의 `♥`를 **7번 클릭 → 비밀번호 → 탭2개(하객 사진 / 참석여부 데이터)**. 비번은 `checkSecret()` 참고.
 
 ## 5. 외부 서비스
@@ -41,7 +41,7 @@
   - 테이블: `guestbook_messages`, `rsvp_submissions`, `photos` / 스토리지 버킷 `wedding-photos`
   - 정책: 방명록 read+write, RSVP insert+select, photos read+write (전부 `using(true)` = anon 허용)
   - **새 환경/정책 변경 시 `supabase_setup.sql`을 Supabase → SQL Editor에서 실행**. (로컬 파일 수정만으론 실제 DB에 반영 안 됨!)
-- **Kakao**: JS 키 `index.html`의 `KAKAO_JS_KEY`. 카카오 공유 + 지도(로얄파크컨벤션 좌표 37.5367693, 126.9755383 고정). Web 플랫폼 도메인에 `https://yangmanchuns.github.io` 등록돼 있어야 공유 작동.
+- **Kakao**: JS 키 `index.html`의 `KAKAO_JS_KEY`. 카카오 공유 + 지도(로얄파크컨벤션 좌표 37.5367693, 126.9755383 고정). Web 플랫폼 도메인에 `https://bowon-byeongmin.pages.dev` 가 등록돼 있어야 공유 작동.
 
 ## 6. 편집 규칙 (중요)
 - **한글 인코딩**: `Edit` 도구로 한글 포함 라인을 수정하면 깨질 수 있음. **Node `fs`로 utf8 읽고/쓰는 패치 스크립트 방식**을 쓸 것.
@@ -63,9 +63,10 @@
 - 정적 사이트라 소스/이미지는 F12로 다 보임(숨김 불가). 진짜 보호가 필요하면 Supabase RPC로 서버측 검증 필요(현재 보류).
 - 백업본은 `backup/`에. 마음에 안 들면 거기서 복원.
 
-## 9. 현재 이슈 / 이어서 할 것 (2026-07-03 기준)
-- **GitHub Pages 배포(deploy 단계) 반복 실패** ("Deployment failed, try again later"). build/아티팩트는 정상, GitHub 장애 아님. 최근 커밋들(이미지 우클릭 차단, RSVP 식사예정 집계, 비번 숫자키패드 등)이 아직 라이브 미반영.
-  - 해결책: Settings → Pages → Source를 None 저장 후 다시 main /(root) 저장(파이프라인 리셋). 안 되면 Settings → Environments → github-pages 에서 정체된 배포 취소. 그래도 안 되면 actions/deploy-pages 전용 워크플로우(동시성 제어)로 전환.
-  - 배포 반영 확인: 라이브 index.html 을 캐시우회(?cb=랜덤)로 받아 "touch-callout" / "식사 예정" 문자열이 있으면 최신.
+## 9. 현재 이슈 / 이어서 할 것 (2026-09-24 기준)
+- GitHub Pages 배포 실패 문제는 **Cloudflare Pages로 이전하며 해소**됨.
+- 하객 사진 업로드 개방일: **2026-12-18 00:00** (사전 테스트 위해 예식 하루 전으로 앞당김). `uploadGate()` / `uploadPhotos()` 두 곳 + 안내 문구.
+- 갤러리: `GALLERY_SKIP=[4,17]` 로 삭제된 사진 제외. 남은 16장.
 - RSVP 조회: Supabase rsvp_select 정책 실행 완료(작동 확인됨).
 - 비밀 공간 비밀번호 입력: type=tel + text-security 로 숫자패드+마스킹 처리 완료.
+- **미확정**: 부모님 계좌 4개, 전세버스 출발지·시간, 드론 영상 섹션 존치 여부(`#filmSection` display:none).
