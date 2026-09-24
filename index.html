@@ -778,8 +778,9 @@
     <button class="x" onclick="closeSheet(this.closest('.overlay'))">✕</button>
     <h3>🔒 비밀 공간</h3>
     <p class="sub">비밀번호를 입력하세요</p>
-    <!-- 비번이 숫자만이면 type="password" 를 type="tel" inputmode="numeric" pattern="[0-9]*" 로 되돌리면 숫자키패드가 뜹니다 -->
-    <input id="secretPwInput" class="pw-input" type="password" autocomplete="off" maxlength="32" placeholder="••••••" onkeydown="if(event.key==='Enter')checkSecret()" />
+    <!-- 비번은 숫자. 모바일에서 숫자키패드가 뜨도록 type=tel + inputmode=numeric,
+         가림은 CSS 의 -webkit-text-security:disc (.pw-input) 가 담당한다. -->
+    <input id="secretPwInput" class="pw-input" type="tel" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="16" placeholder="••••••" onkeydown="if(event.key==='Enter')checkSecret()" />
     <button id="secretPwBtn" class="btn btn-warm" style="width:100%" onclick="checkSecret()">확인</button>
   </div>
 </div>

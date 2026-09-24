@@ -95,9 +95,18 @@ create extension if not exists pgcrypto with schema extensions;
 create table if not exists private_config (k text primary key, v text);
 alter table private_config enable row level security;   -- 정책 없음 = anon 은 못 읽음
 
+-- ★★ 아래 '여기에_원하는_비밀번호' 를 반드시 실제 비번으로 바꾸고 Run 할 것.
+--    (예시 문자열 그대로 실행하면 그게 진짜 비번이 되어버린다. 실제로 한 번 그랬음)
 insert into private_config (k, v)
 values ('secret_pw', extensions.crypt('여기에_원하는_비밀번호', extensions.gen_salt('bf')))
 on conflict (k) do update set v = excluded.v;
+
+-- 나중에 비번만 바꾸고 싶을 때:
+--   update private_config
+--   set v = extensions.crypt('새비번', extensions.gen_salt('bf'))
+--   where k = 'secret_pw';
+-- 확인:
+--   select extensions.crypt('새비번', v) = v as ok from private_config where k='secret_pw';
 
 -- [2단계] 검증 함수 (이 블록만 따로 Run)
 create or replace function get_rsvp(pw text)
