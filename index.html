@@ -603,7 +603,7 @@
 
     <div style="height:38px"></div>
     <h2 class="st" style="font-size:18px">하객 사진</h2>
-    <div class="st-sub">올려주신 사진은 신랑·신부에게 소중히 전달됩니다<br/>결혼식 당일(12.19)부터 업로드할 수 있어요</div>
+    <div class="st-sub">올려주신 사진은 신랑·신부에게 소중히 전달됩니다<br/>결혼식 전날(12.18)부터 업로드할 수 있어요</div>
     <div class="upload-wrap">
       <label class="btn btn-warm" style="cursor:pointer" onclick="return uploadGate(event)">
         📷 사진 올리기
@@ -1140,10 +1140,10 @@
 
   var _uploading=0;
   window.addEventListener('beforeunload',function(e){if(_uploading>0){e.preventDefault();e.returnValue='';}});
-  function uploadGate(e){ var _open=new Date(2026,11,19,0,0,0); if(new Date()<_open){ if(e&&e.preventDefault)e.preventDefault(); toast('사진 업로드는 결혼식 당일(26.12.19)부터 가능해요 😊'); return false; } return true; }
+  function uploadGate(e){ var _open=new Date(2026,11,18,0,0,0); if(new Date()<_open){ if(e&&e.preventDefault)e.preventDefault(); toast('사진 업로드는 12월 18일부터 가능해요 😊'); return false; } return true; }
   function uploadPhotos(input){
-    var _open=new Date(2026,11,19,0,0,0);
-    if(new Date()<_open){ toast('사진 업로드는 결혼식 당일(26.12.19)부터 가능해요 😊'); input.value=''; return; }
+    var _open=new Date(2026,11,18,0,0,0);
+    if(new Date()<_open){ toast('사진 업로드는 12월 18일부터 가능해요 😊'); input.value=''; return; }
     if(!sb){ toast('사진 업로드는 배포+Supabase 연결 후 됩니다'); input.value=''; return; }
     var files=input.files; if(!files||!files.length)return;
     var st=document.getElementById('photoStatus'); st.textContent='업로드 중…'; toast('사진 업로드 중이에요. 완료까지 창을 닫지 말아주세요!');
