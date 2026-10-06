@@ -216,6 +216,10 @@
   .pdot.on{background:var(--warm);width:22px;border-radius:4px}
 
   /* ===== 계좌 ===== */
+  /* 화환 사절 안내 */
+  .gift-note{text-align:center;font-family:var(--serif);font-size:13px;line-height:2.05;color:var(--ice);
+    padding:15px 14px;margin:-8px 0 22px;border-top:1px solid var(--frost-line);border-bottom:1px solid var(--frost-line)}
+  .gift-note .sm{display:block;font-family:var(--sans);font-size:11.5px;color:var(--mute);margin-top:3px}
   .acc{background:var(--frost);border:1px solid var(--frost-line);border-radius:16px;overflow:hidden;margin-bottom:11px}
   .acc>button{width:100%;background:none;border:none;color:var(--ink);font-family:var(--sans);font-size:14.5px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
   .acc>button .chev{color:var(--warm);transition:.2s}
@@ -686,6 +690,7 @@
     <div class="lbl">With Heart</div>
     <h2 class="st">마음 전하실 곳</h2>
     <div class="st-sub">따뜻한 축하의 마음을 전해주세요</div>
+    <div class="gift-note">축하 화환은 정중히 사양합니다.<span class="sm">마음만으로도 충분히 감사합니다.</span></div>
     <div class="acc">
       <button onclick="toggleAcc(this)">신랑측 계좌 <span class="chev">▾</span></button>
       <div class="body"><div class="body-in">
