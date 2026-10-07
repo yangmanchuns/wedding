@@ -24,3 +24,4 @@ gallery-22.jpg <- mm_22.jpg
 venue-4.jpg <- mm_21_b.jpg
 venue-2.jpg <- mm_04_b.jpg
 venue-3.jpg <- mm_09_b.jpg
+venue-5.jpg <- 교체 전 venue-2.jpg (81099e5^ 에서 복구, 화환 카드용)
