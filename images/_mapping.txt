@@ -21,7 +21,8 @@ gallery-19.jpg <- mm_19.jpg
 gallery-20.jpg <- mm_20.jpg
 gallery-21.jpg <- mm_21.jpg
 gallery-22.jpg <- mm_22.jpg
-venue-4.jpg <- mm_21_b.jpg
-venue-2.jpg <- mm_04_b.jpg
-venue-3.jpg <- mm_09_b.jpg
-venue-5.jpg <- 교체 전 venue-2.jpg (81099e5^ 에서 복구, 화환 카드용)
+venue-4.jpg <- 0921/4.jpg (1 전세버스)
+venue-1.jpg <- 0921/1.jpg (2 예식)
+venue-2.jpg <- 0921/2.jpg (3 식사)
+venue-3.jpg <- 0921/3.jpg (4 주차)
+venue-5.jpg <- 0921/5.jpg (5 화환)
