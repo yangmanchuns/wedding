@@ -21,3 +21,6 @@ gallery-19.jpg <- mm_19.jpg
 gallery-20.jpg <- mm_20.jpg
 gallery-21.jpg <- mm_21.jpg
 gallery-22.jpg <- mm_22.jpg
+venue-4.jpg <- mm_21_b.jpg
+venue-2.jpg <- mm_04_b.jpg
+venue-3.jpg <- mm_09_b.jpg
