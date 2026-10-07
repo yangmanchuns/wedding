@@ -20,7 +20,7 @@
 </head>
 <body>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
 
   :root{
     --night:#0a1424;
@@ -90,10 +90,10 @@
   .hero .season{font-family:var(--disp);font-size:12.5px;letter-spacing:.44em;color:var(--ice);text-transform:uppercase;margin-bottom:22px}
   .hero h1{font-family:var(--serif);font-weight:700;font-size:33px;line-height:1.9;letter-spacing:.22em;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.5)}
   .hero h1 .amp{display:block;font-size:15px;color:var(--warm);letter-spacing:.4em;margin:4px 0;-webkit-tap-highlight-color:transparent;user-select:none}
-  .hero .when{margin-top:26px;font-family:var(--disp);font-size:19.5px;letter-spacing:.17em;color:#dbe6f5;line-height:1.95}
-  .hero .when b{color:var(--warm);font-weight:500}
+  .hero .when{margin-top:26px;font-family:var(--disp);font-size:18px;font-weight:700;letter-spacing:.18em;color:#dbe6f5;line-height:2}
+  .hero .when b{color:var(--warm);font-weight:700}
   /* 좁은 화면에서 예식장 줄 넘침 방지 */
-  @media (max-width:370px){.hero .when{font-size:17.5px;letter-spacing:.12em}}
+  @media (max-width:370px){.hero .when{font-size:17px;letter-spacing:.12em}}
   .scroll-ind{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--disp);font-size:11px;letter-spacing:.3em;color:var(--ice)}
   .scroll-ind .dot{width:5px;height:5px;border-radius:50%;background:var(--ice);animation:fall 1.9s ease-in-out infinite}
   @keyframes fall{0%{transform:translateY(-8px);opacity:0}45%{opacity:1}100%{transform:translateY(14px);opacity:0}}
