@@ -943,9 +943,14 @@
   var _BGM_PAUSE='<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
   function _bgmIcon(){var a=document.getElementById('bgm'),b=document.getElementById('bgmBtn');if(!a||!b)return;b.innerHTML=a.paused?_BGM_PLAY:_BGM_PAUSE;}
   function toggleBgm(e){if(e)e.stopPropagation();var a=document.getElementById('bgm');if(!a)return;if(a.paused){a.play().catch(function(){});}else{a.pause();}_bgmStarted=true;setTimeout(_bgmIcon,60);}
-  function _bgmFirstPlay(){if(_bgmStarted)return;var a=document.getElementById('bgm');if(!a)return;a.play().then(function(){_bgmStarted=true;_bgmIcon();}).catch(function(){});}
-  document.addEventListener('touchstart',_bgmFirstPlay,{once:true,passive:true});
-  document.addEventListener('click',_bgmFirstPlay,{once:true});
+  /* 자동재생: 로드 즉시 시도(허용되는 브라우저/인앱은 바로 재생) → 막히면 첫 사용자 동작 때 재시도.
+     once 로 걸면 touchstart(크롬은 사용자 동작으로 안 침)에서 실패하고 리스너가 사라지므로, 성공할 때까지 유지 */
+  var _BGM_EVTS=['pointerdown','touchstart','touchend','click','keydown'];
+  function _bgmUnbind(){_BGM_EVTS.forEach(function(t){document.removeEventListener(t,_bgmFirstPlay,true);});}
+  function _bgmFirstPlay(e){if(_bgmStarted){_bgmUnbind();return;}if(e&&e.target&&e.target.closest&&e.target.closest('#bgmBtn'))return;var a=document.getElementById('bgm');if(!a)return;a.play().then(function(){_bgmStarted=true;_bgmUnbind();_bgmIcon();}).catch(function(){});}
+  _BGM_EVTS.forEach(function(t){document.addEventListener(t,_bgmFirstPlay,{capture:true,passive:true});});
+  _bgmFirstPlay();
+  window.addEventListener('pageshow',_bgmFirstPlay);
 
   /* 갤러리 */
   var GALLERY_SRCS=[];
