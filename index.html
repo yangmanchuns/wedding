@@ -84,7 +84,7 @@
     border:1px solid var(--frost-line);background:rgba(10,20,36,.6);backdrop-filter:blur(6px);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ice)}
 
   /* ===== 히어로 ===== */
-  .hero{height:100vh;min-height:580px;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+  .hero{height:100vh;height:100svh;min-height:580px;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
   .hero .bg{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,13,26,.62),rgba(10,20,36,.42) 45%,rgba(7,15,29,.95)),url('images/main.jpg') center 25%/cover no-repeat;filter:saturate(.82) brightness(.92)}
   .hero .in{position:relative;z-index:3;padding:0 30px}
   .hero .season{font-family:var(--disp);font-size:12.5px;letter-spacing:.44em;color:var(--ice);text-transform:uppercase;margin-bottom:22px}
@@ -260,7 +260,7 @@
   .gb-empty{text-align:center;color:var(--mute);font-size:13px;padding:22px 0}
 
   /* ===== 클로징 ===== */
-  .closing{height:96vh;min-height:560px;padding:0;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+  .closing{min-height:max(560px,96vh);min-height:max(560px,96svh);padding:90px 0;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
   .closing .bg{position:absolute;inset:0;background:linear-gradient(rgba(7,15,29,.6),rgba(7,15,29,.9)),url('images/outro.jpg') center/cover;filter:saturate(.7)}
   .closing .in{position:relative;z-index:3;padding:0 30px}
   .closing .ct{font-family:var(--serif);font-size:15.5px;line-height:2.5;color:#dfe9f6}
