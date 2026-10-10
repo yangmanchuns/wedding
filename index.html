@@ -208,6 +208,7 @@
   .vphoto{position:relative;display:block;border-radius:13px;overflow:hidden}
   .vphoto img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
   .vphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(7,15,29,.78))}
+  .vphoto.light::after{background:linear-gradient(180deg,transparent 72%,rgba(7,15,29,.62))}
   .vphoto .vlabel{position:absolute;left:0;right:0;bottom:13px;z-index:2;text-align:center;font-family:var(--disp);font-size:13px;letter-spacing:.32em;color:#fff;text-transform:uppercase}
   .vdesc{margin-top:15px;padding:0 4px}
   .vdesc .vh{font-family:var(--serif);font-size:16px;color:var(--warm);margin-bottom:7px}
@@ -684,7 +685,7 @@
         <div class="vdesc"><div class="vh">주차 안내</div><div class="vt">전쟁기념관 내 주차장을 2시간 무료로 이용하실 수 있습니다.<br/>(약 1,000대 주차 가능)</div></div>
       </div>
       <div class="vcard">
-        <div class="vphoto"><img loading="lazy" src="images/venue-5.jpg" alt="화환 안내" /><span class="vlabel">Flowers</span></div>
+        <div class="vphoto light"><img loading="lazy" src="images/venue-5.jpg" alt="화환 안내" /><span class="vlabel">Flowers</span></div>
         <div class="vdesc"><div class="vh">화환 안내</div><div class="vt">축하 화환은 정중히 사양합니다.<br/>마음만으로도 충분히 감사합니다.</div></div>
       </div>
     </div>
